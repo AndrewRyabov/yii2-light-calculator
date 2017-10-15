@@ -1,4 +1,4 @@
-﻿<?php namespace almaz44\light\calculator;
+<?php namespace almaz44\light\calculator;
 /**
  * борт/тыл пленка_!_фасад пленка_!_упаковка в стрейч пленку
  * Created by PhpStorm.
