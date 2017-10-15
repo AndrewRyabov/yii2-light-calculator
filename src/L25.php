@@ -1,4 +1,5 @@
 <?php namespace almaz44\light\calculator;
+
 include_once __DIR__ . '/L10.php';
 /**
  * Created by PhpStorm.
