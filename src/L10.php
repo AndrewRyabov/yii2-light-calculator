@@ -1,5 +1,5 @@
 ﻿<?php namespace almaz44\light\calculator;
-
+//
 /**
  * Created by PhpStorm.
  * User: Andrii
