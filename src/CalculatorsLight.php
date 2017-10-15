@@ -26,12 +26,12 @@ class CalculatorsLight
     {
         if (class_exists('L25')) {
             $L25 = new L25();
-        } else die('ERROR class L25 не доступен');
+        } else $this->_price = 'ERROR class L25 не доступен';
     }
 
     public function LightPrice()
     {
-        return 1;
+        return $this->_price;
     }
 
     public function LightPower()
