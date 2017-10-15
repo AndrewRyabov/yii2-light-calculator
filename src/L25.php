@@ -1,5 +1,5 @@
 <?php namespace almaz44\light\calculator;
-use almaz44\light\calculator\L10;
+include_once '../src/L10.php';
 /**
  * Created by PhpStorm.
  * User: Andrew
