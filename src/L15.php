@@ -1,4 +1,5 @@
 <?php namespace almaz44\light\calculator;
+include_once __DIR__ . '/L10.php';
 /**
  * борт/тыл пленка_!_фасад пленка_!_упаковка в стрейч пленку
  * Created by PhpStorm.
