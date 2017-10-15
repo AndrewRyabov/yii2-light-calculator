@@ -1,11 +1,11 @@
 <?php namespace almaz44\light\calculator;
+use almaz44\light\calculator\L10;
 /**
  * Created by PhpStorm.
  * User: Andrew
  * Date: 21.06.2017
  * Time: 14:08
  */
-include_once '../src/L10.php';
 class L25
 {
     // Входные параметры:
