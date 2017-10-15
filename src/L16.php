@@ -1,4 +1,4 @@
-﻿<?php namespace almaz44\light\calculator;
+<?php namespace almaz44\light\calculator;
 /**
  * Created by PhpStorm.
  * User: VovaP

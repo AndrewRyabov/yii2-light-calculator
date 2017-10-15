@@ -1,4 +1,4 @@
-﻿<?php namespace almaz44\light\calculator;
+<?php namespace almaz44\light\calculator;
 //
 /**
  * Created by PhpStorm.
@@ -421,7 +421,7 @@ const L10_BT26_VkruchSeriiSamorezov_1sht = 1.2; // вкручивание сер
 const L10_BT27_SverlOtvDo5mm_1sht = 3; // сверление отверстия до 5 мм, 1 шт.
 const L10_BT28_SverlOtvBol5mm_1sht = 5; // сверление отверстия более 5 мм, 1 шт.
 
-const L10_BT32_MinCalcSqureFullColor_m2 = 0.5; // минимальная расчетная площадь полноцвета, м2 
+const L10_BT32_MinCalcSqureFullColor_m2 = 0.5; // минимальная расчетная площадь полноцвета, м2
 const L10_BT33_KnurlFullColor_m2 = 25; // накатка полноцвета, 1 м2
 const L10_BT34_KnurlRitramaHalfCat_m2 = 35; // "Ritrama" с полупрорезом, накатать/выбрать , 1 м2
 const L10_BT35_SampleAplication_m2 = 35; // аппликация, подготовить/нанести 1м2
