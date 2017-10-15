@@ -18,15 +18,18 @@ class CalculatorsLight
 
     public function __construct()
     {
-        if (class_exists('L25')) {
-            $L25 = new L25();
-        } else die('ERROR class L25 не доступен');
+        if (!class_exists('L09')) die('ERROR class L09 не доступен');
+        if (!class_exists('L10')) die('ERROR class L10 не доступен');
+        if (!class_exists('L15')) die('ERROR class L15 не доступен');
+        if (!class_exists('L16')) die('ERROR class L16 не доступен');
+        if (!class_exists('L17')) die('ERROR class L17 не доступен');
+        if (!class_exists('L18')) die('ERROR class L18 не доступен');
+        if (!class_exists('L25')) die('ERROR class L25 не доступен');
     }
 
     public function LightPrice()
     {
-        return (strlen($this->_price) > 1) ? $this->_price : 10;
-        //return $this->_price;
+        return 10;
     }
 
     public function LightPower()
