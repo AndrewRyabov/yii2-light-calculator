@@ -31,7 +31,7 @@ class CalculatorsLight
 
     public function LightPrice()
     {
-        return ($this->_price[0] > 0) ? $this->_price : 10;
+        return (strlen($this->_price) > 1) ? $this->_price : 10;
         //return $this->_price;
     }
 
