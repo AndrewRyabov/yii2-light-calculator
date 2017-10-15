@@ -5,6 +5,7 @@
  * Date: 21.06.2017
  * Time: 14:08
  */
+include_once '../src/L10.php';
 class L25
 {
     // Входные параметры:
@@ -1118,7 +1119,7 @@ class L25
         }
     }
 
-    public function O30_StoimIzgot1shtgrn()
+    function O30_StoimIzgot1shtgrn()
     {
         //стоим изготов 1шт, грн
         //значение
@@ -1145,7 +1146,7 @@ class L25
         return round($this->J26_ZatratiObshiye() * L10_C73_K7, 0);
     }
 
-    public function O31_Energopotrebleniyevt()
+    function O31_Energopotrebleniyevt()
     {
         //энергопотребление, вт
         //значение
