@@ -1,0 +1,26 @@
+{
+  "name": "almaz44/yii2-light-calculator",
+  "type": "yii2-extension",
+  "description": "calculator for light",
+  "keywords": [
+    "yii2",
+    "calculator"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Finko Andrii",
+      "email": "fav1@ua.fm",
+      "role": "lead"
+    }
+  ],
+  "require": {
+    "yiisoft/yii2": "~2.0.0",
+    "php": ">=7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "almaz44\\light\\calculator\\": "src/"
+    }
+  }
+}
