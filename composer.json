@@ -1,22 +1,29 @@
 {
   "name": "almaz44/yii2-light-calculator",
-  "type": "yii2-extension",
-  "description": "calculator for light",
+  "description": "Расширения для расчёта стоимости изготовления, упаковки, транспортировки Рекламной вывески",
   "keywords": [
+    "php",
     "yii2",
-    "calculator"
+    "light",
+    "calculator",
+    "novaposhta",
+    "api"
   ],
+  "type": "library",
   "license": "MIT",
   "authors": [
     {
       "name": "Finko Andrii",
-      "email": "fav1@ua.fm",
+      "homepage": "https://github.com/Almaz44",
+      "email": "andrey.finko@gmail.com",
       "role": "lead"
     }
   ],
   "require": {
     "yiisoft/yii2": "~2.0.0",
-    "php": ">=7.0"
+    "php": ">=7.0",
+    "ext-curl": "*",
+    "ext-json": "*"
   },
   "autoload": {
     "psr-4": {
