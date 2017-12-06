@@ -374,9 +374,12 @@ const L10_BB65_K_KoefPererashGibkDiodPolos = 1.05; // коэф. перерасх
 const L10_BB68_K_KolSticovALDiodPolos1mp = 0.8; // количество стыков AL диод. полосы / 1 мп
 const L10_BB69_K_KolSticovGibkDiodPolos1mp = 0.2; // количество стыков гибкой диод. полосы / 1 мп
 
+
+const L10_BB72_K_LenghtOutputKabel_mp = 4; // длинна внешнего сетевого кабеля, мп
 const L10_BB73_K_ShagLinLamp1St_m = 0.3; // шаг линий ламп 1 сторона, м
 const L10_BB75_K_ShagLinALPolos_m = 0.26; // шаг линий AL полос, м
 const L10_BB76_K_ShagLinGibkPolos_m = 0.26; // шаг линий гибких полос, м
+const L10_BB77_PloshOsvKlast3750and3krandIP65_m2 = 0.02; //площадь освещаемая кластером 3750, 3 кр., IP65, м2
 
 const L10_BB78_K_ZapasPoTokuDlBP = 1.3; // коэф запаса по току для БП
 

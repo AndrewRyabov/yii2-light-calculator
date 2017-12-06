@@ -1,5 +1,4 @@
 <?php namespace almaz44\light\calculator;
-
 include_once __DIR__ . '/L10.php';
 /**
  * Created by PhpStorm.
@@ -29,9 +28,13 @@ class L25
     public $B21_FasadPolikarb; // фасад поликарбонат
     public $B22_IstochnikSveta; // источник света
 
-    public function __construct($RoofVisorOut, $WallOut, $WallIn, $SideIn2, $SideIn4, $Orientation,
-                                $BolshStorona_cm, $MenshStorona_cm, $CvetBortov, $CvetTill, $Konstruct,
-                                $MaketIzobr, $PlenkaLic, $FasadAkryl, $FasadPolikarb, $IstochnikSveta)
+    public function __construct($RoofVisorOut = 0, $WallOut = 0, $WallIn = 0, $SideIn2 = 1, $SideIn4 = 0,
+                                $Orientation = 1,
+                                $BolshStorona_cm = 300, $MenshStorona_cm = 60,
+                                $CvetBortov = 0, $CvetTill = 0,
+                                $Konstruct = 1,
+                                $MaketIzobr = 1, $PlenkaLic = 3, $FasadAkryl = 0, $FasadPolikarb = 1,
+                                $IstochnikSveta = 'диоды')
     {
         // Заполнение входных данных.
         $this->B5_RoofVisorOut = $RoofVisorOut;
@@ -56,479 +59,6 @@ class L25
 
     // C light - фасад пленка
 
-    function K18_ItogoSborka()
-    {
-        //пленка стрейч упаковка
-        //прибавление
-        //вывод
-
-        return $this->K5_FasadPlastik() + $this->K6_BortPVH() + $this->K7_Till() + $this->K8_OporiLicPlastik()
-            + $this->K9_RamaVnutr() + $this->K10_RamaNaruj() + $this->K11_Podvesi() + $this->K13_Elektrika()
-            + $this->K15_PlenkaFasad() + $this->K16_PlenkaBortTill() + $this->K17_PlenkaStreych();
-    }
-
-    function K5_FasadPlastik()
-    {
-        //фасад  пластик
-        //значение
-        //вывод
-
-        return 216;
-    }
-
-    function K6_BortPVH()
-    {
-        //борт пвх
-        //значение
-        //вывод
-
-        return 265;
-    }
-
-    function K7_Till()
-    {
-        //тыл
-        //значение
-        //вывод
-
-        return 0;
-    }
-
-    function K8_OporiLicPlastik()
-    {
-        //опоры лицевого пластика
-        //значение
-        //вывод
-
-        return 0;
-    }
-
-    function K9_RamaVnutr()
-    {
-        //рама внутренняя
-        //значение
-        //вывод
-
-        return 94;
-    }
-
-    function K10_RamaNaruj()
-    {
-        //рама наружная
-        //значение
-        //вывод
-
-        return 0;
-    }
-
-    function K11_Podvesi()
-    {
-        //подвесы
-        //значение
-        //вывод
-
-        return 28;
-    }
-
-    function K13_Elektrika()
-    {
-        //электрика
-        //значение
-        //вывод
-
-        return 238;
-    }
-
-    function K15_PlenkaFasad()
-    {
-        //пленка фасад
-        //значение
-        //вывод
-
-        return 90;
-    }
-
-    function K16_PlenkaBortTill()
-    {
-        //пленка борт/тыл
-        //значение
-        //вывод
-
-        return 0;
-    }
-
-    function K17_PlenkaStreych()
-    {
-        //пленка стрейч упаковка
-        //значение
-        //вывод
-
-        return 10;
-    }
-
-    function K19_Snabjeniye()
-    {
-        //снабжение
-        //значение
-        //вывод
-
-        return 240;
-    }
-
-    function J29_StoimNalichRoznica()
-    {
-        //стоим наличная розница
-        //округление и умножение
-        //вывод
-
-        return round($this->J28_StoimNalichSMaxSkidkoy() * L10_C74_K8, 0);
-    }
-
-    function J28_StoimNalichSMaxSkidkoy()
-    {
-        //стоим наличная с мах скидкой
-        //значение
-        //вывод
-
-        return $this->J26_ZatratiObshiye();
-    }
-
-    function J26_ZatratiObshiye()
-    {
-        //затраты общие
-        //прибавление
-        //вывод
-
-        return $this->H18_ItogoSborka() + $this->H19_Snabjeniye() + $this->H23_AmorizaciyaOborudovaniya()
-            + $this->H24_ArendaPomesh() + $this->I18_ItogoSborka() + $this->I19_Snabjeniye() + $this->I20_Upravl() +
-            $this->I21_SoftPlusInternet() + $this->I22_Pribil();
-    }
-
-    function H18_ItogoSborka()
-    {
-        //итого сборка
-        //прибавление и округление
-        //вывод
-
-        return $this->H5_FasadPlastik() + $this->H6_BortPVH() + $this->H7_Till() + $this->H8_OporiLicPlastik()
-            + $this->H9_RamaVnutr() + $this->H10_RamaNaruj() + $this->H11_Podvesi()
-            + $this->H13_Elektrika() + $this->H15_PlenkaFasad() + $this->H16_PlenkaBortTill()
-            + $this->H17_PlenkaStreych();
-    }
-
-    function H5_FasadPlastik()
-    {
-        //фасад  пластик
-        //значение
-        //вывод
-
-        return 662;
-    }
-
-    function H6_BortPVH()
-    {
-        //борт пвх
-        //значение
-        //вывод
-
-        return 449;
-    }
-
-    function H7_Till()
-    {
-        //тыл
-        //значение
-        //вывод
-
-        return 0;
-    }
-
-    function H8_OporiLicPlastik()
-    {
-        //опоры лицевого пластика
-        //значение
-        //вывод
-
-        return 0;
-    }
-
-    function H9_RamaVnutr()
-    {
-        //рама внутренняя
-        //значение
-        //вывод
-
-        return 166;
-    }
-
-    function H10_RamaNaruj()
-    {
-        //рама наружная
-        //значение
-        //вывод
-
-        return 0;
-    }
-
-    function H11_Podvesi()
-    {
-        //подвесы
-        //значение
-        //вывод
-
-        return 56;
-    }
-
-    function H13_Elektrika()
-    {
-        //электрика
-        //значение
-        //вывод
-
-        return 1726;
-    }
-
-    function H15_PlenkaFasad()
-    {
-        //пленка фасад
-        //значение
-        //вывод
-
-        return 378;
-    }
-
-    function H16_PlenkaBortTill()
-    {
-        //пленка борт/тыл
-        //значение
-        //вывод
-
-        return 0;
-    }
-
-    function H17_PlenkaStreych()
-    {
-        //пленка стрейч упаковка
-        //значение
-        //вывод
-
-        return 12;
-    }
-
-    function H19_Snabjeniye()
-    {
-        //снабжение
-        //значение
-        //вывод
-
-        return 138;
-    }
-
-    function H23_AmorizaciyaOborudovaniya()
-    {
-        //амортизация оборудования
-        //значение
-        //вывод
-
-        return 103;
-    }
-
-    function H24_ArendaPomesh()
-    {
-        //аренда помещения
-        //значение
-        //вывод
-
-        return 172;
-    }
-
-    function I18_ItogoSborka()
-    {
-        //пленка стрейч упаковка
-        //прибавление и округление
-        //вывод
-
-        return round($this->I5_FasadPlastik() + $this->I6_BortPVH() + $this->I7_Till()
-            + $this->I8_OporiLicPlastik() + $this->I9_RamaVnutr() + $this->I10_RamaNaruj()
-            + $this->I11_Podvesi() + $this->I13_Elektrika() + $this->I15_PlenkaFasad()
-            + $this->I16_PlenkaBortTill() + $this->I17_PlenkaStreych(), 0);
-    }
-
-    function I5_FasadPlastik()
-    {
-        //фасад  пластик
-        //значение
-        //вывод
-
-        return 151;
-    }
-
-    function I6_BortPVH()
-    {
-        //борт пвх
-        //значение
-        //вывод
-
-        return 186;
-    }
-
-    function I7_Till()
-    {
-        //тыл
-        //значение
-        //вывод
-
-        return 0;
-    }
-
-    function I8_OporiLicPlastik()
-    {
-        //опоры лицевого пластика
-        //значение
-        //вывод
-
-        return 0;
-    }
-
-    function I9_RamaVnutr()
-    {
-        //рама внутренняя
-        //значение
-        //вывод
-
-        return 66;
-    }
-
-    function I10_RamaNaruj()
-    {
-        //рама наружная
-        //значение
-        //вывод
-
-        return 0;
-    }
-
-    function I11_Podvesi()
-    {
-        //подвесы
-        //значение
-        //вывод
-
-        return 19.6;
-    }
-
-    function I13_Elektrika()
-    {
-        //электрика
-        //значение
-        //вывод
-
-        return 167;
-    }
-
-    function I15_PlenkaFasad()
-    {
-        //пленка фасад
-        //значение
-        //вывод
-
-        return 63;
-    }
-
-    function I16_PlenkaBortTill()
-    {
-        //пленка борт/тыл
-        //значение
-        //вывод
-
-        return 0;
-    }
-
-    function I17_PlenkaStreych()
-    {
-        //пленка стрейч упаковка
-        //значение
-        //вывод
-
-        return 7;
-    }
-
-    function I19_Snabjeniye()
-    {
-        //снабжение
-        //значение
-        //вывод
-
-        return 168;
-    }
-
-    function I20_Upravl()
-    {
-        //управляющий
-        //значение
-        //вывод
-
-        return 198;
-    }
-
-    function I21_SoftPlusInternet()
-    {
-        //софт + интернет
-        //значение
-        //вывод
-
-        return 66;
-    }
-
-    function I22_Pribil()
-    {
-        //прибыль
-        //значение
-        //вывод
-
-        return 132;
-    }
-
-    function O6_ImiaKonstruktora()
-    {
-        //имя конструктора
-        //значение
-        //вывод
-
-        return 'C_light';
-    }
-
-    function O9_VarIsp()
-    {
-        //вариант исполнения
-        //значение
-        //вывод
-
-        return $this->D10_VPR();
-    }
-
-    function D10_VPR()
-    {
-        //ВПР
-        //сравнение c 1
-        //вывод
-
-        if ($this->D5_KrishaUlica() == 1) {
-            return 'крыша/козырек улица';
-        } elseif ($this->D6_StenaUlica() == 1) {
-            return 'стена улица';
-        } elseif ($this->D7_StenaPomesh() == 1) {
-            return 'стена помещение';
-        } elseif ($this->D8_2StorPomesh() == 1) {
-            return '2 стороны помещение';
-        } elseif ($this->D9_4StorPomesh() == 1) {
-            return '4 стороны помещение';
-        } else {
-            return 0;
-        }
-
-    }
-
     function D5_KrishaUlica()
     {
         //крыша/козырек улица
@@ -537,7 +67,6 @@ class L25
 
         return $this->B5_RoofVisorOut;
     }
-
     function D6_StenaUlica()
     {
         //стена улица
@@ -546,7 +75,6 @@ class L25
 
         return $this->B6_WallOut;
     }
-
     function D7_StenaPomesh()
     {
         //стена помещение
@@ -555,7 +83,6 @@ class L25
 
         return $this->B7_WallIn;
     }
-
     function D8_2StorPomesh()
     {
         //2 стороны помещение
@@ -564,7 +91,6 @@ class L25
 
         return $this->B8_2SideIn;
     }
-
     function D9_4StorPomesh()
     {
         //4 стороны помещение
@@ -573,32 +99,38 @@ class L25
 
         return $this->B9_4SideIn;
     }
-
-    function O10_OrientText()
-    {
-        //ориентация текст
-        //значение
-        //вывод
-
-        return $this->D14_VPR();
-    }
-
-    function D14_VPR()
+    function D10_VPR()
     {
         //ВПР
         //сравнение c 1
         //вывод
 
-        if ($this->D12_Goriz() == 1) {
-            return 'горизонтальная';
-        } elseif ($this->D13_Vertikal() == 1) {
-            return 'вертикальная';
-        } else {
+        if ($this->D5_KrishaUlica() == 1)
+        {
+            return 'крыша/козырек улица';
+        }
+        elseif ($this->D6_StenaUlica() == 1)
+        {
+            return 'стена улица';
+        }
+        elseif ($this->D7_StenaPomesh() == 1)
+        {
+            return 'стена помещение';
+        }
+        elseif ($this->D8_2StorPomesh() == 1)
+        {
+            return '2 стороны помещение';
+        }
+        elseif ($this->D9_4StorPomesh() == 1)
+        {
+            return '4 стороны помещение';
+        }
+        else
+        {
             return 0;
         }
 
     }
-
     function D12_Goriz()
     {
         //горизонтальная
@@ -606,13 +138,15 @@ class L25
         //иначе вывести 0
         //вывод
 
-        if ($this->B11_Orientation == 1) {
+        if ($this->B11_Orientation == 1)
+        {
             return 1;
-        } else {
+        }
+        else
+        {
             return 0;
         }
     }
-
     function D13_Vertikal()
     {
         //вертикальная
@@ -620,390 +154,35 @@ class L25
         //иначе вывести 1
         //вывод
 
-        if ($this->D12_Goriz() == 1) {
+        if ($this->D12_Goriz() == 1)
+        {
             return 0;
-        } else {
+        }
+        else
+        {
             return 1;
         }
     }
-
-    function O11_OrientKod()
-    {
-        //ориентация код
-        //значение
-        //вывод
-
-        return $this->B11_Orientation;
-    }
-
-    function O12_BolshRazmcm()
-    {
-        //больший размер, см
-        //значение
-        //вывод
-
-        return $this->B12_BolshStorona_cm;
-    }
-
-    function O13_MenshRazmcm()
-    {
-        //меньший размер, см
-        //значение
-        //вывод
-
-        return $this->B13_MenshStorona_cm;
-    }
-
-    function O14_Tolshcm()
-    {
-        //толщина, см
-        //если условие = true, то вывести 24
-        //иначе вывести 12
-        //вывод
-
-        if ($this->B8_2SideIn == 1) {
-            return 24;
-        } else {
-            return 12;
-        }
-    }
-
-    function O15_CvetBortRitramaNom()
-    {
-        //цвет бортов,  "Ritrama" №
-        //значение
-        //вывод
-
-        return $this->B14_CvetBortov;
-    }
-
-    function O16_CvetTillRitramaNom()
-    {
-        //цвет тыла, "Ritrama" №
-        //значение
-        //вывод
-
-        return $this->B15_CvetTill;
-    }
-
-    function O17_MaketRazrab()
-    {
-        //макет разрабатывает
-        //значение
-        //вывод
-
-        return $this->D39_VPR();
-    }
-
-    function D39_VPR()
+    function D14_VPR()
     {
         //ВПР
         //сравнение c 1
         //вывод
 
-        if ($this->D37_Zakazchik() == 1) {
-            return 'заказчик';
-        } elseif ($this->D38_L24() == 1) {
-            return 'L24';
-        } else {
+        if ($this->D12_Goriz() == 1)
+        {
+            return 'горизонтальная';
+        }
+        elseif ($this->D13_Vertikal() == 1)
+        {
+            return 'вертикальная';
+        }
+        else
+        {
             return 0;
         }
+
     }
-
-    function D37_Zakazchik()
-    {
-        //заказчик
-        //если условие = true, то вывести 1
-        //иначе вывести 0
-        //вывод
-
-        if ($this->B18_MaketIzobr == 1) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
-    function D38_L24()
-    {
-        //L24
-        //если условие = true, то вывести 1
-        //иначе вывести 0
-        //вывод
-
-        if ($this->B18_MaketIzobr == 2) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
-    function O18_PlenkaLic()
-    {
-        //пленка лицевая
-        //значение
-        //вывод
-
-        return $this->D52_VPR();
-    }
-
-    function D52_VPR()
-    {
-        //ВПР
-        //сравнение c 1
-        //вывод
-
-        if ($this->D42_PolnocvetFoto() == 1) {
-            return 'полноцвет фото';
-        } elseif ($this->D43_PolnocvetFotoPlusLaminat() == 1) {
-            return 'полноцвет фото + ламинат';
-        } elseif ($this->D44_Polnocvet720DPI() == 1) {
-            return 'полноцвет 720 dpi';
-        } elseif ($this->D45_Polnocvet720DPIPlusLamonat() == 1) {
-            return 'полноцвет 720 dpi + ламинат';
-        } elseif ($this->D46_EconomWhiteFonPlusApp() == 1) {
-            return 'эконом, белый фон + аппликация';
-        } elseif ($this->D47_EconomCvetnFonPlusProrez() == 1) {
-            return 'эконом, цветной фон + прорез';
-        } elseif ($this->D48_EconomCvetnFonPlusApp() == 1) {
-            return 'эконом, цветной фон + аппликация';
-        } elseif ($this->D49_SvetorassWhiteFonPlusApp() == 1) {
-            return 'светорассеивающая, белый фон + аппликация';
-        } elseif ($this->D50_SvetorassCvetnFonPlusProrez() == 1) {
-            return 'светорассеивающая, цветной фон + прорез';
-        } elseif ($this->D51_SvetorassCvetnFonPlusApp() == 1) {
-            return 'светорассеивающая, цветной фон + аппликация';
-        } else {
-            return 0;
-        }
-    }
-
-    function D42_PolnocvetFoto()
-    {
-        //полноцвет фото
-        //если условие = true, то вывести 1
-        //иначе вывести 0
-        //вывод
-
-        if ($this->B19_PlenkaLic == 1) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
-    function D43_PolnocvetFotoPlusLaminat()
-    {
-        //полноцвет фото + ламинат
-        //если условие = true, то вывести 1
-        //иначе вывести 0
-        //вывод
-
-        if ($this->B19_PlenkaLic == 2) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
-    function D44_Polnocvet720DPI()
-    {
-        //полноцвет 720 dpi
-        //если условие = true, то вывести 1
-        //иначе вывести 0
-        //вывод
-
-        if ($this->B19_PlenkaLic == 3) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
-    function D45_Polnocvet720DPIPlusLamonat()
-    {
-        //полноцвет 720 dpi + ламинат
-        //если условие = true, то вывести 1
-        //иначе вывести 0
-        //вывод
-
-        if ($this->B19_PlenkaLic == 4) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
-    function D46_EconomWhiteFonPlusApp()
-    {
-        //эконом, белый фон + аппликация
-        //если условие = true, то вывести 1
-        //иначе вывести 0
-        //вывод
-
-        if ($this->B19_PlenkaLic == 5) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
-    function D47_EconomCvetnFonPlusProrez()
-    {
-        //эконом, цветной фон + прорез
-        //если условие = true, то вывести 1
-        //иначе вывести 0
-        //вывод
-
-        if ($this->B19_PlenkaLic == 6) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
-    function D48_EconomCvetnFonPlusApp()
-    {
-        //эконом, цветной фон + аппликация
-        //если условие = true, то вывести 1
-        //иначе вывести 0
-        //вывод
-
-        if ($this->B19_PlenkaLic == 7) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
-    function D49_SvetorassWhiteFonPlusApp()
-    {
-        //светорассеивающая, белый фон + аппликация
-        //если условие = true, то вывести 1
-        //иначе вывести 0
-        //вывод
-
-        if ($this->B19_PlenkaLic == 8) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
-    function D50_SvetorassCvetnFonPlusProrez()
-    {
-        //светорассеивающая, цветной фон + прорез
-        //если условие = true, то вывести 1
-        //иначе вывести 0
-        //вывод
-
-        if ($this->B19_PlenkaLic == 9) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
-    function D51_SvetorassCvetnFonPlusApp()
-    {
-        //светорассеивающая, цветной фон + аппликация
-        //если условие = true, то вывести 1
-        //иначе вывести 0
-        //вывод
-
-        if ($this->B19_PlenkaLic == 10) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
-    function O19_PlastikLic()
-    {
-        //пластик лицевой
-        //значение
-        //вывод
-
-        return $this->D35_VPR();
-    }
-
-    function D35_VPR()
-    {
-        //ВПР
-        //сравнение c 1
-        //вывод
-
-        if ($this->D33_Akryl() == 1) {
-            return 'акрил';
-        } elseif ($this->D34_Policarb() == 1) {
-            return 'поликарбонат';
-        } else {
-            return 0;
-        }
-    }
-
-    function D33_Akryl()
-    {
-        //акрил
-        //значение
-        //вывод
-
-        return $this->B20_FasadAkryl;
-    }
-
-    function D34_Policarb()
-    {
-        //поликарбонат
-        //значение
-        //вывод
-
-        return $this->B21_FasadPolikarb;
-    }
-
-    function O20_IstochnikSveta()
-    {
-        //источник света
-        //значение
-        //вывод
-
-        return $this->B22_IstochnikSveta;
-    }
-
-    function O21_KonstruktDl4StorPomesh()
-    {
-        //конструктив (для 4 стор помещ)
-        //значение
-        //вывод
-
-        return $this->D23_VPR();
-    }
-
-    function D23_VPR()
-    {
-        //ВПР
-        //сравнение c 1
-        //вывод
-
-        if ($this->D20_Razb() == 1) {
-            return 'разборный';
-        } elseif ($this->D21_Nerazb() == 1) {
-            return 'неразборный';
-        } elseif ($this->D22_Pusto() == 1) {
-            return '----------------------';
-        } else {
-            return 0;
-        }
-    }
-
-    function D20_Razb()
-    {
-        //разборный
-        //умножение
-        //вывод
-
-        return $this->D17_RazbPredvar() * $this->B9_4SideIn;
-    }
-
     function D17_RazbPredvar()
     {
         //разборный предварительно
@@ -1012,16 +191,6 @@ class L25
 
         return $this->B16_Konstruct;
     }
-
-    function D21_Nerazb()
-    {
-        //неразборный
-        //умножение
-        //вывод
-
-        return $this->D18_NerazbPredvar() * $this->B9_4SideIn;
-    }
-
     function D18_NerazbPredvar()
     {
         //неразборный предварительно
@@ -1029,13 +198,31 @@ class L25
         //иначе вывести 1
         //вывод
 
-        if ($this->D17_RazbPredvar() == 1) {
+        if ($this->D17_RazbPredvar() == 1)
+        {
             return 0;
-        } else {
+        }
+        else
+        {
             return 1;
         }
     }
+    function D20_Razb()
+    {
+        //разборный
+        //умножение
+        //вывод
 
+        return $this->D17_RazbPredvar() * $this->B9_4SideIn;
+    }
+    function D21_Nerazb()
+    {
+        //неразборный
+        //умножение
+        //вывод
+
+        return $this->D18_NerazbPredvar()*$this->B9_4SideIn;
+    }
     function D22_Pusto()
     {
         //пусто
@@ -1043,46 +230,54 @@ class L25
         //иначе вывести 1
         //вывод
 
-        if ($this->B9_4SideIn == 1) {
+        if ($this->B9_4SideIn == 1)
+        {
             return 0;
-        } else {
+        }
+        else
+        {
             return 1;
         }
     }
-
-    function O22_CenrOtvDl4StorPomeshcm()
-    {
-        //центр отв (для 4 стор помещ), см
-        //значение
-        //вывод
-
-        return $this->D31_VPR();
-    }
-
-    function D31_VPR()
+    function D23_VPR()
     {
         //ВПР
         //сравнение c 1
         //вывод
 
-        if ($this->D29_ZnachD27() == 1) {
-            return $this->D27_CentrOtverstiyacm();
-        } elseif ($this->D30_Pusto() == 1) {
+        if ($this->D20_Razb() == 1)
+        {
+            return 'разборный';
+        }
+        elseif ($this->D21_Nerazb() == 1)
+        {
+            return 'неразборный';
+        }
+        elseif ($this->D22_Pusto() == 1)
+        {
             return '----------------------';
-        } else {
+        }
+        else
+        {
             return 0;
         }
     }
-
-    function D29_ZnachD27()
+    function D26_GorRazcm()
     {
-        //значение D27_CentrOtverstiyacm()
-        //отнимание
+        //размер горизонтальный, см
+        //если условие = true, то вывести B12
+        //иначе вывести B13
         //вывод
 
-        return $this->B9_4SideIn;
+        if ($this->B11_Orientation == 1)
+        {
+            return $this->B12_BolshStorona_cm;
+        }
+        else
+        {
+            return $this->B13_MenshStorona_cm;
+        }
     }
-
     function D27_CentrOtverstiyacm()
     {
         //центр отверстие, см
@@ -1091,21 +286,14 @@ class L25
 
         return $this->D26_GorRazcm() - 24;
     }
-
-    function D26_GorRazcm()
+    function D29_ZnachD27()
     {
-        //размер горизонтальный, см
-        //если условие = true, то вывести B12
-        //иначе вывести B13
+        //значение D27_CentrOtverstiyacm()
+        //отнимание
         //вывод
 
-        if ($this->B11_Orientation == 1) {
-            return $this->B12_BolshStorona_cm;
-        } else {
-            return $this->B13_MenshStorona_cm;
-        }
+        return $this->B9_4SideIn;
     }
-
     function D30_Pusto()
     {
         //пусто
@@ -1113,68 +301,355 @@ class L25
         //иначе вывести 1
         //вывод
 
-        if ($this->B9_4SideIn == 1) {
+        if ($this->B9_4SideIn == 1)
+        {
             return 0;
-        } else {
+        }
+        else
+        {
             return 1;
         }
     }
-
-    function O30_StoimIzgot1shtgrn()
+    function D31_VPR()
     {
-        //стоим изготов 1шт, грн
+        //ВПР
+        //сравнение c 1
+        //вывод
+
+        if ($this->D29_ZnachD27() == 1)
+        {
+            return $this->D27_CentrOtverstiyacm();
+        }
+        elseif ($this->D30_Pusto() == 1)
+        {
+            return '----------------------';
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    function D33_Akryl()
+    {
+        //акрил
         //значение
         //вывод
 
-        return $this->J32_BNStoimPlatNDSSRoznica();
+        return $this->B20_FasadAkryl;
     }
-
-    function J32_BNStoimPlatNDSSRoznica()
+    function D34_Policarb()
     {
-        //б/н стоим (плат НДС) розница
-        //округление и умножение
-        //вывод
-
-        return round($this->J31_BNStoimPlatNDSSMaxSkidkoy() * L10_C74_K8, 0);
-    }
-
-    function J31_BNStoimPlatNDSSMaxSkidkoy()
-    {
-        //б/н стоим (плат НДС) с мах скидкой
-        //округление и умножение
-        //вывод
-
-        return round($this->J26_ZatratiObshiye() * L10_C73_K7, 0);
-    }
-
-    function O31_Energopotrebleniyevt()
-    {
-        //энергопотребление, вт
+        //поликарбонат
         //значение
         //вывод
 
-        return 300;
+        return $this->B21_FasadPolikarb;
     }
-
-    function O32_Veskg()
+    function D35_VPR()
     {
-        //вес, кг
+        //ВПР
+        //сравнение c 1
+        //вывод
+
+        if ($this->D33_Akryl() == 1)
+        {
+            return 'акрил';
+        }
+        elseif ($this->D34_Policarb() == 1)
+        {
+            return 'поликарбонат';
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    function D37_Zakazchik()
+    {
+        //заказчик
+        //если условие = true, то вывести 1
+        //иначе вывести 0
+        //вывод
+
+        if ($this->B18_MaketIzobr == 1)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    function D38_L24()
+    {
+        //L24
+        //если условие = true, то вывести 1
+        //иначе вывести 0
+        //вывод
+
+        if ($this->B18_MaketIzobr == 2)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    function D39_VPR()
+    {
+        //ВПР
+        //сравнение c 1
+        //вывод
+
+        if ($this->D37_Zakazchik() == 1)
+        {
+            return 'заказчик';
+        }
+        elseif ($this->D38_L24() == 1)
+        {
+            return 'L24';
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    function D42_PolnocvetFoto()
+    {
+        //полноцвет фото
+        //если условие = true, то вывести 1
+        //иначе вывести 0
+        //вывод
+
+        if ($this->B19_PlenkaLic == 1)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    function D43_PolnocvetFotoPlusLaminat()
+    {
+        //полноцвет фото + ламинат
+        //если условие = true, то вывести 1
+        //иначе вывести 0
+        //вывод
+
+        if ($this->B19_PlenkaLic == 2)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    function D44_Polnocvet720DPI()
+    {
+        //полноцвет 720 dpi
+        //если условие = true, то вывести 1
+        //иначе вывести 0
+        //вывод
+
+        if ($this->B19_PlenkaLic == 3)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    function D45_Polnocvet720DPIPlusLamonat()
+    {
+        //полноцвет 720 dpi + ламинат
+        //если условие = true, то вывести 1
+        //иначе вывести 0
+        //вывод
+
+        if ($this->B19_PlenkaLic == 4)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    function D46_EconomWhiteFonPlusApp()
+    {
+        //эконом, белый фон + аппликация
+        //если условие = true, то вывести 1
+        //иначе вывести 0
+        //вывод
+
+        if ($this->B19_PlenkaLic == 5)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    function D47_EconomCvetnFonPlusProrez()
+    {
+        //эконом, цветной фон + прорез
+        //если условие = true, то вывести 1
+        //иначе вывести 0
+        //вывод
+
+        if ($this->B19_PlenkaLic == 6)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    function D48_EconomCvetnFonPlusApp()
+    {
+        //эконом, цветной фон + аппликация
+        //если условие = true, то вывести 1
+        //иначе вывести 0
+        //вывод
+
+        if ($this->B19_PlenkaLic == 7)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    function D49_SvetorassWhiteFonPlusApp()
+    {
+        //светорассеивающая, белый фон + аппликация
+        //если условие = true, то вывести 1
+        //иначе вывести 0
+        //вывод
+
+        if ($this->B19_PlenkaLic == 8)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    function D50_SvetorassCvetnFonPlusProrez()
+    {
+        //светорассеивающая, цветной фон + прорез
+        //если условие = true, то вывести 1
+        //иначе вывести 0
+        //вывод
+
+        if ($this->B19_PlenkaLic == 9)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    function D51_SvetorassCvetnFonPlusApp()
+    {
+        //светорассеивающая, цветной фон + аппликация
+        //если условие = true, то вывести 1
+        //иначе вывести 0
+        //вывод
+
+        if ($this->B19_PlenkaLic == 10)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    function D52_VPR()
+    {
+        //ВПР
+        //сравнение c 1
+        //вывод
+
+        if ($this->D42_PolnocvetFoto() == 1)
+        {
+            return 'полноцвет фото';
+        }
+        elseif ($this->D43_PolnocvetFotoPlusLaminat() == 1)
+        {
+            return 'полноцвет фото + ламинат';
+        }
+        elseif ($this->D44_Polnocvet720DPI() == 1)
+        {
+            return 'полноцвет 720 dpi';
+        }
+        elseif ($this->D45_Polnocvet720DPIPlusLamonat() == 1)
+        {
+            return 'полноцвет 720 dpi + ламинат';
+        }
+        elseif ($this->D46_EconomWhiteFonPlusApp() == 1)
+        {
+            return 'эконом, белый фон + аппликация';
+        }
+        elseif ($this->D47_EconomCvetnFonPlusProrez() == 1)
+        {
+            return 'эконом, цветной фон + прорез';
+        }
+        elseif ($this->D48_EconomCvetnFonPlusApp() == 1)
+        {
+            return 'эконом, цветной фон + аппликация';
+        }
+        elseif ($this->D49_SvetorassWhiteFonPlusApp() == 1)
+        {
+            return 'светорассеивающая, белый фон + аппликация';
+        }
+        elseif ($this->D50_SvetorassCvetnFonPlusProrez() == 1)
+        {
+            return 'светорассеивающая, цветной фон + прорез';
+        }
+        elseif ($this->D51_SvetorassCvetnFonPlusApp() == 1)
+        {
+            return 'светорассеивающая, цветной фон + аппликация';
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    function H5_FasadPlastik()
+    {
+        //фасад  пластик
         //значение
         //вывод
 
-        return $this->L18_ItogoSborka();
+        return 662;
     }
-
-    function L18_ItogoSborka()
+    function I5_FasadPlastik()
     {
-        //пленка стрейч упаковка
-        //прибавление
+        //фасад  пластик
+        //значение
         //вывод
 
-        return $this->L5_FasadPlastik() + $this->L6_BortPVH() + $this->L7_Till() + $this->L8_OporiLicPlastik() +
-            $this->L9_RamaVnutr() + $this->L10_RamaNaruj() + $this->L11_Podvesi() + $this->L13_Elektrika();
+        return 151;
     }
+    function K5_FasadPlastik()
+    {
+        //фасад  пластик
+        //значение
+        //вывод
 
+        return 216;
+    }
     function L5_FasadPlastik()
     {
         //фасад  пластик
@@ -1183,7 +658,30 @@ class L25
 
         return 3.4;
     }
+    function H6_BortPVH()
+    {
+        //борт пвх
+        //значение
+        //вывод
 
+        return 449;
+    }
+    function I6_BortPVH()
+    {
+        //борт пвх
+        //значение
+        //вывод
+
+        return 186;
+    }
+    function K6_BortPVH()
+    {
+        //борт пвх
+        //значение
+        //вывод
+
+        return 265;
+    }
     function L6_BortPVH()
     {
         //борт пвх
@@ -1192,7 +690,30 @@ class L25
 
         return 4.8;
     }
+    function H7_Till()
+    {
+        //тыл
+        //значение
+        //вывод
 
+        return 0;
+    }
+    function I7_Till()
+    {
+        //тыл
+        //значение
+        //вывод
+
+        return 0;
+    }
+    function K7_Till()
+    {
+        //тыл
+        //значение
+        //вывод
+
+        return 0;
+    }
     function L7_Till()
     {
         //тыл
@@ -1201,7 +722,30 @@ class L25
 
         return 0;
     }
+    function H8_OporiLicPlastik()
+    {
+        //опоры лицевого пластика
+        //значение
+        //вывод
 
+        return 0;
+    }
+    function I8_OporiLicPlastik()
+    {
+        //опоры лицевого пластика
+        //значение
+        //вывод
+
+        return 0;
+    }
+    function K8_OporiLicPlastik()
+    {
+        //опоры лицевого пластика
+        //значение
+        //вывод
+
+        return 0;
+    }
     function L8_OporiLicPlastik()
     {
         //опоры лицевого пластика
@@ -1210,7 +754,30 @@ class L25
 
         return 0;
     }
+    function H9_RamaVnutr()
+    {
+        //рама внутренняя
+        //значение
+        //вывод
 
+        return 166;
+    }
+    function I9_RamaVnutr()
+    {
+        //рама внутренняя
+        //значение
+        //вывод
+
+        return 66;
+    }
+    function K9_RamaVnutr()
+    {
+        //рама внутренняя
+        //значение
+        //вывод
+
+        return 94;
+    }
     function L9_RamaVnutr()
     {
         //рама внутренняя
@@ -1219,7 +786,30 @@ class L25
 
         return 3.8;
     }
+    function H10_RamaNaruj()
+    {
+        //рама наружная
+        //значение
+        //вывод
 
+        return 0;
+    }
+    function I10_RamaNaruj()
+    {
+        //рама наружная
+        //значение
+        //вывод
+
+        return 0;
+    }
+    function K10_RamaNaruj()
+    {
+        //рама наружная
+        //значение
+        //вывод
+
+        return 0;
+    }
     function L10_RamaNaruj()
     {
         //рама наружная
@@ -1228,7 +818,30 @@ class L25
 
         return 0;
     }
+    function H11_Podvesi()
+    {
+        //подвесы
+        //значение
+        //вывод
 
+        return 56;
+    }
+    function I11_Podvesi()
+    {
+        //подвесы
+        //значение
+        //вывод
+
+        return 19.6;
+    }
+    function K11_Podvesi()
+    {
+        //подвесы
+        //значение
+        //вывод
+
+        return 28;
+    }
     function L11_Podvesi()
     {
         //подвесы
@@ -1237,7 +850,30 @@ class L25
 
         return 0.6;
     }
+    function H13_Elektrika()
+    {
+        //электрика
+        //значение
+        //вывод
 
+        return 1726;
+    }
+    function I13_Elektrika()
+    {
+        //электрика
+        //значение
+        //вывод
+
+        return 167;
+    }
+    function K13_Elektrika()
+    {
+        //электрика
+        //значение
+        //вывод
+
+        return 238;
+    }
     function L13_Elektrika()
     {
         //электрика
@@ -1245,5 +881,376 @@ class L25
         //вывод
 
         return 2.2;
+    }
+    function H15_PlenkaFasad()
+    {
+        //пленка фасад
+        //значение
+        //вывод
+
+        return 378;
+    }
+    function I15_PlenkaFasad()
+    {
+        //пленка фасад
+        //значение
+        //вывод
+
+        return 63;
+    }
+    function K15_PlenkaFasad()
+    {
+        //пленка фасад
+        //значение
+        //вывод
+
+        return 90;
+    }
+    function H16_PlenkaBortTill()
+    {
+        //пленка борт/тыл
+        //значение
+        //вывод
+
+        return 0;
+    }
+    function I16_PlenkaBortTill()
+    {
+        //пленка борт/тыл
+        //значение
+        //вывод
+
+        return 0;
+    }
+    function K16_PlenkaBortTill()
+    {
+        //пленка борт/тыл
+        //значение
+        //вывод
+
+        return 0;
+    }
+    function H17_PlenkaStreych()
+    {
+        //пленка стрейч упаковка
+        //значение
+        //вывод
+
+        return 12;
+    }
+    function I17_PlenkaStreych()
+    {
+        //пленка стрейч упаковка
+        //значение
+        //вывод
+
+        return 7;
+    }
+    function K17_PlenkaStreych()
+    {
+        //пленка стрейч упаковка
+        //значение
+        //вывод
+
+        return 10;
+    }
+    function H18_ItogoSborka()
+    {
+        //итого сборка
+        //прибавление и округление
+        //вывод
+
+        return $this->H5_FasadPlastik()+$this->H6_BortPVH()+$this->H7_Till()+$this->H8_OporiLicPlastik()
+               +$this->H9_RamaVnutr()+$this->H10_RamaNaruj()+$this->H11_Podvesi()
+               +$this->H13_Elektrika()+$this->H15_PlenkaFasad()+$this->H16_PlenkaBortTill()
+               +$this->H17_PlenkaStreych();
+    }
+    function I18_ItogoSborka()
+    {
+        //пленка стрейч упаковка
+        //прибавление и округление
+        //вывод
+
+        return round($this->I5_FasadPlastik()+$this->I6_BortPVH()+$this->I7_Till()
+                     +$this->I8_OporiLicPlastik()+$this->I9_RamaVnutr()+$this->I10_RamaNaruj()
+                     +$this->I11_Podvesi()+$this->I13_Elektrika()+$this->I15_PlenkaFasad()
+                     +$this->I16_PlenkaBortTill()+$this->I17_PlenkaStreych(),0);
+    }
+    function K18_ItogoSborka()
+    {
+        //пленка стрейч упаковка
+        //прибавление
+        //вывод
+
+        return $this->K5_FasadPlastik()+$this->K6_BortPVH()+$this->K7_Till()+$this->K8_OporiLicPlastik()
+               +$this->K9_RamaVnutr()+$this->K10_RamaNaruj()+$this->K11_Podvesi()+$this->K13_Elektrika()
+               +$this->K15_PlenkaFasad()+$this->K16_PlenkaBortTill()+$this->K17_PlenkaStreych();
+    }
+    function L18_ItogoSborka()
+    {
+        //пленка стрейч упаковка
+        //прибавление
+        //вывод
+
+        return $this->L5_FasadPlastik()+$this->L6_BortPVH()+$this->L7_Till()+$this->L8_OporiLicPlastik()+
+               $this->L9_RamaVnutr()+$this->L10_RamaNaruj()+$this->L11_Podvesi()+$this->L13_Elektrika();
+    }
+    function H19_Snabjeniye()
+    {
+        //снабжение
+        //значение
+        //вывод
+
+        return 138;
+    }
+    function I19_Snabjeniye()
+    {
+        //снабжение
+        //значение
+        //вывод
+
+        return 168;
+    }
+    function K19_Snabjeniye()
+    {
+        //снабжение
+        //значение
+        //вывод
+
+        return 240;
+    }
+    function I20_Upravl()
+    {
+        //управляющий
+        //значение
+        //вывод
+
+        return 198;
+    }
+    function I21_SoftPlusInternet()
+    {
+        //софт + интернет
+        //значение
+        //вывод
+
+        return 66;
+    }
+    function I22_Pribil()
+    {
+        //прибыль
+        //значение
+        //вывод
+
+        return 132;
+    }
+    function H23_AmorizaciyaOborudovaniya()
+    {
+        //амортизация оборудования
+        //значение
+        //вывод
+
+        return 103;
+    }
+    function H24_ArendaPomesh()
+    {
+        //аренда помещения
+        //значение
+        //вывод
+
+        return 172;
+    }
+    function J26_ZatratiObshiye()
+    {
+        //затраты общие
+        //прибавление
+        //вывод
+
+        return $this->H18_ItogoSborka()+$this->H19_Snabjeniye()+$this->H23_AmorizaciyaOborudovaniya()
+               +$this->H24_ArendaPomesh()+$this->I18_ItogoSborka()+$this->I19_Snabjeniye()+$this->I20_Upravl()+
+               $this->I21_SoftPlusInternet()+$this->I22_Pribil();
+    }
+    function J28_StoimNalichSMaxSkidkoy()
+    {
+        //стоим наличная с мах скидкой
+        //значение
+        //вывод
+
+        return $this->J26_ZatratiObshiye();
+    }
+    function J29_StoimNalichRoznica()
+    {
+        //стоим наличная розница
+        //округление и умножение
+        //вывод
+
+        return round($this->J28_StoimNalichSMaxSkidkoy()*L10_C74_K8, 0);
+    }
+    function J31_BNStoimPlatNDSSMaxSkidkoy()
+    {
+        //б/н стоим (плат НДС) с мах скидкой
+        //округление и умножение
+        //вывод
+
+        return round($this->J26_ZatratiObshiye()*L10_C73_K7, 0);
+    }
+    function J32_BNStoimPlatNDSSRoznica()
+    {
+        //б/н стоим (плат НДС) розница
+        //округление и умножение
+        //вывод
+
+        return round($this->J31_BNStoimPlatNDSSMaxSkidkoy()*L10_C74_K8, 0);
+    }
+    function O6_ImiaKonstruktora()
+    {
+        //имя конструктора
+        //значение
+        //вывод
+
+        return 'C_light';
+    }
+    function O9_VarIsp()
+    {
+        //вариант исполнения
+        //значение
+        //вывод
+
+        return $this->D10_VPR();
+    }
+    function O10_OrientText()
+    {
+        //ориентация текст
+        //значение
+        //вывод
+
+        return $this->D14_VPR();
+    }
+    function O11_OrientKod()
+    {
+        //ориентация код
+        //значение
+        //вывод
+
+        return $this->B11_Orientation;
+    }
+    function O12_BolshRazmcm()
+    {
+        //больший размер, см
+        //значение
+        //вывод
+
+        return $this->B12_BolshStorona_cm;
+    }
+    function O13_MenshRazmcm()
+    {
+        //меньший размер, см
+        //значение
+        //вывод
+
+        return $this->B13_MenshStorona_cm;
+    }
+    function O14_Tolshcm()
+    {
+        //толщина, см
+        //если условие = true, то вывести 24
+        //иначе вывести 12
+        //вывод
+
+        if ($this->B8_2SideIn == 1)
+        {
+            return 24;
+        }
+        else
+        {
+            return 12;
+        }
+    }
+    function O15_CvetBortRitramaNom()
+    {
+        //цвет бортов,  "Ritrama" №
+        //значение
+        //вывод
+
+        return $this->B14_CvetBortov;
+    }
+    function O16_CvetTillRitramaNom()
+    {
+        //цвет тыла, "Ritrama" №
+        //значение
+        //вывод
+
+        return $this->B15_CvetTill;
+    }
+    function O17_MaketRazrab()
+    {
+        //макет разрабатывает
+        //значение
+        //вывод
+
+        return $this->D39_VPR();
+    }
+    function O18_PlenkaLic()
+    {
+        //пленка лицевая
+        //значение
+        //вывод
+
+        return $this->D52_VPR();
+    }
+    function O19_PlastikLic()
+    {
+        //пластик лицевой
+        //значение
+        //вывод
+
+        return $this->D35_VPR();
+    }
+    function O20_IstochnikSveta()
+    {
+        //источник света
+        //значение
+        //вывод
+
+        return $this->B22_IstochnikSveta;
+    }
+    function O21_KonstruktDl4StorPomesh()
+    {
+        //конструктив (для 4 стор помещ)
+        //значение
+        //вывод
+
+        return $this->D23_VPR();
+    }
+    function O22_CenrOtvDl4StorPomeshcm()
+    {
+        //центр отв (для 4 стор помещ), см
+        //значение
+        //вывод
+
+        return $this->D31_VPR();
+    }
+    function O30_StoimIzgot1shtgrn()
+    {
+        //стоим изготов 1шт, грн
+        //значение
+        //вывод
+
+        return $this->J32_BNStoimPlatNDSSRoznica();
+    }
+    function O31_Energopotrebleniyevt()
+    {
+        //энергопотребление, вт
+        //значение
+        //вывод
+
+        return 300;
+    }
+    function O32_Veskg()
+    {
+        //вес, кг
+        //значение
+        //вывод
+
+        return $this->L18_ItogoSborka();
     }
 }
