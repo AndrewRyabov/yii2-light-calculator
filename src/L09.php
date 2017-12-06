@@ -41,8 +41,11 @@ class L09
 
     public function __construct($C_light = 0, $S_Light = 1,
                                 $RoofVisorOut = 0, $WallOut = 0, $WallIn = 0, $SideIn2 = 1, $SideIn4 = 0,
-                                $Orientacia = 1, $BigStor = 300, $SmallStor = 60, $FrontImg = 1, $ColorSide = 0, $ColorBack = 0,
-                                $MaketImg = 1, $FilmFront = 3, $PlasticFront = 1, $Light = 2, $Konstruktiv = 2)
+                                $Orientacia = 1,
+                                $BigStor = 300, $SmallStor = 60,
+                                $FrontImg = 1, $ColorSide = 0, $ColorBack = 0,
+                                $MaketImg = 1, $FilmFront = 3, $PlasticFront = 1, $Light = 2,
+                                $Konstruktiv = 2)
 
     {
         // Заполнение входных данных.

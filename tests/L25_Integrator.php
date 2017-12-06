@@ -5,9 +5,6 @@
  * Date: 07.06.2017
  * Time: 2:24
  */
-include_once '../src/L25.php';
-$L25 = new \almaz44\light\calculator\L25(0, 0, 0, 1, 0, 1, 300, 60, 0, 0, 1, 1, 3, 0, 1, диоды);
-
 // Вывод переменных:
 echo '<br>D5_KrishaUlica=' . $L25->D5_KrishaUlica();
 echo '<br>D6_StenaUlica=' . $L25->D6_StenaUlica();
