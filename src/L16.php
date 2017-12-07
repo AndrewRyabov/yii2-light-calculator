@@ -21,8 +21,9 @@ class L16_1
 
     public $B14_PlastikLicevoy;//Пластик лицевой
 
-    public function __construct($RoofVisorOut, $WallOut, $WallIn,
-                                $SideIn2, $SideIn4, $BigStor, $SmallStor, $PlastikLicevoy)
+    public function __construct($RoofVisorOut = 0, $WallOut = 0, $WallIn = 0, $SideIn2 = 1, $SideIn4 = 0,
+                                $BigStor = 300, $SmallStor = 60,
+                                $PlastikLicevoy = 1)
 
     {
         // Заполнение входных данных.
@@ -790,8 +791,10 @@ class L16_2
     public $S15_PlastLic; // пластик лицевой
 
 
-    public function __construct($RoofVisorOut, $WallOut, $WallIn, $SideIn2, $SideIn4, $Orientation,
-                                $MaxSide_cm, $MinSide_cm, $PlastLic)
+    public function __construct($RoofVisorOut = 0, $WallOut = 0, $WallIn = 0, $SideIn2 = 1, $SideIn4 = 0,
+                                $Orientation = 1,
+                                $MaxSide_cm = 300, $MinSide_cm = 60,
+                                $PlastLic = 1)
     {
         // Заполнение входных данных.
         $this->S5_RoofVisorOut = $RoofVisorOut;
@@ -1588,7 +1591,8 @@ class L16_3
     public $AJ12_MinSide_cm; // меньшая сторона, см
 
 
-    public function __construct($RoofVisorOut, $WallOut, $WallIn, $SideIn2, $SideIn4, $MaxSide_cm, $MinSide_cm)
+    public function __construct($RoofVisorOut= 0, $WallOut = 0, $WallIn = 0, $SideIn2 = 1, $SideIn4 = 0,
+                                $MaxSide_cm = 300, $MinSide_cm = 60)
 
     {
         // Заполнение входных данных.

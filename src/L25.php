@@ -28,6 +28,14 @@ class L25
     public $B21_FasadPolikarb; // фасад поликарбонат
     public $B22_IstochnikSveta; // источник света
 
+    private $L16_1_fasad;
+    private $L16_2_bort;
+    private $L16_3_back;
+    private $L17_1_opora;
+    private $L17_2_rama;
+    private $L17_3_rama4;
+    private $L18_3_electrika;
+
     public function __construct($RoofVisorOut = 0, $WallOut = 0, $WallIn = 0, $SideIn2 = 1, $SideIn4 = 0,
                                 $Orientation = 1,
                                 $BolshStorona_cm = 300, $MenshStorona_cm = 60,
@@ -36,6 +44,18 @@ class L25
                                 $MaketIzobr = 1, $PlenkaLic = 3, $FasadAkryl = 0, $FasadPolikarb = 1,
                                 $IstochnikSveta = 'диоды')
     {
+        $this->L17_3_rama4 = new L17_3($SideIn4,
+                                     $Orientation,
+                                     $BolshStorona_cm, $MenshStorona_cm,
+                                     $Konstruct);
+        $this->L16_1_fasad = new L16_1($RoofVisorOut, $WallOut, $WallIn, $SideIn2, $SideIn4,
+                                     $BolshStorona_cm, $MenshStorona_cm,
+                                     $PlastikLicevoy = 1);
+        $this->L18_3_electrika = new L18_4($RoofVisorOut, $WallOut, $WallIn, $SideIn2, $SideIn4,
+                                         $BolshStorona_cm, $MenshStorona_cm,
+                                         $IstochnikSveta = 2);
+        // TODO Получаем текст 'диод', а отдавать надо код ^^^^^^ $IstochnikSveta
+
         // Заполнение входных данных.
         $this->B5_RoofVisorOut = $RoofVisorOut;
         $this->B6_WallOut = $WallOut;
@@ -48,12 +68,12 @@ class L25
         $this->B13_MenshStorona_cm = $MenshStorona_cm;
         $this->B14_CvetBortov = $CvetBortov;
         $this->B15_CvetTill = $CvetTill;
-        $this->B16_Konstruct = $Konstruct;
+        $this->B16_Konstruct = $this->L17_3_rama4->AW7_Konstrukt();
 
         $this->B18_MaketIzobr = $MaketIzobr;
         $this->B19_PlenkaLic = $PlenkaLic;
-        $this->B20_FasadAkryl = $FasadAkryl;
-        $this->B21_FasadPolikarb = $FasadPolikarb;
+        $this->B20_FasadAkryl = $this->L16_1_fasad->O7_FasadAkril();
+        $this->B21_FasadPolikarb = $this->L16_1_fasad->O8_FasadPolikarbonat();
         $this->B22_IstochnikSveta = $IstochnikSveta;
     }
 

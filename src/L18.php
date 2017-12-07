@@ -12,7 +12,7 @@ class L18_1
     public $B5_BigStor_cm; // большая сторона
     public $B6_SmallStor_cm; // меньшая сторона
 
-    public function __construct($BigStor_cm, $SmallStor_cm)
+    public function __construct($BigStor_cm = 300, $SmallStor_cm = 60)
 
     {
         // Заполнение входных данных.
@@ -2232,8 +2232,8 @@ class L18_2
 
 
 
-    public function __construct($RoofVisorOut, $WallOut, $WallIn,
-                                $SideIn2, $SideIn4, $BigStor, $SmallStor)
+    public function __construct($RoofVisorOut = 0, $WallOut = 0, $WallIn = 0, $SideIn2 = 1, $SideIn4 = 0,
+                                $BigStor = 300, $SmallStor = 60)
 
     {
         // Заполнение входных данных.
@@ -2735,8 +2735,8 @@ class L18_3
 
 
 
-    public function __construct($RoofVisorOut, $AOallOut, $AOallIn,
-                                $SideIn2, $SideIn4, $BigStor, $SmallStor)
+    public function __construct($RoofVisorOut = 0, $AOallOut = 0, $AOallIn = 0, $SideIn2 = 1, $SideIn4 = 0,
+                                $BigStor = 300, $SmallStor = 60)
 
     {
         // Заполнение входных данных.
@@ -3299,13 +3299,22 @@ class L18_4
 
     public $BD11_istochniksveta; // источник света (1- диоды/2-лампы
 
+    private $L18_1_lamp;
+    private $L18_2_klaster;
+    private $L18_3_line;
 
 
 
-    public function __construct($RoofVisorOut, $AOallOut, $AOallIn,
-                                $SideIn2, $SideIn4, $Istochniksveta)
+
+    public function __construct($RoofVisorOut = 0, $AOallOut = 0, $AOallIn = 0, $SideIn2 = 1, $SideIn4 = 0,
+                                $BigStor = 300, $SmallStor = 60,
+                                $Istochniksveta = 2)
 
     {
+        $this->L18_1_lamp = new L18_1($BigStor, $SmallStor);
+        $this->L18_2_klaster = new L18_2($RoofVisorOut,$AOallOut,$AOallIn,$SideIn2,$SideIn4,$BigStor,$SmallStor);
+        $this->L18_3_line = new L18_3($RoofVisorOut,$AOallOut,$AOallIn,$SideIn2,$SideIn4,$BigStor,$SmallStor);
+
         // Заполнение входных данных.
         $this->BD5_RoofVisorOut = $RoofVisorOut;
         $this->BD6_AOallOut = $AOallOut;
@@ -3436,52 +3445,21 @@ class L18_4
             return 0;
         }
     }
-    function P6_StoimostMaterialov_grn()
-    {
-
-        //вывод
-
-        return 1244;
-    }
     function BJ5_LampiMat_grn()
     {
-
-        //вывод
-
-        return ($this->P6_StoimostMaterialov_grn());
-
-    }
-    function AH6_StoimostMaterialov_grn()
-    {
-
-        //вывод
-
-        return 1009;
+        // Лампы - материал.
+        return ($this->L18_1_lamp->P6_StoimMatgrn());
     }
     function BJ6_KlasteriMat_grn()
     {
-
-        //вывод
-
-        return ($this->AH6_StoimostMaterialov_grn());
-
-    }
-    function AZ6_StoimostMaterialov_grn()
-    {
-
-        //вывод
-
-        return 1726;
+        // Кластеры - материал.
+        return ($this->L18_2_klaster->AH6_StoimostMaterialov_grn());
     }
     function BJ7_StoimostMat_grn()
     {
-
-        //вывод
-
-        return ($this->AZ6_StoimostMaterialov_grn());
-
+        // Ленты - материал.
+        return ($this->L18_3_line->AZ6_StoimostMaterialov_grn());
     }
-
     function BJ9_ElektrikaItogo()
     {
         //сложение и умножение
@@ -3490,50 +3468,18 @@ class L18_4
         return ($this->BJ5_LampiMat_grn()*$this->BG13_Lampi()+$this->BJ6_KlasteriMat_grn()*$this->BG14_Klasteri()+$this->BJ7_StoimostMat_grn()*$this->BG15_Lenti());
 
     }
-    function P22_Ves_kg()
-    {
 
-        //вывод
-
-        return 4.2;
-    }
     function BK5_LampiVes_kg()
     {
-
-        //вывод
-
-        return ($this->P22_Ves_kg());
-
-    }
-    function AH22_Ves_kg()
-    {
-
-        //вывод
-
-        return 2.3;
+        return ($this->L18_1_lamp->P22_Veskg());
     }
     function BK6_KlasteriVes_kg()
     {
-
-        //вывод
-
-        return ($this->AH22_Ves_kg());
-
-    }
-    function AZ22_Ves_kg()
-    {
-
-        //вывод
-
-        return 2.2;
+        return ($this->L18_2_klaster->AH22_Ves_kg());
     }
     function BK7_LentiVes_kg()
     {
-
-        //вывод
-
-        return ($this->AZ22_Ves_kg());
-
+        return ($this->L18_3_line->AZ22_Ves_kg());
     }
     function BK9_ElektrikaItogo()
     {
@@ -3544,50 +3490,17 @@ class L18_4
 
     }
 
-    function P21_EnergoPotreblenie_Vt()
-    {
-
-        //вывод
-
-        return 180;
-    }
-    function AH21_EnergoPotreblenie_Vt()
-    {
-
-        //вывод
-
-        return 126;
-    }
-    function AZ21_EnergoPotreblenie_Vt()
-    {
-
-        //вывод
-
-        return 300;
-    }
     function BL5_Lampi_Vt()
     {
-
-        //вывод
-
-        return ($this->P21_EnergoPotreblenie_Vt());
-
+        return ($this->L18_1_lamp->P21_Energopotvt());
     }
     function BL6_Klasteri_Vt()
     {
-
-        //вывод
-
-        return ($this->AH21_EnergoPotreblenie_Vt());
-
+        return ($this->L18_2_klaster->AH21_Energopotreblenie_Vt());
     }
     function BL7_Lenti_Vt()
     {
-
-        //вывод
-
-        return ($this->AZ21_EnergoPotreblenie_Vt());
-
+        return ($this->L18_3_line->AZ21_Energopotreblenie_Vt());
     }
     function BL9_ElektrikaItogo()
     {
@@ -3598,50 +3511,17 @@ class L18_4
 
     }
 
-    function P10_TrydoemkostLenta_min()
-    {
-
-        //вывод
-
-        return 120;
-    }
-    function AH10_TrydoemkostLenta_min()
-    {
-
-        //вывод
-
-        return 123;
-    }
-    function AZ10_TrydoemkostLenta_min()
-    {
-
-        //вывод
-
-        return 238;
-    }
     function BM5_Lampi_min()
     {
-
-        //вывод
-
-        return ($this->P10_TrydoemkostLenta_min());
-
+        return ($this->L18_1_lamp->P10_TrudLampmin());
     }
     function BM6_Klasteri_min()
     {
-
-        //вывод
-
-        return ($this->AH10_TrydoemkostLenta_min());
-
+        return ($this->L18_2_klaster->AH10_TrydoemkostKlaster_min());
     }
     function BM7_Lenti_min()
     {
-
-        //вывод
-
-        return ($this->AZ10_TrydoemkostLenta_min());
-
+        return ($this->L18_3_line->AZ10_TrydoemkostKlaster_min());
     }
     function BM9_ElektrikaItogo()
     {
@@ -3651,13 +3531,10 @@ class L18_4
         return ($this->BM5_Lampi_min()*$this->BG13_Lampi()+$this->BM6_Klasteri_min()*$this->BG14_Klasteri()+$this->BM7_Lenti_min()*$this->BG15_Lenti());
 
     }
+
     function BO7_BPR()
     {
-
-        //вывод
-
         return ($this->BG13_Lampi());
-
     }
     function BO8_BPR()
     {
@@ -3676,9 +3553,6 @@ class L18_4
     }
     function BO9_BPR()
     {
-
-        //вывод
-
         return 1;
     }
     function BP8_Diodi()
@@ -3709,8 +3583,6 @@ class L18_4
         }
 
     }
-
-
 
     function BS6_StoimostMaterialov_grn()
     {

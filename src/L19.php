@@ -255,18 +255,48 @@ class L19_2
     private $R27_ItogoPredvVes; // итого предв вес, кг
     private $R28_ItogoPredvVes1Linia; // итог предв вес 1 линия, кг
 
+    private $L16_1_fasad;
+    private $L16_2_bort;
+    private $L16_3_back;
 
+    private $L17_1_opora;
+    private $L17_2_rama;
+
+    private $L18_4_electro;
 
 
     public function __construct($RoofViserOut = 0, $RoofOut = 0, $RoofIn = 0, $RoofIn2 = 1, $RoofIn4 = 0,
                                 $Orient = 1,
                                 $BigStor = 300, $SmallStor = 60,
-                                $IstochnikSveta = 2,
-                                $Fasad = 3.4, $Bort = 4.8, $Til = 0, $RamaVnytrenia = 3.8, $OporiLicevPlast = 0, $Electrika = 2.2,
-                                $ItogoPredvVes = 14.2, $ItogoPredvVes1Linia = 7.1
-    )
+                                $IstochnikSveta = 2)
+
+//$Fasad = 3.4, $Bort = 4.8, $Til = 0, $RamaVnytrenia = 3.8, $OporiLicevPlast = 0, $Electrika = 2.2,
+//$ItogoPredvVes = 14.2, $ItogoPredvVes1Linia = 7.1
 
     {
+
+        $this->L16_1_fasad = new L16_1($RoofViserOut, $RoofOut,$RoofIn,$RoofIn2,$RoofIn4,
+                                       $BigStor,$SmallStor,
+                                       $PlastikLicevoy = 1);
+        $this->L16_2_bort = new L16_2($RoofViserOut, $RoofOut,$RoofIn,$RoofIn2,$RoofIn4,
+                                      $Orientation = 1,
+                                      $BigStor,$SmallStor,
+                                      $PlastLic = 1);
+        $this->L16_3_back = new L16_3($RoofViserOut, $RoofOut,$RoofIn,$RoofIn2,$RoofIn4,
+                                      $BigStor,$SmallStor);
+
+        $this->L17_1_opora = new L17_1($RoofViserOut, $RoofOut,$RoofIn,$RoofIn2,$RoofIn4,
+                                       $BigStor,$SmallStor,
+                                       $PlastikLicevoy = 1);
+        $this->L17_2_rama = new L17_2($RoofViserOut, $RoofOut,$RoofIn,$RoofIn2,$RoofIn4,
+                                      $Orientacia = 1,
+                                      $BigStor,$SmallStor,
+                                      $PlastikLicevoy = 1);
+
+        $this->L18_4_electro = new L18_4($RoofViserOut, $RoofOut,$RoofIn,$RoofIn2,$RoofIn4,
+                                         $BigStor,$SmallStor,
+                                         $IstochnikSveta);
+
         // Заполнение входных данных.
         $this->R5_RoofViserOut = $RoofViserOut;
         $this->R6_RoofOut = $RoofOut;
@@ -279,14 +309,15 @@ class L19_2
         $this->R13_SmallStor = $SmallStor;
         $this->R14_IstochnikSveta = $IstochnikSveta;
 
-        $this->R21_Fasad = $Fasad;
-        $this->R22_Bort= $Bort;
-        $this->R23_Til = $Til;
-        $this->R24_RamaVnytrenia = $RamaVnytrenia;
-        $this->R25_OporiLicevPlast = $OporiLicevPlast;
-        $this->R26_Electrika = $Electrika;
-        $this->R27_ItogoPredvVes = $ItogoPredvVes;
-        $this-> R28_ItogoPredvVes1Linia=$ItogoPredvVes1Linia;
+        $this->R21_Fasad = $this->L16_1_fasad->O22_Ves_kg();
+        $this->R22_Bort= $this->L16_2_bort->AF22_Veskg();
+        $this->R23_Til = $this->L16_3_back->AW22_Veskg();
+        $this->R24_RamaVnytrenia = $this->L17_2_rama->AF22_Ves_kg();
+        $this->R25_OporiLicevPlast = $this->L17_1_opora->O22_Ves_kg();
+        $this->R26_Electrika = $this->L18_4_electro->BS22_Ves_kg();
+
+        $this->R27_ItogoPredvVes = $this->R21_Fasad + $this->R22_Bort + $this->R23_Til + $this->R24_RamaVnytrenia + $this->R25_OporiLicevPlast + $this->R26_Electrika;
+        $this-> R28_ItogoPredvVes1Linia= round($this->R27_ItogoPredvVes / 2, 1);
 
 
     }

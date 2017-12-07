@@ -20,8 +20,9 @@ class L17_1
 
     public $B14_PlastikLicevoy;//Пластик лицевой
 
-    public function __construct($RoofVisorOut, $WallOut, $WallIn,
-                                $SideIn2, $SideIn4, $BigStor, $SmallStor, $PlastikLicevoy)
+    public function __construct($RoofVisorOut = 0, $WallOut = 0, $WallIn = 0, $SideIn2 = 1, $SideIn4 = 0,
+                                $BigStor = 300, $SmallStor = 60,
+                                $PlastikLicevoy = 1)
 
     {
         // Заполнение входных данных.
@@ -553,10 +554,15 @@ class L17_2
 
     public $S20_StoimostOporLicevix_grn;//Стоимость опор лицевых
 
-    public function __construct($RoofVisorOut, $WallOut, $WallIn,
-                                $SideIn2, $SideIn4, $Orientacia, $BigStor, $SmallStor, $StoimostOporLicevix_grn)
+    public function __construct($RoofVisorOut = 0, $WallOut = 0, $WallIn = 0, $SideIn2 = 1, $SideIn4 = 0,
+                                $Orientacia = 1,
+                                $BigStor = 300, $SmallStor = 60, $PlastikLicevoy = 1)
 
     {
+        $L17_1 = new L17_1($RoofVisorOut,$WallOut,$WallIn,$SideIn2,$SideIn4,
+                           $BigStor,$SmallStor,
+                           $PlastikLicevoy);
+
         // Заполнение входных данных.
         $this->S5_RoofVisorOut = $RoofVisorOut;
         $this->S6_WallOut = $WallOut;
@@ -566,7 +572,7 @@ class L17_2
         $this->S11_Orientacia = $Orientacia;
         $this->S12_BigStor = $BigStor;
         $this->S13_SmallStor = $SmallStor;
-        $this->S20_StoimostOporLicevix_grn = $StoimostOporLicevix_grn;
+        $this->S20_StoimostOporLicevix_grn = $L17_1->O24_Itogo_grn();
     }
 
 
@@ -1145,8 +1151,10 @@ class L17_3
 
     public $AJ11_Konstrukt; // конструктив
 
-    public function __construct($WallIn4, $Orientation, $BigStor,
-                                $SmallStor, $Konstrukt)
+    public function __construct($WallIn4 = 0,
+                                $Orientation = 1,
+                                $BigStor = 300, $SmallStor = 60,
+                                $Konstrukt = 2)
 
     {
         // Заполнение входных данных.
