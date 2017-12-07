@@ -23,8 +23,10 @@ class L15_1
     public $B14_ColorSide; // цвет бортов
     public $B15_ColorBack; // цвет тыла
 
-    public function __construct($RoofVisorOut, $WallOut, $WallIn, $SideIn2, $SideIn4, $Orientation,
-                                $MaxSide_cm, $MinSide_cm, $ColorSide, $ColorBack)
+    public function __construct($RoofVisorOut = 0, $WallOut = 0, $WallIn = 0, $SideIn2 = 1, $SideIn4 = 0,
+                                $Orientation = 1,
+                                $MaxSide_cm = 300, $MinSide_cm = 60,
+                                $ColorSide = 0, $ColorBack = 0)
     {
         // Заполнение входных данных.
         $this->B5_RoofVisorOut = $RoofVisorOut;
@@ -431,8 +433,10 @@ class L15_2
     private $R15_MaketIzobr; // макет изображения
     private $R16_PlenkaLic; // пленка лицевая
 
-    public function __construct($RoofVisorOut, $WallOut, $WallIn, $SideIn2, $SideIn4, $BolshStorona_cm,
-                                $MenshStorona_cm, $LicIzobr, $MaketIzobr, $PlenkaLic)
+    public function __construct($RoofVisorOut = 0, $WallOut = 0, $WallIn = 0, $SideIn2 = 1, $SideIn4 = 0,
+                                $BolshStorona_cm = 300, $MenshStorona_cm = 60,
+                                $LicIzobr = 1,
+                                $MaketIzobr = 1, $PlenkaLic = 3)
     {
         // Заполнение входных данных.
         $this->R5_RoofVisorOut = $RoofVisorOut;
@@ -1531,8 +1535,10 @@ class L15_3
 
     public $AH15_Konstruct; // конструктив
 
-    public function __construct($RoofVisorOut, $WallOut, $WallIn, $SideIn2, $SideIn4, $Orientation,
-                                $MaxSide_cm, $MinSide_cm, $Konstruct)
+    public function __construct($RoofVisorOut = 0, $WallOut = 0, $WallIn = 0, $SideIn2 = 1, $SideIn4 = 0,
+                                $Orientation = 1,
+                                $MaxSide_cm = 300, $MinSide_cm = 60,
+                                $Konstruct = 2)
     {
         // Заполнение входных данных.
         $this->AH5_RoofVisorOut = $RoofVisorOut;
