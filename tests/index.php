@@ -1,4 +1,6 @@
 <?php
+
+
 namespace almaz44\light\calculator;
 //header("!doctype html");
 // headers are sent to prevent browsers from caching
