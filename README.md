@@ -2,7 +2,7 @@ yii2-light-calculator
 =====================
 Light Calculator Api
 
-Добро пожаловать в группу участников разработки PHP калькулятора Light24-master
+Добро пожаловать в группу участников разработки PHP калькулятора Light24
 ====
 
 Installation
