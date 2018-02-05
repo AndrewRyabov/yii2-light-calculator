@@ -1,6 +1,4 @@
 <?php
-
-
 namespace almaz44\light\calculator;
 //header("!doctype html");
 // headers are sent to prevent browsers from caching
@@ -30,8 +28,9 @@ $L09 = new L09();
 
 
 $L15_1 = new L15_1();
+$L15_2 = new L15_2();
 $L15_3 = new L15_3();
-$L15_4 = new L15_4();
+
 
 $L16_1 = new L16_1();
 $L16_3 = new L16_2();
@@ -41,7 +40,6 @@ $L16_3 = new L16_3();
 $L17_1 = new L17_1();
 $L17_2 = new L17_2();
 $L17_3 = new L17_3();
-$L17_4 = new L17_4();
 
 $L18_1 = new L18_1();
 $L18_2 = new L18_2();
@@ -51,16 +49,6 @@ $L18_4 = new L18_4();
 $L19_1 = new L19_1();
 $L19_2 = new L19_2();
 
-$L25_Integrator = new L25_Integrator();
-
-$L30_Buffer = new L30_Buffer();
-
-$L31_1 = new L31_1();
-$L31_2 = new L31_2();
-$L31_3 = new L31_3();
-
-$L32_1 = new L32_1();
-$L32_2 = new L32_2();
 
 $L25 = new L25();
 
