@@ -1,7 +1,5 @@
 <?php namespace almaz44\light\calculator;
 //
-
-
 /**
  * ИСХОДНЫЕ ДАННЫЕ.
  * Created by PhpStorm.
