@@ -16,16 +16,14 @@ class L09
     public $B5_S_Light; // S_light
 
     // C_light_2
-
-
     // шаг  0
-    public $J4_VarIspoln; // вариант исполнения
+    public $J4_VarIspoln; // вариант исполнения (1-крыша/2-улица/3-помещ/4-2 стор/5-4 стор)
 
     // шаг  1
-    public $J21_Orientation; // ориентация
+    public $J21_Orientation; // ориентация (1-гор/2-верт)
     public $J22_MaxSide_cm; // большая сторона, см
     public $J23_MinSide_cm; // меньшая сторона, см
-    public $J24_FrontImg; // лицевое изображение
+    public $J24_FrontImg; // лицевое изображение (1-есть/2-нет)
     public $J25_ColorSide; // цвет бортов
     public $J26_ColorBack; // цвет тыла
 
@@ -35,10 +33,10 @@ class L09
     public $J32_LevNijnUgolRad; // левый нижний угол радиус (0/6/12), см
 
     // шаг  2
-    public $J38_MaketImg; // макет изображения
+    public $J38_MaketImg; // макет изображения (1-зак/2-L24)
     public $J39_PlenkLic; // пленка лицевая
-    public $J40_PlasticLic; // пластик лицевой
-    public $J41_Light; // источник света
+    public $J40_PlasticLic; // пластик лицевой (1-полик/2-акрил)
+    public $J41_Light; // источник света (1-диоды внеш / 2-диоды встроен / 3-лампы)
 
     // шаг  3
 
@@ -53,9 +51,8 @@ class L09
         // Заполнение входных данных.
         $this->B4_C_light = $C_light;
         $this->B5_S_Light = $S_Light;
+
         // C_light_2
-
-
         // шаг 0
         $this->J4_VarIspoln = $VarIspoln;
 
