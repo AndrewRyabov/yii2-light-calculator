@@ -23,7 +23,6 @@ include_once '../src/L18.php';
 include_once '../src/L19.php';
 include_once '../src/L25.php';
 
-
 // инициализация классов
 $L09 = new L09();
 
