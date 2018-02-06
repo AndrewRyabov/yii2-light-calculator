@@ -52,7 +52,6 @@ $L19_2 = new L19_2();
 
 $L25 = new L25();
 
-
 // HTML код страницы:
 ?>
 <!DOCTYPE HTML>
