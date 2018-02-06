@@ -7,7 +7,6 @@
  */
 
 echo '<br>J38_MaketImg=' . $L09->J38_MaketImg;
-echo '<br>J39_FilmFront=' . $L09->J39_FilmFront;
-echo '<br>J40_PlasticFront=' . $L09->J40_PlasticFront;
+echo '<br>J39_PlenkLic=' . $L09->J39_PlenkLic;
+echo '<br>J40_PlasticLic=' . $L09->J40_PlasticLic;
 echo '<br>J41_Light=' . $L09->J41_Light;
-echo '<br>J42_Konstruktiv=' . $L09->J42_Konstruktiv;
