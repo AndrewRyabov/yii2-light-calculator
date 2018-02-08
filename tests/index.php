@@ -79,51 +79,10 @@ $L25 = new L25();
     <a href="box.php">тест корзины</a>
 </p>
 <!------------------------------------------------------------------------->
-<table border="1">
-    <tr>
-        <td colspan="4" align="center">Class 09</td>
-        <td></td>
-        <td align="center">Class 25 - Итого</td>
-    </tr>
-    <tr>
-        <td>Cloud Calculator</td>
-        <td>Шаг 0</td>
-        <td>Шаг 1</td>
-        <td>Шаг 2</td>
-        <td></td>
-        <td>Итого</td>
-    </tr>
-    <tr>
-        <td><?php include_once 'L09.php' ?></td>
-        <td><?php include_once 'L09_0.php' ?></td>
-        <td><?php include_once 'L09_1.php' ?></td>
-        <td><?php include_once 'L09_2.php' ?></td>
-        <td></td>
-        <td><?php include_once 'L25_Itogo.php' ?></td>
-    </tr>
-</table>
+<?php include_once 'L09.php' ?>
 <!------------------------------------------------------------------------->
 <br><br>
-<table border="1">
-    <tr>
-        <td colspan="13" align="center">Class 10</td>
-    </tr>
-    <tr>
-        <td>Оперативные стоимости</td>  <td>Коэффициенты организация</td>
-        <td>Листовые материалы</td>     <td>Клеи, лкм</td>
-        <td>Плёнки</td>                 <td>Упаковка</td>       <td>Транспорт</td>
-        <td>Электрика</td>
-        <td>Металл, Профиль, Кронштейн, Крепёж</td>
-        <td>Коэф. техно 1</td>
-        <td>Коэф. техно 2</td>
-        <td>Трудоёмкость 1</td>
-        <td>Трудоёмкость 2</td>
-    </tr>
-    <tr>
-        <td><?php include_once 'L10.php' ?></td>
-    </tr>
-
-</table>
+<?php include_once 'L10.php' ?>
 <?php return(0) ?>
 <!------------------------------------------------------------------------->
 <br><br>
