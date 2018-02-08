@@ -8,16 +8,16 @@
  */
 // Оперативные стоимости. -----------------------------------------------
 // 1. Ежедневные. 4-12(B-F)
-const L10_C6_Dollar = 28; // доллар
+const L10_C6_Dollar = 27; // доллар
 const L10_C7_Euro = 32; // евро
 
 const L10_C9_BenzinL = 26; // бензин 1 л
-const L10_C10_Dizel = 26; // дизель 1 л
-const L10_C11_Gaz = 15; // газ 1 л
+const L10_C10_Dizel = 23; // дизель 1 л
+const L10_C11_Gaz = 14; // газ 1 л
 
 // 2. Ежемесячные. 15-16(B-F)
 const L10_C23_DvpWhite3mm = 250; // двп белое 3 мм, 2.85*2.07 м
-const L10_C24_CatDvp = 6; // раскрой двп, 1 мп
+const L10_C24_CatDvp = 3; // раскрой двп, 1 мп
 
 const L10_C27_ProfilCD05 = 54; // профиль CD  0.5 мм, 3 мп
 const L10_C28_Samorez19 = 0.3; // саморез 19 мм, цинк, бур
@@ -31,7 +31,7 @@ const L10_C36_CabelCu = 8; // кабель, медь, 1 мм2 (13 А)
 const L10_C40_RitramaPrint = 100; // Ritrama печать 1 м2, 720 dpi
 
 const L10_C43_LazporezAkril3mm1mp = 12; // лазер порезка акрила 3 мм, 1 мп
-const L10_C44_PlotterCut = 1.2; // плоттерная порезка, 1 мп
+const L10_C44_PlotterCut = 1.5; // плоттерная порезка, 1 мп
 
 const L10_C48_KartonGofro = 25; // гофро картон, 4 мм, 1 м2
 const L10_C49_Streich20mkm = 160; // стрейч 20 мкм, 300 м*0.5 м
@@ -126,7 +126,7 @@ const L10_U15_Oracal8500SK = 3.1; // Oracal 8500 (свет, коэф.)
 define('L10_U25_AssemblyFilm_', 1.26 * L10_C7_Euro);
 const L10_U25_AssemblyFilm = L10_U25_AssemblyFilm_; // монтажная пленка
 
-const L10_U27_PlotterCutLexx = 1.2; // плоттер порезка, Lexx
+const L10_U27_PlotterCutLexx = L10_C44_PlotterCut; // плоттер порезка, Lexx
 
 // 7. Упакова. 75-110(T-AB)
 define('L10_U77_PlenkaStrech_20mkm_1m2_', L10_C49_Streich20mkm / 150);
@@ -407,6 +407,12 @@ const L10_BB114_K_ProbAvtSnabj100kmVivesStandart = 0.5; // пробег авто
 // 12. Коэфициенты, техно 2. 4-140(BA-BG)
 
 // 13. Трудоёмкость. 4-140(BS-BY)
+const L10_BK6_GlubinaBort1StorViveskaLampi_m =0.12; //глубина борт 1 стор вывеска лампы, м
+const L10_BK7_GlubinaBort1StorViveskaLentiDiod_m =0.09; //глубина борт 1 стор вывеска ленты диод, м
+const L10_BK8_GlubinaBort2StorViveskaLentiDiod_m =0.18; //глубина борт 2 стор вывеска ленты диод, м
+const L10_BK9_GlubinaDopDlaVivesokBolee4m =0.03; //глубина доп для вывесок более 4 м, м
+const L10_BK10_GranichnaaVisotaSvazUvelVisotiBorta = 0.8; //граничная высота связ увел высоты борта, м
+const L10_BK11_GranichnaaDlinaSvazUvelVisotiBorta = 4; //граничная длина связ увел высоты борта, м
 const L10_BT6_RaskrAkrylPryamougl_1mp = 4.5; // раскрой акрил прямоугольников, 1 мп
 const L10_BT7_RaskrPVHPolykPryamougl_1mp = 3.5; // раскрой пвх/полик. Прямоугольников, 1 мп
 const L10_BT8_PVHPogonaj_1mp = 2; // пвх погонаж, 1 мп
