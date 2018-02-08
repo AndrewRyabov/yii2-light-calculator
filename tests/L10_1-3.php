@@ -24,6 +24,7 @@ echo '<br>L10_C27_ProfilCD05=' . L10_C27_ProfilCD05;
 echo '<br>L10_C28_Samorez19=' . L10_C28_Samorez19;
 echo '<br>L10_C29_Truba2020Black=' . L10_C29_Truba2020Black;
 echo '<br>L10_C30_Truba2020Al=' . L10_C30_Truba2020Al;
+echo '<br>L10_C31_PlankDer25x15mm=' . L10_C31_PlankDer25x15mm;
 
 echo '<br>L10_C33_Paint=' . L10_C33_Paint;
 
