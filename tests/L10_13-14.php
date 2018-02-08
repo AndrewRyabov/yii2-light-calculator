@@ -55,5 +55,6 @@ echo '<br>L10_BT75_SnabjStandartVives1i8m2=' . L10_BT75_SnabjStandartVives1i8m2;
 echo '<br>L10_BT76_EzdPoGorodu_minNAkm=' . L10_BT76_EzdPoGorodu_minNAkm;
 echo '<br>L10_BT77_EzdZaGorodom_minNAkm=' . L10_BT77_EzdZaGorodom_minNAkm;
 
+echo '</td><td>';
 // ==================================================================
-echo '<br><br>14. Трудоёмкость. 2<hr>';
+echo '<br><br><b>14. Трудоёмкость. 2</b><hr>';
