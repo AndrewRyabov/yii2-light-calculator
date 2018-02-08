@@ -13,7 +13,7 @@ const L10_C6_Dollar = 28; // доллар
 const L10_C7_Euro = 32; // евро
 
 const L10_C9_BenzinL = 26; // бензин 1 л
-const L10_C10_Dizel = 23; // дизель 1 л
+const L10_C10_Dizel = 26; // дизель 1 л
 const L10_C11_Gaz = 15; // газ 1 л
 
 // 2. Ежемесячные. 15-16(B-F)
@@ -24,29 +24,30 @@ const L10_C27_ProfilCD05 = 54; // профиль CD  0.5 мм, 3 мп
 const L10_C28_Samorez19 = 0.3; // саморез 19 мм, цинк, бур
 const L10_C29_Truba2020Black = 28; // труба 20*20 мм, черн., 1 мп
 const L10_C30_Truba2020Al = 43; // труба 20*20*1.5 мм, AL, 1 мп
+const L10_C31_PlankDer25x15mm = 6; // планка дерево 25*15 мм, 1 мп
 
-const L10_C33_Paint = 55; // краска 1 л
+const L10_C33_Paint = 100; // аэрозоль краска, 0,5 л
 
 const L10_C36_CabelCu = 8; // кабель, медь, 1 мм2 (13 А)
 
 const L10_C40_RitramaPrint = 100; // Ritrama печать 1 м2, 720 dpi
 
 const L10_C43_LazporezAkril3mm1mp = 12; // лазер порезка акрила 3 мм, 1 мп
-const L10_C44_PlotterCut = 1.5; // плоттерная порезка, 1 мп
+const L10_C44_PlotterCut = 1.7; // плоттерная порезка, 1 мп
 
 const L10_C48_KartonGofro = 25; // гофро картон, 4 мм, 1 м2
 const L10_C49_Streich20mkm = 160; // стрейч 20 мкм, 300 м*0.5 м
-const L10_C50_Scotch20050 = 30; // скотч клей, 200 м*50 мм
+const L10_C50_Scotch20050 = 35; // скотч клей, 200 м*50 мм
 
 // 3. Коэфициенты организации. 65-110(B-F)
-const L10_C67_K1 = 0.7;
-const L10_C68_K2 = 0.3;
-const L10_C69_K3 = 0.1;
-const L10_C70_K4 = 0.2;
-const L10_C71_K5 = 0.05;
-const L10_C72_K6 = 0.03;
-const L10_C73_K7 = 1.2;
-const L10_C74_K8 = 1.07;
+const L10_C67_K1 = 0.8;
+const L10_C68_K2 = 30;
+const L10_C69_K3 = 10;
+const L10_C70_K4 = 15;
+const L10_C71_K5 = 5;
+const L10_C72_K6 = 2;
+const L10_C73_K7 = 20;
+const L10_C74_K8 = 10;
 
 // 4. Листовые материалы. 4-110(I-Q)
 define('L10_J6_Plikarb4S_', 4.69 * L10_C7_Euro);
@@ -83,13 +84,13 @@ const L10_L24_PVH_4mmP = 2.4; // пвх 4 мм (плотность)
 
 define('L10_J25_PVH_5mmS_', 7.5 * L10_C7_Euro);
 const L10_J25_PVH_5mmS = L10_J25_PVH_5mmS_; // пвх 5 мм (стоимость)
-const L10_K25_PVH_5mmT = 4; // пвх 5 мм (толщина)
+const L10_K25_PVH_5mmT = 5; // пвх 5 мм (толщина)
 const L10_L25_PVH_5mmP = 3; // пвх 5 мм (плотность)
 
 define('L10_J28_DVPWhiteS_', L10_C23_DvpWhite3mm / 5.9);
 const L10_J28_DVPWhiteS = L10_J28_DVPWhiteS_; // двп белое (стоимость)
 const L10_K28_DVPWhiteT = 3; // двп белое (толщина)
-const L10_L28_DVPWhiteP = 2.4; // двп белое (плотность)
+const L10_L28_DVPWhiteP = 2.3; // двп белое (плотность)
 
 const L10_J40_RaskrAkrlLazS = L10_C43_LazporezAkril3mm1mp; // раскрой акрила, лазер (стоимость)
 const L10_J44_RaskrDVPS = L10_C24_CatDvp; // раскрой двп (стоимость)
@@ -103,7 +104,7 @@ const L10_K117_CosmofenPlusPVH_200mlSmp = L10_K117_CosmofenPlusPVH_200mlSmp_; //
 define('L10_J123_Silicon_300mlSsht_', L10_C6_Dollar * 2);
 const L10_J123_Silicon_300mlSsht = L10_J123_Silicon_300mlSsht_; // силикон, 300 мл (стоимость 1 шт/уп, грн)
 
-define('L10_J124_Fixit_1up_300mlSsht_', 7.4 * L10_C6_Dollar);
+define('L10_J124_Fixit_1up_300mlSsht_', 7.3 * L10_C6_Dollar);
 const L10_J124_Fixit_1up_300mlSsht = L10_J124_Fixit_1up_300mlSsht_; // Fix-it, 1 уп, 300 мл (стоимость 1 шт/уп, грн)
 define('L10_K124_Fixit_1up_300mlSmp_', L10_J124_Fixit_1up_300mlSsht / 25);
 const L10_K124_Fixit_1up_300mlSmp = L10_K124_Fixit_1up_300mlSmp_; // Fix-it, 1 уп, 300 мл (стоимость 1 мп шва, грн)
@@ -138,14 +139,34 @@ const L10_U81_SkotchChinese_1mp = L10_U81_SkotchChinese_1mp_; // скотч "к�
 
 const L10_U85_GofroCardboard_4mm = L10_C48_KartonGofro; // гофрокартон 4 мм
 
-// 8. Транспорт. 115-130(T-AB)
-const L10_V117_Gazel_l100km = 23;
-define('L10_U117_Gazel_grn_', L10_V117_Gazel_l100km * L10_C10_Dizel);
-const L10_U117_Gazel_grn = L10_U117_Gazel_grn_;
+const L10_U92_PlankUpakDer25x15 = L10_C31_PlankDer25x15mm; // планка "упак" дерево 25*15 (1 м2/мп, грн)
+const L10_V92_PlankUpakDer25x15 = 0.17; // планка "упак" дерево 25*15
 
-const L10_V118_Doblo_l100km = 12;
-define('L10_U118_Doblo_grn_', L10_V118_Doblo_l100km * L10_C10_Dizel);
-const L10_U118_Doblo_grn = L10_U118_Doblo_grn_;
+define('L10_U97DVPUpak_', 0.52 * L10_J28_DVPWhiteS);
+const L10_U97DVPUpak = L10_U97DVPUpak_; // двп упаковочное (1 м2/мп, грн)
+define('L10_V97DVPUpak_', L10_L28_DVPWhiteP / 2.1);
+const L10_V97DVPUpak = L10_V97DVPUpak_; // двп упаковочное (1 м2/мп, грн)
+
+// 8. Транспорт. 115-130(T-AB)
+define('L10_U120Gaz1DostKNPgrn100_', 8 * L10_C10_Dizel);
+const L10_U120Gaz1DostKNPgrn100 = L10_U120Gaz1DostKNPgrn100_; // "Газель" 1 доставка к НП (грн/100 км)
+const L10_U121Doblo1DostKNPgrn100 = 0.15; // "Добло" 1 доставка к НП (грн/100 км)
+const L10_V122GazProbeg = 23; // "Газель" пробег
+define('L10_U122GazProbeg_', L10_V122GazProbeg * L10_C10_Dizel);
+const L10_U122GazProbeg = L10_U122GazProbeg_; // "Газель" пробег (грн/100 км)
+const L10_V123DobloProbeg = 10; // "Добло" пробег
+define('L10_U123DobloProbeg_', L10_V123DobloProbeg * L10_C10_Dizel);
+const L10_U123DobloProbeg = L10_U123DobloProbeg_; // "Газель" пробег (грн/100 км)
+
+const L10_U127MaxEmkDoblom3 = 8; // мах емкость "Газель", м3
+const L10_U128MaxEmkGazm3 = 2; // мах емкость "Добло", м3
+
+const L10_U130_K_DobloN1m = 3.2; // коэф "Добло" №1, м
+const L10_U131_K_DobloN1m = 1.1; // коэф "Добло" №2, м
+const L10_U132_K_DobloN1m = 0.9; // коэф "Добло" №3, м
+const L10_U133_K_DobloN1m = 4.2; // коэф "Добло" №4, м
+const L10_U134_K_DobloN1m = 0.9; // коэф "Добло" №5, м
+const L10_U135_K_DobloN1m = 0.55; // коэф "Добло" №6, м
 
 // 9. Электрика. 4-110(AE-AN)
 define('L10_AF6_LampMulage0459mmS_', 100 * L10_C6_Dollar);
