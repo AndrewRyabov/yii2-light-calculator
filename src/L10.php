@@ -239,63 +239,52 @@ define('L10_AF29_PowerSupply_360VT_IP20S_', 18.5 * L10_C6_Dollar);
 const L10_AF29_PowerSupply_360VT_IP20S = L10_AF29_PowerSupply_360VT_IP20S_; // блок питания 360 ВТ, IP20 (стоимость 1 шт/мп, грн)
 const L10_AG29_PowerSupply_360VT_IP20V = 0.9; // блок питания 360 ВТ, IP20 (вес 1 шт/мп, кг)
 
-define('L10_AF40_PowerSupply_20VT_IP65S_', 5.4 * L10_C6_Dollar);
-const L10_AF40_PowerSupply_20VT_IP65S = L10_AF40_PowerSupply_20VT_IP65S_; // блок питания 20 ВТ, IP65 (стоимость 1 шт/мп, грн)
-const L10_AG40_PowerSupply_20VT_IP65V = 0.2; // блок питания 20 ВТ, IP65 (вес 1 шт/мп, кг)
+define('L10_AF30_PowerSupply_500VT_IP20S_', 26.4 * L10_C6_Dollar);
+const L10_AF30_PowerSupply_500VT_IP20S = L10_AF30_PowerSupply_500VT_IP20S_; // блок питания 500 ВТ, IP20 (стоимость 1 шт/мп, грн)
+const L10_AG30_PowerSupply_500VT_IP20V = 1.1; // блок питания 500 ВТ, IP20 (вес 1 шт/мп, кг)
 
-define('L10_AF41_PowerSupply_30VT_IP65S_', 6.6 * L10_C6_Dollar);
-const L10_AF41_PowerSupply_30VT_IP65S = L10_AF41_PowerSupply_30VT_IP65S_; // блок питания 30 ВТ, IP65 (стоимость 1 шт/мп, грн)
-const L10_AG41_PowerSupply_30VT_IP65V = 0.3; // блок питания 30 ВТ, IP65 (вес 1 шт/мп, кг)
-
-define('L10_AF42_PowerSupply_45VT_IP65S_', 9 * L10_C6_Dollar);
-const L10_AF42_PowerSupply_45VT_IP65S = L10_AF42_PowerSupply_45VT_IP65S_; // блок питания 45 ВТ, IP65 (стоимость 1 шт/мп, грн)
-const L10_AG42_PowerSupply_45VT_IP65V = 0.4; // блок питания 45 ВТ, IP65 (вес 1 шт/мп, кг)
-
-define('L10_AF43_PowerSupply_60VT_IP65S_', 13.5 * L10_C6_Dollar);
-const L10_AF43_PowerSupply_60VT_IP65S = L10_AF43_PowerSupply_60VT_IP65S_; // блок питания 60 ВТ, IP65 (стоимость 1 шт/мп, грн)
-const L10_AG43_PowerSupply_60VT_IP65_V = 0.5; // блок питания 60 ВТ, IP65 (вес 1 шт/мп, кг)
-
-define('L10_AF44_PowerSupply_100VT_IP65S_', 20.6 * L10_C6_Dollar);
-const L10_AF44_PowerSupply_100VT_IP65S = L10_AF44_PowerSupply_100VT_IP65S_; // блок питания 100 ВТ, IP65 (стоимость 1 шт/мп, грн)
-const L10_AG44_PowerSupply_100VT_IP65V = 0.6; // блок питания 100 ВТ, IP65 (вес 1 шт/мп, кг)
-
-define('L10_AF45_PowerSupply_150VT_IP65S_', 31.8 * L10_C6_Dollar);
-const L10_AF45_PowerSupply_150VT_IP65S = L10_AF45_PowerSupply_150VT_IP65S_; // блок питания 150 ВТ, IP65 (стоимость 1 шт/мп, грн)
-const L10_AG45_PowerSupply_150VT_IP65V = 0.7; // блок питания 150 ВТ, IP65 (вес 1 шт/мп, кг)
-
-define('L10_AF46_PowerSupply_200VT_IP65S_', 32.7 * L10_C6_Dollar);
-const L10_AF46_PowerSupply_200VT_IP65S = L10_AF46_PowerSupply_200VT_IP65S_; // блок питания 200 ВТ, IP65 (стоимость 1 шт/мп, грн)
-const L10_AG46_PowerSupply_200VT_IP65V = 0.8; // блок питания 200 ВТ, IP65 (вес 1 шт/мп, кг)
+define('L10_AF31_PowerSupply_600VT_IP20S_', 36.3 * L10_C6_Dollar);
+const L10_AF31_PowerSupply_600VT_IP20S = L10_AF31_PowerSupply_600VT_IP20S_; // блок питания 600 ВТ, IP20 (стоимость 1 шт/мп, грн)
+const L10_AG31_PowerSupply_600VT_IP20V = 1.3; // блок питания 600 ВТ, IP20 (вес 1 шт/мп, кг)
 
 define('L10_AF57_Claster3750_3kr_IP65S_', 0.25 * L10_C6_Dollar);
 const L10_AF57_Claster3750_3kr_IP65S = L10_AF57_Claster3750_3kr_IP65S_; // кластер 3750, 3 кр., IP65 (стоимость 1 шт/мп, грн)
-const L10_AF57_Claster3750_3kr_IP65V = 0.02; // кластер 3750, 3 кр., IP65 (вес 1 шт/мп, кг)
-const L10_AF57_Claster3750_3kr_IP65R = 90; // кластер 3750, 3 кр., IP65 (размер в сборе, мм)
-const L10_AF57_Claster3750_3kr_IP65P = 1.4; // кластер 3750, 3 кр., IP65 (потребление 1 шт/мп, Вт)
+const L10_AG57_Claster3750_3kr_IP65V = 0.02; // кластер 3750, 3 кр., IP65 (вес 1 шт/мп, кг)
+const L10_AH57_Claster3750_3kr_IP65R = 90; // кластер 3750, 3 кр., IP65 (размер в сборе, мм)
+const L10_AL57_Claster3750_3kr_IP65P = 1.3; // кластер 3750, 3 кр., IP65 (потребление 1 шт/мп, Вт)
+const L10_AJ57_Claster3750_3kr_IP65M = 0.9; // кластер 3750, 3 кр., IP65 (реал мощность 1 шт/мп, Вт, А)
 
 define('L10_AF58_AlPolosa3750_IP20S_', 1.6 * L10_C6_Dollar);
 const L10_AF58_AlPolosa3750_IP20S = L10_AF58_AlPolosa3750_IP20S_; // AL полоса 3750, IP20 (стоимость 1 шт/мп, грн)
-const L10_AF58_AlPolosa3750_IP20V = 0.05; // AL полоса 3750, IP20 (вес 1 шт/мп, кг)
-const L10_AF58_AlPolosa3750_IP20R = 1000; // AL полоса 3750, IP20 (размер в сборе, мм)
-const L10_AF58_AlPolosa3750_IP20P = 18; // AL полоса 3750, IP20 (потребление 1 шт/мп, Вт)
+const L10_AG58_AlPolosa3750_IP20V = 0.05; // AL полоса 3750, IP20 (вес 1 шт/мп, кг)
+const L10_AH58_AlPolosa3750_IP20R = 1000; // AL полоса 3750, IP20 (размер в сборе, мм)
+const L10_AL58_AlPolosa3750_IP20P = 18; // AL полоса 3750, IP20 (потребление 1 шт/мп, Вт)
+const L10_AJ58_AlPolosa3750_IP20M= 12.5; // AL полоса 3750, IP20 (реал мощность 1 шт/мп, Вт, А)
 
-define('L10_AF59_LentaPlastik3750_IP20S_', 1.2 * L10_C6_Dollar);
-const L10_AF59_LentaPlastik3750_IP20S = L10_AF59_LentaPlastik3750_IP20S_; // лента пластик 3750, IP20 (стоимость 1 шт/мп, грн)
-const L10_AF59_LentaPlastik3750_IP20V = 0.04; // лента пластик 3750, IP20 (вес 1 шт/мп, кг)
-const L10_AF59_LentaPlastik3750_IP65R = 6000; // лента пластик 3750, IP20 (размер в сборе, мм)
-const L10_AF59_LentaPlastik3750_IP65P = 14.4; // лента пластик 3750, IP20 (потребление 1 шт/мп, Вт)
+define('L10_AF59_LentaDeod3750_IP20S_', 1.12 * L10_C6_Dollar);
+const L10_AF59_LentaDeod3750_IP20S = L10_AF59_LentaDeod3750_IP20S_; // лента пластик 3750, IP20 (стоимость 1 шт/мп, грн)
+const L10_AG59_LentaDeod3750_IP20V = 0.04; // лента пластик 3750, IP20 (вес 1 шт/мп, кг)
+const L10_AH59_LentaDeod3750_IP65R = 6000; // лента пластик 3750, IP20 (размер в сборе, мм)
+const L10_AL59_LentaDeod3750_IP65P = 14.4; // лента пластик 3750, IP20 (потребление 1 шт/мп, Вт)
+const L10_AJ59_LentaDeod3750_IP65M = 10; // лента пластик 3750, IP20 (реал мощность 1 шт/мп, Вт, А)
 
-define('L10_AF60_ConnectorForAE57S_', 0.35 * L10_C6_Dollar);
-const L10_AF60_ConnectorForAE57S = L10_AF60_ConnectorForAE57S_; // соеденитель для AE 57 (стоимость 1 шт/мп, грн)
-const L10_AF60_ConnectorForAE57V = 0.02; // соеденитель для AE 57 (вес 1 шт/мп, кг)
+define('L10_AF60_LentaDeodAleks_IP20S_', 1.3 * L10_C6_Dollar);
+const L10_AF60_LentaDeodAleks_IP20S = L10_AF60_LentaDeodAleks_IP20S_; // лента диодная 4.6, "Алексей", IP20 (стоимость 1 шт/мп, грн)
+const L10_AG60_LentaDeodAleks_IP20V = 0.04; // лента диодная 4.6, "Алексей", IP20 (вес 1 шт/мп, кг)
 
-define('L10_AF61_FinishForAE57S_', 0.5 * L10_C6_Dollar);
-const L10_AF61_FinishForAE57S = L10_AF61_FinishForAE57S_; // финиш для AE 57 (стоимость 1 шт/мп, грн)
-const L10_AF61_FinishForAE57V = 0.02; // финиш для AE 57 (вес 1 шт/мп, кг)
+define('L10_AF67_ConnectorForAE57S_', 0.35 * L10_C6_Dollar);
+const L10_AF67_ConnectorForAE57S = L10_AF67_ConnectorForAE57S_; // соеденитель для AE 57 (стоимость 1 шт/мп, грн)
+const L10_AG67_ConnectorForAE57V = 0.02; // соеденитель для AE 57 (вес 1 шт/мп, кг)
+
+define('L10_AF68_FinishForAE57S_', 0.5 * L10_C6_Dollar);
+const L10_AF68_FinishForAE57S = L10_AF68_FinishForAE57S_; // финиш для AE 57 (реал мощность 1 шт/мп, Вт, А)
+const L10_AG68_FinishForAE57V = 0.02; // финиш для AE 57 (вес 1 шт/мп, кг)
 
 const L10_AF79_CabelCu_1mm2_13A = L10_C36_CabelCu; // кабель медь, 1 мм2 (13 А) (стоимость 1 шт/мп, грн)
+const L10_AJ79_CabelCu_1mm2_13A = 13; // кабель медь, 1 мм2 (13 А) (стоимость 1 шт/мп, грн)
 define('L10_AF80_CabelCu_15mm2_20A_', 1.54 * L10_AF79_CabelCu_1mm2_13A);
 const L10_AF80_CabelCu_15mm2_20A = L10_AF80_CabelCu_15mm2_20A_; // кабель медь, 1,5 мм2 (20 А) (стоимость 1 шт/мп, грн)
+const L10_AJ80_CabelCu_15mm2_20A = 20; // кабель медь, 1 мм2 (13 А) (стоимость 1 шт/мп, грн)
 define('L10_AF80_ProvodPV1_05mm_', 0.32 * L10_AF79_CabelCu_1mm2_13A);
 const L10_AF80_ProvodPV1_05mm = L10_AF80_ProvodPV1_05mm_; // провод ПВ1,  0,5 мм (стоимость 1 шт/мп, грн)
 define('L10_AF80_ProvodPV1_075mm_', 0.45 * L10_AF79_CabelCu_1mm2_13A);
