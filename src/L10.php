@@ -270,22 +270,37 @@ const L10_AJ79_CabelCu_1mm2_13A = 13; // кабель медь, 1 мм2 (13 А) 
 define('L10_AF80_CabelCu_15mm2_20A_', 1.54 * L10_AF79_CabelCu_1mm2_13A);
 const L10_AF80_CabelCu_15mm2_20A = L10_AF80_CabelCu_15mm2_20A_; // кабель медь, 1,5 мм2 (20 А) (стоимость 1 шт/мп, грн)
 const L10_AJ80_CabelCu_15mm2_20A = 20; // кабель медь, 1 мм2 (13 А) (стоимость 1 шт/мп, грн)
-define('L10_AF80_ProvodPV1_05mm_', 0.32 * L10_AF79_CabelCu_1mm2_13A);
-const L10_AF80_ProvodPV1_05mm = L10_AF80_ProvodPV1_05mm_; // провод ПВ1,  0,5 мм (стоимость 1 шт/мп, грн)
-define('L10_AF80_ProvodPV1_075mm_', 0.45 * L10_AF79_CabelCu_1mm2_13A);
-const L10_AF80_ProvodPV1_075mm = L10_AF80_ProvodPV1_075mm_; // провод ПВ1,  0,75 мм (стоимость 1 шт/мп, грн)
-define('L10_AF80_ProvodPV1_1mm_', 0.6 * L10_AF79_CabelCu_1mm2_13A);
-const L10_AF80_ProvodPV1_1mm = L10_AF80_ProvodPV1_1mm_; // провод ПВ1,  1 мм (стоимость 1 шт/мп, грн)
+define('L10_AF81_ProvodPV1_05mm_', 0.32 * L10_AF79_CabelCu_1mm2_13A);
+const L10_AF81_ProvodPV1_05mm = L10_AF81_ProvodPV1_05mm_; // провод ПВ1,  0,5 мм (стоимость 1 шт/мп, грн)
+define('L10_AF82_ProvodPV1_075mm_', 0.45 * L10_AF79_CabelCu_1mm2_13A);
+const L10_AF82_ProvodPV1_075mm = L10_AF82_ProvodPV1_075mm_; // провод ПВ1,  0,75 мм (стоимость 1 шт/мп, грн)
+define('L10_AF83_ProvodPV1_1mm_', 0.6 * L10_AF79_CabelCu_1mm2_13A);
+const L10_AF83_ProvodPV1_1mm = L10_AF83_ProvodPV1_1mm_; // провод ПВ1,  1 мм (стоимость 1 шт/мп, грн)
 
 // 10. Металл, профиль цинк, кронштейн, крепёж. 4-110(AQ-AX)
 const L10_AR6_TrubaBlack_2020mm = L10_C29_Truba2020Black; // труба черн. 20*20 мм (стоимость 1 шт/мп, грн)
+const L10_AS6_TrubaBlack_2020mm = 1.25; // труба черн. 20*20 мм (вес 1 шт/мп, кг)
 define('L10_AR7_TrubaBlack_4040mm_', L10_AR6_TrubaBlack_2020mm * 1.7);
 const L10_AR7_TrubaBlack_4040mm = L10_AR7_TrubaBlack_4040mm_; // труба черн. 40*40 мм (стоимость 1 шт/мп, грн)
+const L10_AS7_TrubaBlack_4040mm = 1.85; // труба черн. 40*40 мм (вес 1 шт/мп, кг)
+
+define('L10_AR9_TrubaBlack_4025mm_', L10_AR6_TrubaBlack_2020mm * 1.9);
+const L10_AR9_TrubaBlack_4025mm = L10_AR9_TrubaBlack_4025mm_; // труба черн. 40*25 мм (стоимость 1 шт/мп, грн)
+const L10_AS9_TrubaBlack_4040mm = 2.35; // труба черн. 40*25 мм (вес 1 шт/мп, кг)
+
+define('L10_AR14_PolosStalChern_20x4mm_', L10_AR6_TrubaBlack_2020mm * 0.63);
+const L10_AR14_PolosStalChern_20x4mm = L10_AR14_PolosStalChern_20x4mm_; // полоса сталь черн. 20*4 мм (стоимость 1 шт/мп, грн)
+const L10_AS14_PolosStalChern_20x4mm = 0.63; // полоса сталь черн. 20*4 мм (вес 1 шт/мп, кг)
+define('L10_AR15_PolosStalChern_50x4mm_', L10_AR6_TrubaBlack_2020mm * 1.47);
+const L10_AR15_PolosStalChern_50x4mm = L10_AR15_PolosStalChern_50x4mm_; // полоса сталь черн. 20*4 мм (стоимость 1 шт/мп, грн)
+const L10_AS15_PolosStalChern_50x4mm = 1.57; // полоса сталь черн. 20*4 мм (вес 1 шт/мп, кг)
 
 define('L10_AR23_ProfileCD_05mm_', L10_C27_ProfilCD05 / 3);
 const L10_AR23_ProfileCD_05mm = L10_AR23_ProfileCD_05mm_; // профиль CD  0.5 мм (стоимость 1 шт/мп, грн)
+const L10_AS23_ProfileCD_05mm = 0.47; // профиль CD  0.5 мм (вес 1 шт/мп, кг)
 define('L10_AR24_ProfileUD_05mm_', L10_AR23_ProfileCD_05mm * 0.65);
 const L10_AR24_ProfileUD_05mm = L10_AR24_ProfileUD_05mm_; // профиль UD  0.5 мм (стоимость 1 шт/мп, грн)
+const L10_AS24_ProfileUD_05mm = 0.35; // профиль UD  0.5 мм (вес 1 шт/мп, кг)
 
 define('L10_AR29_StilcoUgol_50501mm_', L10_AR23_ProfileCD_05mm * 1.65);
 const L10_AR29_StilcoUgol_50501mm = L10_AR29_StilcoUgol_50501mm_; // Стилко уголок 50*50*1 мм (стоимость 1 шт/мп, грн)
@@ -293,23 +308,32 @@ define('L10_AR30_StilcoUgol_505012mm_', L10_AR23_ProfileCD_05mm * 1.8);
 const L10_AR30_StilcoUgol_505012mm = L10_AR30_StilcoUgol_505012mm_; // Стилко уголок 50*50*1,2 мм (стоимость 1 шт/мп, грн)
 define('L10_AR31_StilcoUgol_505014mm_', L10_AR23_ProfileCD_05mm * 2);
 const L10_AR31_StilcoUgol_505014mm = L10_AR31_StilcoUgol_505014mm_; // Стилко уголок 50*50*1,4 мм (стоимость 1 шт/мп, грн)
+define('L10_AR32_StilcoUgol_123012mm_', L10_AR23_ProfileCD_05mm * 1.3);
+const L10_AR32_StilcoUgol_123012mm = L10_AR32_StilcoUgol_123012mm_; // Стилко уголок 50*50*1,4 мм (стоимость 1 шт/мп, грн)
+const L10_AS32_StilcoUgol_123012mm = 0.6; // Стилко уголок 50*50*1,4 мм (вес 1 шт/мп, кг)
 
 define('L10_AR38_BoltMetrichM8x50PlusGaika_', L10_C28_Samorez19 * 7);
 const L10_AR38_BoltMetrichM8x50PlusGaika = L10_AR38_BoltMetrichM8x50PlusGaika_; // болт метрич М8*50 + гайка (стоимость 1 шт/мп, грн)
+const L10_AS38_BoltMetrichM8x50PlusGaika = 0.1; // болт метрич М8*50 + гайка (вес 1 шт/мп, кг)
 
 const L10_AR42_Samorez19ZnBur = L10_C28_Samorez19; // саморез 19, цинк, бур (стоимость 1 шт/мп, грн)
+const L10_AS42_Samorez19ZnBur = 0.001; // саморез 19, цинк, бур (вес 1 шт/мп, кг)
 define('L10_AR43_Samorez19BlackWood_', L10_AR42_Samorez19ZnBur * 0.6);
 const L10_AR43_Samorez19BlackWood = L10_AR43_Samorez19BlackWood_; // саморез 19, черн., дерево (стоимость 1 шт/мп, грн)
+const L10_AS43_Samorez19BlackWood = 0.001; // саморез 19, черн., дерево (вес 1 шт/мп, кг)
 
-const L10_AR48_Kronsht_4x4 = L10_AR23_ProfileCD_05mm; // кронштейн "4*4" (стоимость 1 шт/мп, грн)
 define('L10_AR49_TrosStal_', L10_AR23_ProfileCD_05mm / 9);
 const L10_AR49_TrosStal = L10_AR49_TrosStal_; // трос стальной (стоимость 1 шт/мп, грн)
 define('L10_AR50_ZagimForTrosStal_', L10_AR23_ProfileCD_05mm / 6);
 const L10_AR50_ZagimForTrosStal = L10_AR50_ZagimForTrosStal_; // зажим для троса стального (стоимость 1 шт/мп, грн)
 define('L10_AR51_kronshteynUho_', L10_AR23_ProfileCD_05mm / 2);
 const L10_AR51_kronshteynUho = L10_AR51_kronshteynUho_; // кронштейн "ухо" (стоимость 1 шт/мп, грн)
+const L10_AS51_kronshteynUho = 0.08; // кронштейн "ухо" (вес 1 шт/мп, кг)
 define('L10_AR52_Koush_', L10_AR23_ProfileCD_05mm / 9);
 const L10_AR52_Koush = L10_AR52_Koush_; // "коуш" (стоимость 1 шт/мп, грн)
+define('L10_AR53_BoltKruk_', L10_AR38_BoltMetrichM8x50PlusGaika * 2);
+const L10_AR53_BoltKruk = L10_AR53_BoltKruk_; // болт-крюк (стоимость 1 шт/мп, грн)
+const L10_AS53_BoltKruk = 0.1; // "коуш" (вес 1 шт/мп, кг)
 
 const L10_AR59_TrubaAL_202015mm = L10_C30_Truba2020Al; // труба AL 20*20*1.5 мм (стоимость 1 шт/мп, грн)
 define('L10_AR60_TrubaAL_252515mm_', L10_AR59_TrubaAL_202015mm * 1.23);
@@ -319,8 +343,10 @@ const L10_AR61_TrubaAL_40202mm = L10_AR61_TrubaAL_40202mm_; // труба AL 40*
 
 define('L10_AR69_UgolAL_121215mm_', L10_AR59_TrubaAL_202015mm * 0.35);
 const L10_AR69_UgolAL_121215mm = L10_AR69_UgolAL_121215mm_; // уголок AL 12*12*1.5 мм (стоимость 1 шт/мп, грн)
+const L10_AS69_UgolAL_121215mm = 0.11; // уголок AL 12*12*1.5 мм (вес 1 шт/мп, кг)
 define('L10_AR70_UgolAL_151515mm_', L10_AR59_TrubaAL_202015mm * 0.4);
 const L10_AR70_UgolAL_151515mm = L10_AR70_UgolAL_151515mm_; // уголок AL 15*15*1.5 мм (стоимость 1 шт/мп, грн)
+const L10_AS70_UgolAL_151515mm = 0.14; // уголок AL 15*15*1.5 мм (вес 1 шт/мп, кг)
 
 // 11. Коэфициенты, техно 1. 4-140(BA-BG)
 const L10_BB6_K_PererashodPVH = 1.1; // перерасход пвх
