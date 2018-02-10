@@ -199,41 +199,26 @@ const L10_AF11_Lamp_58VT_S = L10_AF11_Lamp_58VT_S_; // лампа 58 Вт (ст�
 const L10_AG11_Lamp_58VTV = 1.36; // лампа 58 Вт (вес 1 шт/мп, кг)
 const L10_AH11_Lamp_58VTP = 58; // лампа 58 Вт (потребление 1шт/мп, Вт)
 
-define('L10_AF20_PowerSupply_24VT_IP20S_', 2.64 * L10_C6_Dollar);
-const L10_AF20_PowerSupply_24VT_IP20S = L10_AF20_PowerSupply_24VT_IP20S_; // блок питания 24 ВТ, IP20 (стоимость 1 шт/мп, грн)
-const L10_AG20_PowerSupply_24VT_IP20V = 0.15; // блок питания 24 ВТ, IP20 (вес 1 шт/мп, кг)
-
-define('L10_AF21_PowerSupply_36VT_IP20S_', 3.54 * L10_C6_Dollar);
-const L10_AF21_PowerSupply_36VT_IP20S = L10_AF21_PowerSupply_36VT_IP20S_; // блок питания 36 ВТ, IP20 (стоимость 1 шт/мп, грн)
-const L10_AG21_PowerSupply_36VT_IP20V = 0.2; // блок питания 36 ВТ, IP20 (вес 1 шт/мп, кг)
-
-define('L10_AF22_PowerSupply_48VT_IP20S_', 3.9 * L10_C6_Dollar);
-const L10_AF22_PowerSupply_48VT_IP20S = L10_AF22_PowerSupply_48VT_IP20S_; // блок питания 48 ВТ, IP20 (стоимость 1 шт/мп, грн)
-const L10_AG22_PowerSupply_48VT_IP20V = 0.2; // блок питания 48 ВТ, IP20 (вес 1 шт/мп, кг)
-
-define('L10_AF23_PowerSupply_60VT_IP20S_', 4.68 * L10_C6_Dollar);
+define('L10_AF23_PowerSupply_60VT_IP20S_', 5.94 * L10_C6_Dollar);
 const L10_AF23_PowerSupply_60VT_IP20S = L10_AF23_PowerSupply_60VT_IP20S_; // блок питания 60 ВТ, IP20 (стоимость 1 шт/мп, грн)
 const L10_AG23_PowerSupply_60VT_IP20V = 0.25; // блок питания 60 ВТ, IP20 (вес 1 шт/мп, кг)
 
-define('L10_AF24_PowerSupply_80VT_IP20S_', 6.48 * L10_C6_Dollar);
+define('L10_AF24_PowerSupply_80VT_IP20S_', 8.3 * L10_C6_Dollar);
 const L10_AF24_PowerSupply_80VT_IP20S = L10_AF24_PowerSupply_80VT_IP20S_; // блок питания 80 ВТ, IP20 (стоимость 1 шт/мп, грн)
-const L10_AG24_PowerSupply_80VT_IP20V = 0.25; // блок питания 80 ВТ, IP20 (вес 1 шт/мп, кг)
+const L10_AG24_PowerSupply_80VT_IP20V = 0.3; // блок питания 80 ВТ, IP20 (вес 1 шт/мп, кг)
 
-define('L10_AF25_PowerSupply_100VT_IP20S_', 7.44 * L10_C6_Dollar);
+define('L10_AF25_PowerSupply_100VT_IP20S_', 10.7 * L10_C6_Dollar);
 const L10_AF25_PowerSupply_100VT_IP20S = L10_AF25_PowerSupply_100VT_IP20S_; // блок питания 100 ВТ, IP20 (стоимость 1 шт/мп, грн)
-const L10_AG25_PowerSupply_100VT_IP20V = 0.3; // блок питания 100 ВТ, IP20 (вес 1 шт/мп, кг)
+const L10_AG25_PowerSupply_100VT_IP20V = 0.4; // блок питания 100 ВТ, IP20 (вес 1 шт/мп, кг)
 
-define('L10_AF26_PowerSupply_120VT_IP20S_', 7.8 * L10_C6_Dollar);
+define('L10_AF26_PowerSupply_120VT_IP20S_', 13.1 * L10_C6_Dollar);
 const L10_AF26_PowerSupply_120VT_IP20S = L10_AF26_PowerSupply_120VT_IP20S_; // блок питания 120 ВТ, IP20 (стоимость 1 шт/мп, грн)
-const L10_AG26_PowerSupply_120VT_IP20V = 0.4; // блок питания 120 ВТ, IP20 (вес 1 шт/мп, кг)
+const L10_AG26_PowerSupply_120VT_IP20V = 0.5; // блок питания 120 ВТ, IP20 (вес 1 шт/мп, кг)
 
-define('L10_AF27_PowerSupply_180VT_IP20S_', 10.2 * L10_C6_Dollar);
+define('L10_AF27_PowerSupply_180VT_IP20S_', 13.7 * L10_C6_Dollar);
 const L10_AF27_PowerSupply_180VT_IP20S = L10_AF27_PowerSupply_180VT_IP20S_; // блок питания 180 ВТ, IP20 (стоимость 1 шт/мп, грн)
-const L10_AG27_PowerSupply_180VT_IP20V = 0.5; // блок питания 180 ВТ, IP20 (вес 1 шт/мп, кг)
+const L10_AG27_PowerSupply_180VT_IP20V = 0.7; // блок питания 180 ВТ, IP20 (вес 1 шт/мп, кг)
 
-define('L10_AF28_PowerSupply_240VT_IP20S_', 13.32 * L10_C6_Dollar);
-const L10_AF28_PowerSupply_240VT_IP20S = L10_AF28_PowerSupply_240VT_IP20S_; // блок питания 240 ВТ, IP20 (стоимость 1 шт/мп, грн)
-const L10_AG28_PowerSupply_240VT_IP20V = 0.7; // блок питания 240 ВТ, IP20 (вес 1 шт/мп, кг)
 
 define('L10_AF29_PowerSupply_360VT_IP20S_', 18.5 * L10_C6_Dollar);
 const L10_AF29_PowerSupply_360VT_IP20S = L10_AF29_PowerSupply_360VT_IP20S_; // блок питания 360 ВТ, IP20 (стоимость 1 шт/мп, грн)
