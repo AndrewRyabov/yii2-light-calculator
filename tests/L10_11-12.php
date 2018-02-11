@@ -8,7 +8,7 @@
 
 echo '11. Коэфициенты, техно 1. 4-140(BA-BG)<hr>';
 
-echo '<br>L10_BB6_K_PererashodPVH=' . L10_BB6_K_PererashodPVH;
+echo 'L10_BB6_K_PererashodPVH=' . L10_BB6_K_PererashodPVH;
 echo '<br>L10_BB7_K_PererashodAkryl=' . L10_BB7_K_PererashodAkryl;
 echo '<br>L10_BB8_K_PererashodPolicarb=' . L10_BB8_K_PererashodPolicarb;
 echo '<br>L10_BB9_K_PererashodDVP=' . L10_BB9_K_PererashodDVP;
@@ -85,4 +85,5 @@ echo '<br>L10_BB110_K_PopravPloshSnabj=' . L10_BB110_K_PopravPloshSnabj;
 echo '<br>L10_BB114_K_ProbAvtSnabj100kmVivesStandart=' . L10_BB114_K_ProbAvtSnabj100kmVivesStandart;
 
 // =====================================================
-echo '<br><br>12. Коэфициенты, техно 2. 4-140(BA-BG)<hr>';
+echo '<br>';
+echo '<br>12. Коэфициенты, техно 2. 4-140(BA-BG)<hr>';

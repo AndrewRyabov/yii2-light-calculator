@@ -8,7 +8,7 @@
 
 echo '13. Трудоёмкость. 4-140(BS-BY)<hr>';
 
-echo '<br>L10_BK6_GlubinaBort1StorViveskaLampi_m=' . L10_BK6_GlubinaBort1StorViveskaLampi_m;
+echo 'L10_BK6_GlubinaBort1StorViveskaLampi_m=' . L10_BK6_GlubinaBort1StorViveskaLampi_m;
 echo '<br>L10_BK7_GlubinaBort1StorViveskaLentiDiod_m=' . L10_BK7_GlubinaBort1StorViveskaLentiDiod_m;
 echo '<br>L10_BK8_GlubinaBort2StorViveskaLentiDiod_m=' . L10_BK8_GlubinaBort2StorViveskaLentiDiod_m;
 echo '<br>L10_BK9_GlubinaDopDlaVivesokBolee4m=' . L10_BK9_GlubinaDopDlaVivesokBolee4m;

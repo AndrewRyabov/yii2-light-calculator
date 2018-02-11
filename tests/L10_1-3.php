@@ -8,7 +8,8 @@
 
 // ========================================================
 echo '1. Ежедневные. 4-12(B-F)<hr>';
-echo '<br>L10_C6_Dollar=' . L10_C6_Dollar;
+
+echo 'L10_C6_Dollar=' . L10_C6_Dollar;
 echo '<br>L10_C7_Euro=' . L10_C7_Euro;
 echo '<br>';
 echo '<br>L10_C9_BenzinL=' . L10_C9_BenzinL;
@@ -17,7 +18,7 @@ echo '<br>L10_C11_Gaz=' . L10_C11_Gaz;
 
 // ========================================================
 echo '<br><br>2. Ежемесячные. 15-16(B-F)<hr>';
-echo '<br>L10_C23_DvpWhite3mm=' . L10_C23_DvpWhite3mm;
+echo 'L10_C23_DvpWhite3mm=' . L10_C23_DvpWhite3mm;
 echo '<br>L10_C24_CatDvp=' . L10_C24_CatDvp;
 
 echo '<br>L10_C27_ProfilCD05=' . L10_C27_ProfilCD05;
@@ -42,7 +43,7 @@ echo '<br>L10_C50_Scotch20050=' . L10_C50_Scotch20050;
 // ========================================================
 echo '<br><br>3. Коэфициенты организации. 65-110(B-F)<hr>';
 
-echo '<br>L10_C67_K1=' . L10_C67_K1;
+echo 'L10_C67_K1=' . L10_C67_K1;
 echo '<br>L10_C68_K2=' . L10_C68_K2;
 echo '<br>L10_C69_K3=' . L10_C69_K3;
 echo '<br>L10_C70_K4=' . L10_C70_K4;

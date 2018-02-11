@@ -82,6 +82,8 @@ echo '<br>L10_AJ59_LentaDeod3750_IP65M=' . L10_AJ59_LentaDeod3750_IP65M;
 echo '<br>L10_AF60_LentaDeodAleks_IP20S=' . L10_AF60_LentaDeodAleks_IP20S;
 echo '<br>L10_AG60_LentaDeodAleks_IP20V=' . L10_AG60_LentaDeodAleks_IP20V;
 
+echo '<br>';
+
 echo '<br>L10_AF67_ConnectorForAE57S=' . L10_AF67_ConnectorForAE57S;
 echo '<br>L10_AG67_ConnectorForAE57V=' . L10_AG67_ConnectorForAE57V;
 
@@ -91,7 +93,11 @@ echo '<br>L10_AG68_FinishForAE57V=' . L10_AG68_FinishForAE57V;
 echo '<br>';
 
 echo '<br>L10_AF79_CabelCu_1mm2_13A=' . L10_AF79_CabelCu_1mm2_13A;
+echo '<br>L10_AJ79_CabelCu_1mm2_13A=' . L10_AJ79_CabelCu_1mm2_13A;
+
 echo '<br>L10_AF80_CabelCu_15mm2_20A=' . L10_AF80_CabelCu_15mm2_20A;
-echo '<br>L10_AF80_ProvodPV1_05mm=' . L10_AF80_ProvodPV1_05mm;
-echo '<br>L10_AF80_ProvodPV1_075mm=' . L10_AF80_ProvodPV1_075mm;
-echo '<br>L10_AF80_ProvodPV1_1mm=' . L10_AF80_ProvodPV1_1mm;
+echo '<br>L10_AJ80_CabelCu_15mm2_20A=' . L10_AJ80_CabelCu_15mm2_20A;
+
+echo '<br>L10_AF81_ProvodPV1_05mm=' . L10_AF81_ProvodPV1_05mm;
+echo '<br>L10_AF82_ProvodPV1_075mm=' . L10_AF82_ProvodPV1_075mm;
+echo '<br>L10_AF83_ProvodPV1_1mm=' . L10_AF83_ProvodPV1_1mm;

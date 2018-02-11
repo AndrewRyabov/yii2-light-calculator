@@ -9,7 +9,7 @@
 // =======================================================
 echo '4. Листовые материалы. 4-110(I-Q)<hr>';
 
-echo '<br>L10_J6_Plikarb4S=' . L10_J6_Plikarb4S;
+echo 'L10_J6_Plikarb4S=' . L10_J6_Plikarb4S;
 echo '<br>L10_K6_Plikarb4T=' . L10_K6_Plikarb4T;
 echo '<br>L10_L6_Plikarb4P=' . L10_L6_Plikarb4P;
 
@@ -50,7 +50,7 @@ echo '<br>L10_J44_RaskrDVPS=' . L10_J44_RaskrDVPS;
 // =======================================================
 echo '<br><br>5. Клеи, ЛКМ. 115-130(I-Q)<hr>';
 
-echo '<br>L10_J117_CosmofenPlusPVH_200mlSsht=' . L10_J117_CosmofenPlusPVH_200mlSsht;
+echo 'L10_J117_CosmofenPlusPVH_200mlSsht=' . L10_J117_CosmofenPlusPVH_200mlSsht;
 echo '<br>L10_K117_CosmofenPlusPVH_200mlSmp=' . L10_K117_CosmofenPlusPVH_200mlSmp;
 
 echo '<br>L10_J123_Silicon_300mlSsht=' . L10_J123_Silicon_300mlSsht;
