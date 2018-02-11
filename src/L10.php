@@ -280,7 +280,7 @@ const L10_AF83_ProvodPV1_1mm = L10_AF83_ProvodPV1_1mm_; // провод ПВ1,  
 // 10. Металл, профиль цинк, кронштейн, крепёж. 4-110(AQ-AX)
 const L10_AR6_TrubaBlack_2020mm = L10_C29_Truba2020Black; // труба черн. 20*20 мм (стоимость 1 шт/мп, грн)
 const L10_AS6_TrubaBlack_2020mm = 1.25; // труба черн. 20*20 мм (вес 1 шт/мп, кг)
-define('L10_AR7_TrubaBlack_4040mm_', L10_AR6_TrubaBlack_2020mm * 1.7);
+define('L10_AR7_TrubaBlack_4040mm_', L10_AR6_TrubaBlack_2020mm * 1.75);
 const L10_AR7_TrubaBlack_4040mm = L10_AR7_TrubaBlack_4040mm_; // труба черн. 40*40 мм (стоимость 1 шт/мп, грн)
 const L10_AS7_TrubaBlack_4040mm = 1.85; // труба черн. 40*40 мм (вес 1 шт/мп, кг)
 
