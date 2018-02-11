@@ -239,7 +239,7 @@ const L10_AH57_Claster3750_3kr_IP65R = 90; // кластер 3750, 3 кр., IP65
 const L10_AL57_Claster3750_3kr_IP65P = 1.3; // кластер 3750, 3 кр., IP65 (потребление 1 шт/мп, Вт)
 const L10_AJ57_Claster3750_3kr_IP65M = 0.9; // кластер 3750, 3 кр., IP65 (реал мощность 1 шт/мп, Вт, А)
 
-define('L10_AF58_AlPolosa3750_IP20S_', 1.6 * L10_C6_Dollar);
+define('L10_AF58_AlPolosa3750_IP20S_', 1.4 * L10_C6_Dollar);
 const L10_AF58_AlPolosa3750_IP20S = L10_AF58_AlPolosa3750_IP20S_; // AL полоса 3750, IP20 (стоимость 1 шт/мп, грн)
 const L10_AG58_AlPolosa3750_IP20V = 0.05; // AL полоса 3750, IP20 (вес 1 шт/мп, кг)
 const L10_AH58_AlPolosa3750_IP20R = 1000; // AL полоса 3750, IP20 (размер в сборе, мм)
