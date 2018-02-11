@@ -13,6 +13,8 @@ echo '<br>L10_AS6_TrubaBlack_2020mm=' . L10_AS6_TrubaBlack_2020mm;
 echo '<br>L10_AR7_TrubaBlack_4040mm=' . L10_AR7_TrubaBlack_4040mm;
 echo '<br>L10_AS7_TrubaBlack_4040mm=' . L10_AS7_TrubaBlack_4040mm;
 
+echo '<br>L10_AS8_=';
+
 echo '<br>L10_AR9_TrubaBlack_4025mm=' . L10_AR9_TrubaBlack_4025mm;
 echo '<br>L10_AS9_TrubaBlack_4040mm=' . L10_AS9_TrubaBlack_4040mm;
 
@@ -22,6 +24,8 @@ echo '<br>L10_AR14_PolosStalChern_20x4mm=' . L10_AR14_PolosStalChern_20x4mm;
 echo '<br>L10_AS14_PolosStalChern_20x4mm=' . L10_AS14_PolosStalChern_20x4mm;
 echo '<br>L10_AR15_PolosStalChern_50x4mm=' . L10_AR15_PolosStalChern_50x4mm;
 echo '<br>L10_AS15_PolosStalChern_50x4mm=' . L10_AS15_PolosStalChern_50x4mm;
+
+echo '<br>';
 
 echo '<br>L10_AR23_ProfileCD_05mm=' . L10_AR23_ProfileCD_05mm;
 echo '<br>L10_AS23_ProfileCD_05mm=' . L10_AS23_ProfileCD_05mm;
@@ -33,7 +37,7 @@ echo '<br>';
 echo '<br>L10_AR29_StilcoUgol_50501mm=' . L10_AR29_StilcoUgol_50501mm;
 echo '<br>L10_AR30_StilcoUgol_505012mm=' . L10_AR30_StilcoUgol_505012mm;
 echo '<br>L10_AR31_StilcoUgol_505014mm=' . L10_AR31_StilcoUgol_505014mm;
-echo '<br>L10_AR32_StilcoUgol_123012mm' . L10_AR32_StilcoUgol_123012mm;
+echo '<br>L10_AR32_StilcoUgol_123012mm=' . L10_AR32_StilcoUgol_123012mm;
 echo '<br>L10_AS32_StilcoUgol_123012mm=' . L10_AS32_StilcoUgol_123012mm;
 
 echo '<br>';
