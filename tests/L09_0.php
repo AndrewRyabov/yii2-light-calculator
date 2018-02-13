@@ -6,4 +6,4 @@
  * Time: 2:24
  */
 
-echo '<br>J4_J4_VarIspoln=' . $L09->J4_VarIspoln;
+echo 'J4_J4_VarIspoln=' . $L09->J4_VarIspoln;

@@ -28,9 +28,9 @@ $L09 = new L09();
 
 $L10 = new L10();
 
-//$L15_1 = new L15_1();
-//$L15_2 = new L15_2();
-//$L15_3 = new L15_3();
+$L15_1 = new L15_1();
+$L15_2 = new L15_2();
+$L15_3 = new L15_3();
 //
 //
 //$L16_1 = new L16_1();
@@ -83,7 +83,6 @@ $L25 = new L25();
 <!------------------------------------------------------------------------->
 <br><br>
 <?php include_once 'L10.php' ?>
-<?php return(0) ?>
 <!------------------------------------------------------------------------->
 <br><br>
 <table border="1">
@@ -98,7 +97,7 @@ $L25 = new L25();
     <tr>
         <td><?php include_once 'L15_A.php' ?></td>
         <td><?php include_once 'L15_Q.php' ?></td>
-        <td><?php include_once 'L15_AG.php' ?></td>
+        <td><?php include_once 'L15_AP.php' ?></td>
     </tr>
 </table>
 <?php return(0) ?>

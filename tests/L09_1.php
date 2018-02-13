@@ -6,7 +6,7 @@
  * Time: 2:24
  */
 
-echo '<br>J21_Orientation=' . $L09->J21_Orientation;
+echo 'J21_Orientation=' . $L09->J21_Orientation;
 echo '<br>J22_MaxSide_cm=' . $L09->J22_MaxSide_cm;
 echo '<br>J23_MinSide_cm=' . $L09->J23_MinSide_cm;
 echo '<br>J24_FrontImg=' . $L09->J24_FrontImg;
