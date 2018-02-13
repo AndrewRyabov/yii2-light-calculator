@@ -351,8 +351,9 @@ const L10_AS70_UgolAL_151515mm = 0.14; // уголок AL 15*15*1.5 мм (вес
 // 11. Коэфициенты, техно 1. 4-140(BA-BG)
 const L10_BB6_K_PererashodPVH = 1.15; // перерасход пвх
 const L10_BB7_K_PererashodAkryl = 1.2; // перерасход акрил
-const L10_BB8_K_PererashodPolicarb = 1.25; // перерасход поликарбонат
-const L10_BB9_K_PererashodDVP = 1.2; // перерасход двп
+const L10_BB8_K_PererashodPolicarb = 1.2; // перерасход поликарбонат
+const L10_BB9_K_PererashodDVPWhite = 1.25; // перерасход двп белое
+const L10_BB10_K_PererashodDVPUpak = 1.2; // перерасход  двп упаковочное
 
 const L10_BB17_K_PVHPerehTolsh34Ulica_m = 0.61; // пвх, переход толщины 3/4 улица, м
 const L10_BB18_K_PVHPerehTolsh34Pomesh_m = 0.9; // пвх, переход толщины 3/4 помещение, м
