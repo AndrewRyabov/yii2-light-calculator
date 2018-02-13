@@ -434,6 +434,37 @@ const L10_BB115_K_ZatratnaDostListMatlDis = 1.5; // затраты на дост
 const L10_BB116_K_TransportRashNaVivNachSoVt = 0.2; // коэф транспортных расходов на вывески, начиная со второй
 
 // 12. Коэфициенты, техно 2. 4-140(BA-BG)
+const L10_BK6_GlubinaBort1StorVivlamp_m =0.12; // глубина борт 1 стор вывеска лампы, м
+const L10_BK7_GlubinaBort1StorViveskaLentDiod_m =0.09; // глубина борт 1 стор вывеска ленты диод, м
+const L10_BK8_GlubinaBort2StorViveskaLentDiod_m =0.18; // глубина борт 2 стор вывеска ленты диод, м
+const L10_BK9_GlubinaBortDopDlVivBol4m_m =0.03; // глубина борта доп для вывесок более 4 м, м
+const L10_BK10_GranichVicSvyazUzelVisBort_m =0.8; // граничная высота связ увел высоты борта, м
+const L10_BK11_GranichDlnSvyazUvelVisBort_m =4; // граничная длина связ увел высоты борта, м
+
+const L10_BK15_RustPVH5mmShir_m = 0.01; // "рустик" пвх 5 мм ширина, м
+const L10_BK16_OporDVPTilPVH5mm_m = 0.04; // "опора двп тыла" пвх 5 мм, м
+
+const L10_BK19_RazmObyazIspGorRam_m = 4; // размер обяз использования гор. рамы, м
+const L10_BK20_GorRazmSvyazIspGorRam_m = 3; // гор размер связ использования гор. рамы, м
+const L10_BK21_VertRazmSvyazIspGorRam_m = 0.44; // верт размер связ использования гор. рамы, м
+const L10_BK22_MaxRazmOtsutElectroram2Stor_m = 0.6; // макс размер отсутствия электрорамы (2 стор), м
+
+const L10_BK29_PredVesNa1UDDl2StorPomesh_kg = 7; // предельный вес на 1 UD для "2 стор помещ", кг
+
+const L10_BK34_GranicPrimOporLicPolikUlica_m = 1; // граница прим опор лицевых полик улица, м
+const L10_BK35_GranicPrimOporLicAkrilUlica_m = 0.9; // граница прим опор лицевых акрил улица, м
+const L10_BK36_GranicPrimOporLicAkrilPomesh_m = 1.3; // граница прим опор лицевых акрил помещ, м
+
+const L10_BK55_PredGorRazmRamMin_m = 0.6; // предельный гор размер рамы "минимальная", м
+const L10_BK56_MinrazmVneshRamUgol_m = 0.2; // мин размер внеш рамы (уголок), м
+const L10_BK57_K_RazmRamStal = 8; // коэфициент размера рамы сталь
+const L10_BK58_K_Isp1BallonKraskDlRam = 0.5; // коэф исполь 1 баллона краски для рамы
+
+const L10_BK62_PererashSamorez = 1.2; // перерасход саморезов
+
+const L10_BK68_ShagLinLentDiod46vtAleks_m = 0.1; // шаг линий лент диод 4.6 Вт, "Алексей", м
+
+const L10_BK100_MaxVesSoderjPos_kg = 35; // максимальный вес содержимого посылки, кг
 
 // 13. Трудоёмкость. 4-140(BS-BY)
 const L10_BK6_GlubinaBort1StorViveskaLampi_m =0.12; //глубина борт 1 стор вывеска лампы, м
