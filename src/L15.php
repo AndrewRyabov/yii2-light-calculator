@@ -23,11 +23,33 @@ class L15_1
     public $B14_ColorSide; // цвет бортов
     public $B15_ColorBack; // цвет тыла
 
-    public function __construct($RoofVisorOut = 0, $WallOut = 0, $WallIn = 0, $SideIn2 = 1, $SideIn4 = 0,
+    // Промежуточные данные.
+    public $VarIspoln;
+
+    // классы.
+    private $L09;
+
+    public function __construct($C_light = 0, $S_light = 1,
+                                $RoofVisorOut = 0, $WallOut = 0, $WallIn = 0, $SideIn2 = 1, $SideIn4 = 0,
                                 $Orientation = 1,
                                 $MaxSide_cm = 300, $MinSide_cm = 60,
-                                $ColorSide = 0, $ColorBack = 0)
+                                $ColorSide = 0, $ColorBack = 0,
+        // Дополнительные параметры для L15.
+                                $LicIzobr = 1, $CvetBort =1, $CvetTil = 0,
+                                $LevVerhUgol = 0, $PravVerhUgol = 0, $PravNijnUgol = 0, $LevNijnUgol = 0,
+                                $MaketImg = 1, $PlenkLic = 3, $PlastLic = 2, $Light = 1
+    )
     {
+        // вариант исполнения для формирования исходных данных.
+        $VarIspoln = 1 * $RoofVisorOut + 2 * $WallOut + 3 * $WallIn + 4 * $SideIn2 + 5 * $SideIn4;
+        $this->VarIspoln = $VarIspoln;
+
+        // Формируем исходные данные.
+        $this->L09 = new L09($C_light, $S_light, $VarIspoln,
+                            $Orientation,$MaxSide_cm, $MinSide_cm, $LicIzobr, $CvetBort, $CvetTil,
+                            $LevVerhUgol, $PravVerhUgol, $PravNijnUgol, $LevNijnUgol,
+                            $MaketImg, $PlenkLic, $PlastLic, $Light );
+
         // Заполнение входных данных.
         $this->B5_RoofVisorOut = $RoofVisorOut;
         $this->B6_WallOut = $WallOut;
@@ -35,11 +57,11 @@ class L15_1
         $this->B8_2SideIn = $SideIn2;
         $this->B9_4SideIn = $SideIn4;
 
-        $this->B11_Orientation = $Orientation;
-        $this->B12_MaxSide_cm = $MaxSide_cm;
-        $this->B13_MinSide_cm = $MinSide_cm;
-        $this->B14_ColorSide = $ColorSide;
-        $this->B15_ColorBack = $ColorBack;
+        $this->B11_Orientation = $this->L09->J21_Orientation;
+        $this->B12_MaxSide_cm = $this->L09->J22_MaxSide_cm;
+        $this->B13_MinSide_cm = $this->L09->J23_MinSide_cm;
+        $this->B14_ColorSide = $this->L09->J25_ColorSide;
+        $this->B15_ColorBack = $this->L09->J26_ColorBack;
 
     }
 
