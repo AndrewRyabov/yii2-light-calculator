@@ -519,6 +519,12 @@ const L10_BT80_ZagrOformVigrPosAvtodost_min = 30; // загрузка/оформ
 const L10_BT81_ZagrOformVigrPosGlNP_min = 45; // загрузка/оформление/выгрузка посылки для НП, мин
 const L10_BT82_ZagrOformVigrPosNachS2nd_min = 10; // заг/оформ/выг посылок начиная со 2й, мин
 
+// 14. Трудоёмкость. 6-142(CB-CH)
+const L10_CC11_Izgot1UgolStalIzPolos50x4I20x4_min = 45; // изгот 1 уголка сталь из полос 50*4 и 20*4
+const L10_CC12_Montaj2Zajim_min = 6; // монтаж 2 зажимов (подвесы), мин
+const L10_CC13_Montaj1BoltKryukPlus2Zajim_min = 10; // монтаж 1 болт-крюка + 2 зажимов, мин
+const L10_CC14_Montaj1LegkPodves_min = 8; // монтаж 1 "легкого" подвеса, мин
+
 class L10
 {
 // Глобальные константы - доступны из любого класса - БД
