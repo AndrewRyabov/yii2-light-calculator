@@ -28,7 +28,7 @@
         <td><?php include_once 'L10_9.php' ?></td>
         <td><?php include_once 'L10_10.php' ?></td>
         <td><?php include_once 'L10_11-12.php' ?></td>
-        <td><?php include_once 'L10_13-14.php' ?></td>
+        <td><?php include_once 'L10_13.php' ?></td>
+        <td><?php include_once 'L10_14.php' ?></td>
     </tr>
-
 </table>

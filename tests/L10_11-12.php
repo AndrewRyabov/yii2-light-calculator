@@ -6,7 +6,7 @@
  * Time: 23:13
  */
 
-echo '11. Коэфициенты, техно 1. 4-140(BA-BG)<hr>';
+echo '<b>11. Коэфициенты, техно 1. 4-140(BA-BG)</b><hr>';
 
 echo 'L10_BB6_K_PererashodPVH=' . L10_BB6_K_PererashodPVH;
 echo '<br>L10_BB7_K_PererashodAkryl=' . L10_BB7_K_PererashodAkryl;
@@ -93,8 +93,7 @@ echo '<br>L10_BB115_K_ZatratnaDostListMatlDis=' . L10_BB115_K_ZatratnaDostListMa
 echo '<br>L10_BB116_K_TransportRashNaVivNachSoVt=' . L10_BB116_K_TransportRashNaVivNachSoVt;
 
 // =====================================================
-echo '<br>';
-echo '<br>12. Коэфициенты, техно 2. 4-140(BA-BG)<hr>';
+echo '<br><br><b>12. Коэфициенты, техно 2. 4-140(BJ-BP)</b><hr>';
 echo 'L10_BK6_GlubinaBort1StorVivlamp_m=' . L10_BK6_GlubinaBort1StorVivlamp_m;
 echo '<br>L10_BK7_GlubinaBort1StorViveskaLentDiod_m=' . L10_BK7_GlubinaBort1StorViveskaLentDiod_m;
 echo '<br>L10_BK8_GlubinaBort2StorViveskaLentDiod_m=' . L10_BK8_GlubinaBort2StorViveskaLentDiod_m;
