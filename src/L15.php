@@ -2351,7 +2351,7 @@ class L15_4{
         $this->L15_3 = new L15_3($SCLight , $VarIspoln , $Orientation , $MaxSide_cm , $MinSide_cm , $FrontImg , $ColorSide , $ColorBack , $Ugol , $MaketImg , $PlenkLic , $PlastLic , $IstochnikSveta);
         //
         $this->BG14_GlubinaBorta_sm = $this->L15_1->N20_GlubinaBorta_sm();       // Глубина борта, см
-
-
     }
+
+
 }
