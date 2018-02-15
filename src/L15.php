@@ -1,12 +1,11 @@
-<?php namespace almaz44\light\calculator;
-include_once __DIR__ . '/L10.php';
+<?php
+namespace almaz44\light\calculator;
 
 /**
- * борт/тыл пленка_!_фасад пленка_!_упаковка в стрейч пленку
- * Created by PhpStorm.
- * User: Andrew
- * Date: 21.06.2017
- * Time: 14:08
+ * L15_1 = борт/тыл пленка; L15_2 = фасад пленка; L15_3 = упаковка в стрейч пленку
+ * User: andrii
+ * Date: 15.02.18
+ * Time: 12:52
  */
 class L15_1
 {
@@ -16,53 +15,52 @@ class L15_1
     public $B7_WallIn; // стена помещение
     public $B8_2SideIn; // 2 стороны помещение
     public $B9_4SideIn; // 4 стороны помещение
-
+    //
     public $B11_Orientation; // ориентация
     public $B12_MaxSide_cm; // большая сторона, см
     public $B13_MinSide_cm; // меньшая сторона, см
+    //
     public $B14_ColorSide; // цвет бортов
     public $B15_ColorBack; // цвет тыла
+    public $B17_IstochnikSveta; // источник света
 
     // Промежуточные данные.
-    public $VarIspoln;
+    private $L09;       // класс исходных данных.
 
-    // классы.
-    private $L09;
-
-    public function __construct($C_light = 0, $S_light = 1,
-                                $RoofVisorOut = 0, $WallOut = 0, $WallIn = 0, $SideIn2 = 1, $SideIn4 = 0,
-                                $Orientation = 1,
-                                $MaxSide_cm = 300, $MinSide_cm = 60,
-                                $ColorSide = 0, $ColorBack = 0,
-        // Дополнительные параметры для L15.
-                                $LicIzobr = 1, $CvetBort =1, $CvetTil = 0,
-                                $LevVerhUgol = 0, $PravVerhUgol = 0, $PravNijnUgol = 0, $LevNijnUgol = 0,
-                                $MaketImg = 1, $PlenkLic = 3, $PlastLic = 2, $Light = 1
-    )
+    public function __construct($SCLight = 1, $VarIspoln = 4,
+                                $Orientation = 1, $MaxSide_cm = 150, $MinSide_cm = 100,
+                                $FrontImg=1, $ColorSide=1, $ColorBack=0, $Ugol=[0,0,0,0],
+                                $MaketImg=1, $PlenkLic=3, $PlastLic=2, $IstochnikSveta = 1)
     {
-        // вариант исполнения для формирования исходных данных.
-        $VarIspoln = 1 * $RoofVisorOut + 2 * $WallOut + 3 * $WallIn + 4 * $SideIn2 + 5 * $SideIn4;
-        $this->VarIspoln = $VarIspoln;
-
-        // Формируем исходные данные.
-        $this->L09 = new L09($C_light, $S_light, $VarIspoln,
-                            $Orientation,$MaxSide_cm, $MinSide_cm, $LicIzobr, $CvetBort, $CvetTil,
-                            $LevVerhUgol, $PravVerhUgol, $PravNijnUgol, $LevNijnUgol,
-                            $MaketImg, $PlenkLic, $PlastLic, $Light );
-
         // Заполнение входных данных.
-        $this->B5_RoofVisorOut = $RoofVisorOut;
-        $this->B6_WallOut = $WallOut;
-        $this->B7_WallIn = $WallIn;
-        $this->B8_2SideIn = $SideIn2;
-        $this->B9_4SideIn = $SideIn4;
+        $this->B5_RoofVisorOut = 0; // крыша/козырек улица
+        $this->B6_WallOut = 0;      // стена улица
+        $this->B7_WallIn = 0;       // стена помещение
+        $this->B8_2SideIn = 0;      // 2 стороны помещение
+        $this->B9_4SideIn = 0;      // 4 стороны помещение
+        switch ($VarIspoln){
+            case 1: $this->B5_RoofVisorOut = 1; break;
+            case 2: $this->B6_WallOut = 1; break;
+            case 3: $this->B7_WallIn = 1; break;
+            case 4: $this->B8_2SideIn = 1; break;
+            case 5: $this->B9_4SideIn = 1; break;
+            default: $this->B8_2SideIn = 1; break;
+        }
 
-        $this->B11_Orientation = $this->L09->J21_Orientation;
-        $this->B12_MaxSide_cm = $this->L09->J22_MaxSide_cm;
-        $this->B13_MinSide_cm = $this->L09->J23_MinSide_cm;
-        $this->B14_ColorSide = $this->L09->J25_ColorSide;
-        $this->B15_ColorBack = $this->L09->J26_ColorBack;
+        // Запрос исходных данных
+        $this->L09 = new L09($SCLight, $VarIspoln,
+                             $Orientation, $MaxSide_cm, $MinSide_cm,
+                             $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                             $MaketImg, $PlenkLic, $PlastLic, $IstochnikSveta);
 
+        $this->B11_Orientation = $this->L09->J21_Orientation;   // ориентация
+        $this->B12_MaxSide_cm = $this->L09->J22_MaxSide_cm;     // большая сторона, см
+        $this->B13_MinSide_cm = $this->L09->J23_MinSide_cm;     // меньшая сторона, см
+        //
+        $this->B14_ColorSide = $this->L09->J25_ColorSide;       // цвет бортов
+        $this->B15_ColorBack = $this->L09->J26_ColorBack;       // цвет тыла
+        //
+        $this->B17_IstochnikSveta=$this->L09->J41_Light;        // источник света
     }
 
     // C light - пленка борт/тыл
@@ -71,16 +69,115 @@ class L15_1
     {
         // пленка борт (1-да/0-нет)
         //вывод
-
-        return ($this->B14_ColorSide == 1) ? 1 : 0;
+        return ($this->B17_IstochnikSveta == 3) ? 1 : 0;
     }
     function E6_FilmBack()
     {
         // пленка тыл (1-да/0-нет)
         //вывод
-
-        return ($this->B15_ColorBack == 1) ? 1 : 0;
+        return ($this->E5_FillSide() == 1) ? 0 : 1;
     }
+    function E8_PlenkaBort()
+    {   // если b14=0 то присвоить 0, иначе вернуть 1
+        //вывод
+        return ($this->B14_ColorSide == 0) ? 0 : 1;
+    }
+    function E9_PlenkaTil()
+    {   // если b15=0 то присвоить 0, иначе вернуть 1
+        //вывод
+        return ($this->B15_ColorBack == 0) ? 0 : 1;
+    }
+    function E11_Flag1Storoni()
+    {//если b5+b6+b7>0 то присвоить 1, иначе вернуть 0
+        //вывод
+        return (($this->B5_RoofVisorOut+$this->B6_WallOut+$this->B7_WallIn) > 0) ? 1 : 0;
+
+    }
+    function E12_BolchiiRazmerBolee400sm()
+    {
+        //если b12>bk11*100 то присвоить 1, иначе вернуть 0
+        //вывод
+        if ($this->B12_MaxSide_cm > (L10_BK11_GranichDlnSvyazUvelVisBort_m * 100))
+        {
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
+    function E13_MenchiiBolee80sm()
+    {
+        //если b13>bk10*100 то присвоить 1, иначе вернуть 0
+        //вывод
+        if ($this->B13_MinSide_cm > (L10_BK10_GranichVicSvyazUzelVisBort_m*100))
+        {
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
+    function E14_FlagYvelecheniaBortaDla1Stor()
+    {
+        //e11*e12*e13
+        //вывод
+        return $this->E11_Flag1Storoni()*$this->E12_BolchiiRazmerBolee400sm()*$this->E13_MenchiiBolee80sm();
+    }
+    function E16_GlubinaBorta1StoronaDioda()
+    {
+
+        //вывод
+        return L10_BK7_GlubinaBort1StorViveskaLentDiod_m;
+    }
+    function E17_GlubinaBorta1StoronaLampi()
+    {
+        //вывод
+        return L10_BK6_GlubinaBort1StorVivlamp_m;
+    }
+    function E18_GlubinaBorta2Storoni_m()
+    {
+        //вывод
+        return L10_BK8_GlubinaBort2StorViveskaLentDiod_m;
+    }
+    function E19_GlubinaDopolniteLnaa()
+    {
+        //вывод
+        return L10_BK9_GlubinaBortDopDlVivBol4m_m;
+    }
+    function E20_GlubinaBorta_m()
+    {   //сложениеи умножение
+        //вывод
+        return $this->E16_GlubinaBorta1StoronaDioda()*$this->E6_FilmBack()*$this->E11_Flag1Storoni()
+               +$this->E17_GlubinaBorta1StoronaLampi()*$this->E5_FillSide()*$this->E11_Flag1Storoni()
+               +$this->E18_GlubinaBorta2Storoni_m()*$this->B8_2SideIn
+               +$this->E16_GlubinaBorta1StoronaDioda()*$this->B9_4SideIn
+               +$this->E19_GlubinaDopolniteLnaa()*$this->E14_FlagYvelecheniaBortaDla1Stor();
+    }
+    function E22_FlagZakatkiBorta()
+    {
+        //если b14>0 то присвоить 1, иначе вернуть 0
+        //вывод
+        if ($this->B14_ColorSide > 0)
+        {
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
+    function E23_FlagZakatkiTila()
+    {
+        //если b14>0 то присвоить 1, иначе вернуть 0
+        //вывод
+        if ($this->B15_ColorBack > 0)
+        {
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
+
     function H5_GorisR_cm()
     {
         //горизонтальный размер, см
@@ -88,7 +185,8 @@ class L15_1
         //иначе вернуть меньшую сторону, см
         //вывод
 
-        if ($this->B11_Orientation == 1){
+        if ($this->B11_Orientation == 1)
+        {
             return $this->B12_MaxSide_cm;
         }
         else{
@@ -122,163 +220,113 @@ class L15_1
     }
     function H8_GorisRTill4Stor_m()
     {
-        //горизонтальный размер тыл 4 стор., м
-        //отнимание от перменной числа
+        //округление и деление
         //вывод
-        return ($this->H7_GorisR_m()-0.24);
+        return round($this->H6_VerticalR_cm()/100,2);
     }
-    function H9_VerticalR_m()
+    function H9_BortPodPlenkyPolStor_m()
     {
-        //вертикальный размер размер, м
-        //деление переменной на 100
-        //округление переменной до 2 знаков
+        //ложение
         //вывод
 
-        return round($this->H6_VerticalR_cm()/100, 2);
+        return ($this->H7_GorisR_m()+$this->H8_GorisRTill4Stor_m()+$this->H8_GorisRTill4Stor_m());
     }
-    function H11_PerimeKrisha_mp()
+    function H10_BortPodPlenky4Stor_m()
     {
-        //периметр крыша, мп
-        //прибавление 3 переменных
+        //умножение
         //вывод
 
-        return $this->H9_VerticalR_m()+$this->H7_GorisR_m()+$this->H9_VerticalR_m();
+        return ($this->H7_GorisR_m()*4);
     }
-    function H12_PerimeUlica_mp()
+    function H11_Til1Storona_m2()
     {
-        //периметр улица, мп
-        //прибавление 3 переменных
+        //умножение
         //вывод
 
-        return $this->H9_VerticalR_m()+$this->H7_GorisR_m()+$this->H9_VerticalR_m();
+        return $this->H7_GorisR_m()*$this->H8_GorisRTill4Stor_m();
     }
-    function H13_PerimeStenaPomesh_mp()
+    function H12_Til4Storoni_m2()
     {
-        //периметр стена помещение, мп
-        //прибавление 3 переменных
+        //умножение
         //вывод
 
-        return $this->H9_VerticalR_m()+$this->H7_GorisR_m()+$this->H9_VerticalR_m();
+        return $this->H11_Til1Storona_m2()*4;
     }
-    function H14_Perime2StorPomesh_mp()
+    function H13_Stoimost1m2EkonomPlenki_grn()
     {
-        //периметр 2 стор. помещение, мп
-        //прибавление 3 переменных
         //вывод
-
-        return $this->H9_VerticalR_m()+$this->H7_GorisR_m()+$this->H9_VerticalR_m();
+        return L10_U12_RitramaM300E;
     }
-    function H15_Perime4StorPomesh_mp()
+    function H14_KoefPererasxodaPlenkiBort()
     {
-        //периметр 4 стор. помещение, мп
-        //умножение в 4 раза
         //вывод
-
-        return ($this->H7_GorisR_m())*4;
+        return L10_BB87_K_PererashPlenkBort;
     }
-    function H19_PloshBKrisha_m2()
+    function H15_KoefPererasxodaPlenkiTil()
     {
-        //площадь борт крыша, м2
-        //умножение в 0.12 раза
         //вывод
-
-        return ($this->H11_PerimeKrisha_mp())*0.12;
+        return L10_BB88_K_PererashPlenkTil;
     }
-    function H20_PloshBUlica_m2()
+    function H18_PloshBort1Storoni_m2()
     {
-        //площадь борт улица, м2
-        //умножение в 0.12 раза
         //вывод
-
-        return ($this->H12_PerimeUlica_mp())*0.12;
+        return $this->E20_GlubinaBorta_m()*$this->H9_BortPodPlenkyPolStor_m()*$this->E11_Flag1Storoni();
     }
-    function H21_PloshBSPomesh_m2()
+    function H19_PloshBort2Storoni_m2()
     {
-        //площадь борт стена помещение, м2
-        //умножение в 0.12 раза
         //вывод
-
-        return ($this->H13_PerimeStenaPomesh_mp())*0.12;
+        return $this->E20_GlubinaBorta_m()*$this->H9_BortPodPlenkyPolStor_m()*$this->B8_2SideIn;
     }
-    function H22_PloshB2StorPomesh_m2()
+    function H20_PloshBort4Storoni_m2()
     {
-        //площадь борт 2 стороны помещение, м2
-        //умножение в 0.24 раза
         //вывод
-
-        return ($this->H14_Perime2StorPomesh_mp())*0.24;
+        return $this->E20_GlubinaBorta_m()*$this->H10_BortPodPlenky4Stor_m()*$this->B9_4SideIn;
     }
-    function H23_PloshB4StorPomesh_m2()
+    function H21_PloshBortItogo_m2()
     {
-        //площадь борт 4 стороны помещение, м2
-        //умножение в 0.12 раза
+        //сложение
         //вывод
-
-        return ($this->H15_Perime4StorPomesh_mp())*0.12;
+        return $this->H18_PloshBort1Storoni_m2()+$this->H19_PloshBort2Storoni_m2()+$this->H20_PloshBort4Storoni_m2();
     }
-    function H25_PloshTKrisha_m2()
+    function H22_PlenkaBortPredv_grn()
     {
-        //площадь тыл крыша, м2
-        //перемножение переменных
+        //умножение
         //вывод
-
-        return ($this->H7_GorisR_m())*($this->H9_VerticalR_m());
+        return $this->H21_PloshBortItogo_m2()*$this->H13_Stoimost1m2EkonomPlenki_grn()*$this->H14_KoefPererasxodaPlenkiBort();
     }
-    function H26_PloshTUlica_m2()
+    function H23_PlenkaBortItogo_grn()
     {
-        //площадь тыл улица, м2
-        //перемножение переменных
+        //умножение
         //вывод
-
-        return ($this->H7_GorisR_m())*($this->H9_VerticalR_m());
+        return round($this->H22_PlenkaBortPredv_grn()*$this->E22_FlagZakatkiBorta(), 0);
     }
-    function H27_PloshTSPomesh_m2()
-    {
-        //площадь тыл стена помещение, м2
-        //перемножение переменных
+    function H25_PloshTil1Storoni_m2()
+    {//умножение
         //вывод
-
-        return ($this->H7_GorisR_m())*($this->H9_VerticalR_m());
+        return $this->H11_Til1Storona_m2()*$this->E11_Flag1Storoni();
     }
-    function H28_Plosh4SPomesh_m2()
-    {
-        //площадь 4 стор. помещение, м2
-        //перемножение переменных и умножение на 4
+    function H26_PloshTil4Storoni_m2()
+    {//умножение
         //вывод
-
-        return ($this->H8_GorisRTill4Stor_m())*($this->H9_VerticalR_m())*4;
+        return $this->H12_Til4Storoni_m2()*$this->B9_4SideIn;
     }
-    function H30_PloshBPredvar_m2()
+    function H27_PloshTilItogo_m2()
     {
-        //площадь борт предварительно, м2
-        //арифметические вычисления
-        //вывод
-
-        return $this->H19_PloshBKrisha_m2()*$this->B5_RoofVisorOut+$this->H20_PloshBUlica_m2()*$this->B6_WallOut+$this->H21_PloshBSPomesh_m2()*$this->B7_WallIn+$this->H22_PloshB2StorPomesh_m2()*$this->B8_2SideIn+$this->H23_PloshB4StorPomesh_m2()*$this->B9_4SideIn;
+        //сложение
+        //вывод;
+        return $this->H25_PloshTil1Storoni_m2()+$this->H26_PloshTil4Storoni_m2();
     }
-    function H31_PloshB_m2()
+    function H28_PlenkaTilPredv_grn()
     {
-        //площадь борт, м2
-        //перемножение переменных
+        //умножение
         //вывод
-
-        return $this->H30_PloshBPredvar_m2()*$this->E5_FillSide();
+        return $this->H27_PloshTilItogo_m2()*$this->H13_Stoimost1m2EkonomPlenki_grn()*$this->H15_KoefPererasxodaPlenkiTil();
     }
-    function H32_PloshTPredvar_m2()
+    function H29_PlenkaTilItogo_grn()
     {
-        //площадь тыл предварительно, м2
-        //арифметические вычисления
+        //умножение
         //вывод
-
-        return $this->H25_PloshTKrisha_m2()*$this->B5_RoofVisorOut+$this->H26_PloshTUlica_m2()*$this->B6_WallOut+$this->H27_PloshTSPomesh_m2()*$this->B7_WallIn+$this->H28_Plosh4SPomesh_m2()*$this->B9_4SideIn;
-    }
-    function H33_PloshTill_m2()
-    {
-        //площадь тыл, м2
-        //перемножение переменных
-        //вывод
-
-        return $this->H32_PloshTPredvar_m2()*$this->E6_FilmBack();
+        return $this->H28_PlenkaTilPredv_grn()*$this->E23_FlagZakatkiTila();
     }
     function K5_KrishaBort_min()
     {
@@ -286,7 +334,7 @@ class L15_1
         //перемножение переменной и константы
         //вывод
 
-        return $this->H11_PerimeKrisha_mp()*L10_BT43_SeamingSideInFill_120mm;
+        return $this->H9_BortPodPlenkyPolStor_m()*L10_BT43_SeamingSideInFill_120mm*$this->B5_RoofVisorOut;
     }
     function K6_UlicaBort_min()
     {
@@ -294,7 +342,7 @@ class L15_1
         //перемножение переменной и константы
         //вывод
 
-        return $this->H12_PerimeUlica_mp()*L10_BT43_SeamingSideInFill_120mm;
+        return $this->H9_BortPodPlenkyPolStor_m()*L10_BT43_SeamingSideInFill_120mm*$this->B6_WallOut;
     }
     function K7_StenaPBort_min()
     {
@@ -302,7 +350,7 @@ class L15_1
         //перемножение переменной и константы
         //вывод
 
-        return $this->H13_PerimeStenaPomesh_mp()*L10_BT43_SeamingSideInFill_120mm;
+        return $this->H9_BortPodPlenkyPolStor_m()*L10_BT43_SeamingSideInFill_120mm*$this->B7_WallIn;
     }
     function K8_2StoroniBort_min()
     {
@@ -310,7 +358,7 @@ class L15_1
         //перемножение переменной и константы
         //вывод
 
-        return $this->H14_Perime2StorPomesh_mp()*L10_BT44_SeamingSideInFile_240mm;
+        return $this->H9_BortPodPlenkyPolStor_m()*L10_BT44_SeamingSideInFile_240mm*$this->B8_2SideIn;
     }
     function K9_4StoroniBort_min()
     {
@@ -318,124 +366,112 @@ class L15_1
         //перемножение переменной и константы
         //вывод
 
-        return $this->H15_Perime4StorPomesh_mp()*L10_BT43_SeamingSideInFill_120mm;
+        return $this->H10_BortPodPlenky4Stor_m()*L10_BT43_SeamingSideInFill_120mm*$this->B9_4SideIn;
     }
-    function K11_KrishaTil_min()
+    function K10_ZakatkaBortPredv_min()
     {
-        //крыша тыл, мин
-        //перемножение переменной и константы
+        //сложение
         //вывод
 
-        return $this->H25_PloshTKrisha_m2()*L10_BT33_KnurlFullColor_m2;
+        return $this->K5_KrishaBort_min()+$this->K6_UlicaBort_min()+$this->K7_StenaPBort_min()+$this->K8_2StoroniBort_min()+$this->K9_4StoroniBort_min();
     }
-    function K12_UlicaTil_min()
+    function K11_ZakatkaBortItogo_min()
     {
-        //улица тыл, мин
-        //перемножение переменной и константы
+//умножение и округление
         //вывод
 
-        return $this->H26_PloshTUlica_m2()*L10_BT33_KnurlFullColor_m2;
+        return round($this->K10_ZakatkaBortPredv_min()*$this->E22_FlagZakatkiBorta(),0);
     }
-    function K13_StenaPTil_min()
+
+    function K13_KrishaTil_min()
     {
-        //стена помещение тыл, мин
-        //перемножение переменной и константы
+        //умножение
         //вывод
 
-        return $this->H27_PloshTSPomesh_m2()*L10_BT33_KnurlFullColor_m2;
+        return $this->H11_Til1Storona_m2()*L10_BT33_KnurlFullColor_m2*$this->B5_RoofVisorOut;
     }
-    function K14_4StoroniTil_min()
+    function K14_StenaUlicaTil_min()
     {
-        //4 стороны тыл, мин
-        //перемножение переменной и константы
+        //умножение
         //вывод
 
-        return $this->H28_Plosh4SPomesh_m2()*L10_BT33_KnurlFullColor_m2;
+        return $this->H11_Til1Storona_m2()*L10_BT43_SeamingSideInFill_120mm*$this->B6_WallOut;
     }
-    function K16_BortPredvar_min()
+    function K15_StenaPomechenieTil_min()
     {
-        //борт предварительно, мин
-        //арифметические вычисления
+        //умножение
         //вывод
 
-        return $this->K5_KrishaBort_min()*$this->B5_RoofVisorOut+$this->K6_UlicaBort_min()*$this->B6_WallOut+$this->K7_StenaPBort_min()*$this->B7_WallIn+$this->K8_2StoroniBort_min()*$this->B8_2SideIn+$this->K9_4StoroniBort_min()*$this->B9_4SideIn;
+        return $this->H11_Til1Storona_m2()*L10_BT43_SeamingSideInFill_120mm*$this->B7_WallIn;
     }
-    function K17_Bort_min()
+    function K16_4StoroniTil_min()
     {
-        //борт, мин
-        //перемножение переменной и константы
+        //умножение
         //вывод
 
-        return $this->K16_BortPredvar_min()*$this->E5_FillSide();
+        return $this->H12_Til4Storoni_m2()*L10_BT43_SeamingSideInFill_120mm*$this->B9_4SideIn;
     }
-    function K18_TilPredvar_min()
+    function K17_ZakatkaTilPredv_min()
     {
-        //тыл предварительно, мин
-        //арифметические вычисления
+        //сложение
         //вывод
 
-        return $this->K11_KrishaTil_min()*$this->B5_RoofVisorOut+$this->K12_UlicaTil_min()*$this->B6_WallOut+$this->K13_StenaPTil_min()*$this->B7_WallIn+$this->K14_4StoroniTil_min()*$this->B9_4SideIn;
+        return $this->K13_KrishaTil_min()+$this->K14_StenaUlicaTil_min()+$this->K15_StenaPomechenieTil_min()+$this->K16_4StoroniTil_min();
     }
-    function K19_Til_min()
+    function K18_TimeZakatkiRaschMinimal_cm()
     {
-        //тыл, мин
-        //перемножение переменной и константы
+        //вертикальный размер, см
+        //если ориентация = 2, то вернуть большую сторону, см
+        //иначе - вернуть меньшую сторону, см
         //вывод
 
-        return $this->K18_TilPredvar_min()*$this->E6_FilmBack();
+        if ($this->K17_ZakatkaTilPredv_min() <L10_BT33_KnurlFullColor_m2){
+            return L10_BT33_KnurlFullColor_m2;
+        }
+        else{
+            return $this->K17_ZakatkaTilPredv_min();
+        }
     }
-    function N5_PloshPlenki_m2()
+    function K19_ZakatkaTilItogo_min()
     {
-        //площадь пленки, м2
-        //арифметические вычисления
-        //округление
+//умножение и округление
         //вывод
 
-        return round($this->H31_PloshB_m2()*L10_BB87_K_PererashPlenkBort+$this->H33_PloshTill_m2()*L10_BB88_K_PererashPlenkTil, 2);
+        return round($this->K18_TimeZakatkiRaschMinimal_cm()*$this->E23_FlagZakatkiTila(),0);
     }
-    function N6_PlenkaItogo_mp()
+
+    function N6_PloshPlenki_grn()
     {
-        //пленка (1,2 м) итого, мп
-        //перемножение
-        //округление
+        //сложение
         //вывод
 
-        return round($this->N5_PloshPlenki_m2()/1.2, 2);
+        return $this->H23_PlenkaBortItogo_grn()+$this->H29_PlenkaTilItogo_grn();
     }
-    function N7_StoimPlenki_grn()
+    function N10_PloshPlenki_min()
     {
-        //стоимость пленки, грн
-        //перемножение
-        //округление
+        //сложение
         //вывод
 
-        return round($this->N5_PloshPlenki_m2()*L10_U12_RitramaM300E, 0);
+        return $this->K11_ZakatkaBortItogo_min()+$this->K19_ZakatkaTilItogo_min();
     }
-    function N11_TrudNanes_min()
+    function N11_StoimostRaboti_grn()
     {
-        //трудоемкость нанесения , мин
-        //прибавление
-        //округление
+//умножение и округление
         //вывод
 
-        return round($this->K17_Bort_min()+$this->K19_Til_min(), 0);
+        return round($this->N10_PloshPlenki_min()*L10_C67_K1,0);
     }
-    function N12_StoimRaboti_grn()
+    function N20_GlubinaBorta_sm()
     {
-        //стоимость работы, грн
-        //перемножение
-        //округление
         //вывод
-
-        return round($this->N11_TrudNanes_min()*L10_C67_K1, 0);
+        return $this->E20_GlubinaBorta_m();
     }
     function N24_Itogo_grn()
     {
-        //итого, грн
-        //прибавление
+        //сложение
         //вывод
 
-        return $this->N7_StoimPlenki_grn()+$this->N12_StoimRaboti_grn();
+        return $this->N6_PloshPlenki_grn()+$this->N11_StoimostRaboti_grn();
     }
 }
 
@@ -443,79 +479,1270 @@ class L15_2
 {
     // Входные параметры:
     public $R5_RoofVisorOut; // крыша/козырек улица
-    private $R6_WallOut; // стена улица
-    private $R7_WallIn; // стена помещение
-    private $R8_2SideIn; // 2 стороны помещение
-    private $R9_4SideIn; // 4 стороны помещение
+    public $R6_WallOut; // стена улица
+    public $R7_WallIn; // стена помещение
+    public $R8_2SideIn; // 2 стороны помещение
+    public $R9_4SideIn; // 4 стороны помещение
 
-    private $R11_BolshStorona_cm; // большая сторона, см
-    private $R12_MenshStorona_cm; // меньшая сторона, см
-    private $R13_LicIzobr; // лицевое изображение
+    public $R11_BolshStorona_cm; // большая сторона, см
+    public $R12_MenshStorona_cm; // меньшая сторона, см
 
-    private $R15_MaketIzobr; // макет изображения
-    private $R16_PlenkaLic; // пленка лицевая
+    public $R14_PlenkaRitramaek1m2_grn; // пленка "Ritrama" эк 1 м2, грн
+    public $R15_Porezka1mp_grn; // порезка 1 мп, грн
 
-    public function __construct($RoofVisorOut = 0, $WallOut = 0, $WallIn = 0, $SideIn2 = 1, $SideIn4 = 0,
-                                $BolshStorona_cm = 300, $MenshStorona_cm = 60,
-                                $LicIzobr = 1,
-                                $MaketIzobr = 1, $PlenkaLic = 3)
+    public function __construct($SCLight = 1, $VarIspoln = 4,
+                                $Orientation = 1, $MaxSide_cm = 150, $MinSide_cm = 100,
+                                $FrontImg=1, $ColorSide=1, $ColorBack=0, $Ugol=[0,0,0,0],
+                                $MaketImg=1, $PlenkLic=3, $PlastLic=2, $IstochnikSveta = 1
+                                )
     {
         // Заполнение входных данных.
-        $this->R5_RoofVisorOut = $RoofVisorOut;
-        $this->R6_WallOut = $WallOut;
-        $this->R7_WallIn = $WallIn;
-        $this->R8_2SideIn = $SideIn2;
-        $this->R9_4SideIn = $SideIn4;
+        $this->R5_RoofVisorOut = 0; // крыша/козырек улица
+        $this->R6_WallOut = 0;      // стена улица
+        $this->R7_WallIn = 0;       // стена помещение
+        $this->R8_2SideIn = 0;      // 2 стороны помещение
+        $this->R9_4SideIn = 0;      // 4 стороны помещение
+        switch ($VarIspoln){
+            case 1: $this->R5_RoofVisorOut = 1; break;
+            case 2: $this->R6_WallOut = 1; break;
+            case 3: $this->R7_WallIn = 1; break;
+            case 4: $this->R8_2SideIn = 1; break;
+            case 5: $this->R9_4SideIn = 1; break;
+            default: $this->R8_2SideIn = 1; break;
+        }
 
-        $this->R11_BolshStorona_cm = $BolshStorona_cm;
-        $this->R12_MenshStorona_cm = $MenshStorona_cm;
-        $this->R13_LicIzobr = $LicIzobr;
+        $this->R11_BolshStorona_cm = $MaxSide_cm;
+        $this->R12_MenshStorona_cm = $MinSide_cm;
 
-        $this->R15_MaketIzobr = $MaketIzobr;
-        $this->R16_PlenkaLic = $PlenkaLic;
+        $this->R14_PlenkaRitramaek1m2_grn = L10_U12_RitramaM300E;
+        $this->R15_Porezka1mp_grn = L10_U27_PlotterCutLexx;
 
     }
 
     // C light - фасад пленка
 
-    function U6_2Storony()
+    function V6_2Storony()
     {
         //2 стороны (1-да/0-нет)
         //вывод
 
         return $this->R8_2SideIn;
     }
-    function U7_4Storony()
+
+    function V7_4Storony()
     {
         //4 стороны (1-да/0-нет)
         //вывод
 
         return $this->R9_4SideIn;
     }
-    function U5_1Storona()
+
+    function V5_1Storona()
     {
         //1 сторона (1-да/0-нет)
         //если 2 стороны = 0 и 4 стороны = 0, то вернуть 1
         //иначе - вернуть 0
         //вывод
 
-        if ($this->U6_2Storony() == 0 and $this->U7_4Storony() == 0)
-        {
+        if ($this->V6_2Storony() == 0 and $this->V7_4Storony() == 0) {
             return 1;
-        }
-        else
-        {
+        } else {
             return 0;
         }
     }
-    function U9_PlenkaFasadEst()
+
+    function V9_BolchaaStorona_m()
     {
-        //пленка фасад есть (1-да/0-нет)
-        //если лицевое изображение = 1, то вернуть 1
+        //деление
+        //вывод
+        return $this->R11_BolshStorona_cm / 100;
+    }
+
+    function V10_MenchaaStorona_m()
+    {
+        //деление
+        //вывод
+        return $this->R12_MenshStorona_cm / 100;
+    }
+
+    function V11_Perimetr_m()
+    {//сложение
+        //вывод
+
+        return $this->V9_BolchaaStorona_m() + $this->V10_MenchaaStorona_m() + $this->V9_BolchaaStorona_m() + $this->V10_MenchaaStorona_m();
+    }
+
+    function V13_VertPolosDla1m_shtuk()
+    {
+        //округить вверх
+        //вывод
+
+        return ceil($this->V9_BolchaaStorona_m() / 1);
+    }
+
+    function V14_VertPolosDla122m_shtuk()
+    {
+        //округить вверх
+        //вывод
+
+        return ceil($this->V9_BolchaaStorona_m() / 1.22);
+    }
+
+//ШИРИНА ПЛЕНКИ 1 М
+    function V18_BolchaaStoronaDo24smFlag()
+    {
+        //если r11<=24, то присвоить 1, иначе присвоить 10000
+        //вывод
+
+        if ($this->R11_BolshStorona_cm <= 24) {
+            return 1;
+        } else {
+            return 10000;
+        }
+    }
+
+    function V19_BolchaaStorona25Tire49smFlag()
+    {
+        //если r11>=25 и r11<=49, то присвоить 1, иначе присвоить 10000
+        //вывод
+
+        if ($this->R11_BolshStorona_cm >= 25 and $this->R11_BolshStorona_cm <= 49) {
+            return 1;
+        } else {
+            return 10000;
+        }
+    }
+
+    function V20_BolchaaStorona50Tire99smFlag()
+    {
+        //если r11>=50 и r11<=99, то присвоить 1, иначе присвоить 10000
+        //вывод
+
+        if ($this->R11_BolshStorona_cm >= 50 and $this->R11_BolshStorona_cm <= 99) {
+            return 1;
+        } else {
+            return 10000;
+        }
+    }
+
+    function V22_MenchaaStoronaDo24smFlag()
+    {
+        //если r12<=24, то присвоить 1, иначе присвоить 10000
+        //вывод
+
+        if ($this->R12_MenshStorona_cm <= 24) {
+            return 1;
+        } else {
+            return 10000;
+        }
+    }
+    function V23_MenchaaStorona25Tire49smFlag()
+    {
+        //если r12>=26 и r11<=49, то присвоить 1, иначе присвоить 10000
+        //вывод
+
+        if ($this->R12_MenshStorona_cm >= 26 and $this->R12_MenshStorona_cm <= 49) {
+            return 1;
+        } else {
+            return 10000;
+        }
+    }
+    function V24_MenchaaStorona50Tire99smFlag()
+    {
+        //если r12>=50 и r12<=99, то присвоить 1, иначе присвоить 10000
+        //вывод
+
+        if ($this->R12_MenshStorona_cm >= 50 and $this->R12_MenshStorona_cm <= 99) {
+            return 1;
+        } else {
+            return 10000;
+        }
+    }
+    function V26_MenchaaStorona100Tire124smFlag()
+    {
+        //если r12>=100 и r12<=124, то присвоить 1, иначе присвоить 10000
+        //вывод
+
+        if ($this->R12_MenshStorona_cm >= 100 and $this->R12_MenshStorona_cm <= 124) {
+            return 1;
+        } else {
+            return 10000;
+        }
+    }
+    function V27_MenchaaStorona125Tire149smFlag()
+    {
+        //если r12>=125 и r11<=149, то присвоить 1, иначе присвоить 10000
+        //вывод
+
+        if ($this->R12_MenshStorona_cm >= 125 and $this->R12_MenshStorona_cm <= 149) {
+            return 1;
+        } else {
+            return 10000;
+        }
+    }
+
+    function V28_MenchaaStorona150Tire154smFlag()
+    {
+        //если r11>=150 и r11<=154, то присвоить 1, иначе присвоить 10000
+        //вывод
+
+        if ($this->R12_MenshStorona_cm >= 150 and $this->R12_MenshStorona_cm <= 154) {
+            return 1;
+        } else {
+            return 10000;
+        }
+    }
+
+    function X18_BolchaaStoronaDo24smRez_grn()
+    {
+        //умножение
+        //вывод
+        return $this->V11_Perimetr_m() * $this->R15_Porezka1mp_grn * $this->V18_BolchaaStoronaDo24smFlag();
+    }
+
+    function X19_BolchaaStorona25Tire49smRez_grn()
+    {
+        //умножение
+        //вывод
+        return $this->V11_Perimetr_m() * $this->R15_Porezka1mp_grn * $this->V19_BolchaaStorona25Tire49smFlag();
+    }
+
+    function X20_BolchaaStorona50Tire99smRez_grn()
+    {
+        //умножение
+        //вывод
+        return $this->V11_Perimetr_m() * $this->R15_Porezka1mp_grn * $this->V20_BolchaaStorona50Tire99smFlag();
+    }
+
+    function X22_MenchaaStoronaDo24smRez_grn()
+    {
+        //умножение
+        //вывод
+        return $this->V11_Perimetr_m() * $this->R15_Porezka1mp_grn * $this->V22_MenchaaStoronaDo24smFlag();
+    }
+
+    function X23_MenchaaStorona25Tire49smRez_grn()
+    {
+        //умножение
+        //вывод
+        return $this->V11_Perimetr_m() * $this->R15_Porezka1mp_grn * $this->V23_MenchaaStorona25Tire49smFlag();
+    }
+
+    function X24_MenchaaStorona50Tire99smRez_grn()
+    {
+        //умножение
+        //вывод
+        return $this->V11_Perimetr_m() * $this->R15_Porezka1mp_grn * $this->V24_MenchaaStorona50Tire99smFlag();
+    }
+
+    function X26_MenchaaStoronaDo24smRez_grn()
+    {
+        //сложение и умножение
+        //вывод
+        return ($this->V11_Perimetr_m() + $this->V9_BolchaaStorona_m() * 2) * $this->R15_Porezka1mp_grn * $this->V26_MenchaaStorona100Tire124smFlag();
+    }
+
+    function X27_MenchaaStorona25Tire49smRez_grn()
+    {        //сложение и умножение
+        //вывод
+        return ($this->V11_Perimetr_m() + $this->V9_BolchaaStorona_m() * 2) * $this->R15_Porezka1mp_grn * $this->V27_MenchaaStorona125Tire149smFlag();
+    }
+
+    function X28_MenchaaStorona50Tire99smRez_grn()
+    {        //сложение и умножение
+        //вывод
+        return ($this->V11_Perimetr_m() + $this->V9_BolchaaStorona_m() * 2) * $this->R15_Porezka1mp_grn * $this->V28_MenchaaStorona150Tire154smFlag();
+    }
+
+    function Y18_BolchaaStoronaDo24smPlen_grn()
+    {
+        //умножение
+        //вывод
+        return 1 * $this->V10_MenchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V18_BolchaaStoronaDo24smFlag();
+    }
+
+    function Y19_BolchaaStorona25Tire49smPlen_grn()
+    {
+        //умножение
+        //вывод
+        return 1 * $this->V10_MenchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V19_BolchaaStorona25Tire49smFlag();
+    }
+
+    function Y20_BolchaaStorona50Tire99smPlen_grn()
+    {
+        //умножение
+        //вывод
+        return 1 * $this->V10_MenchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V20_BolchaaStorona50Tire99smFlag();
+    }
+
+    function Y22_MenchaaStoronaDo24smPlen_grn()
+    {
+        //умножение
+        //вывод
+        return 1 * $this->V9_BolchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V22_MenchaaStoronaDo24smFlag();
+    }
+
+    function Y23_MenchaaStorona25Tire49smPlen_grn()
+    {
+        //умножение
+        //вывод
+        return 1 * $this->V9_BolchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V23_MenchaaStorona25Tire49smFlag();
+    }
+
+    function Y24_MenchaaStorona50Tire99smPlen_grn()
+    {
+        //умножение
+        //вывод
+        return 1 * $this->V9_BolchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V24_MenchaaStorona50Tire99smFlag();
+    }
+
+    function Y26_MenchaaStoronaDo24smPlen_grn()
+    {
+        //умножение
+        //вывод
+        return 2 * $this->V9_BolchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V26_MenchaaStorona100Tire124smFlag();
+    }
+
+    function Y27_MenchaaStorona25Tire49smPlen_grn()
+    {
+        // умножение
+        //вывод
+        return 2 * $this->V9_BolchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V27_MenchaaStorona125Tire149smFlag();
+    }
+
+    function Y28_MenchaaStorona50Tire99smPlen_grn()
+    {
+        //умножение
+        //вывод
+        return 2 * $this->V9_BolchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V28_MenchaaStorona150Tire154smFlag();
+    }
+    function Z18_Summ_grn()
+    {//сумма
+        return $this->X18_BolchaaStoronaDo24smRez_grn()+$this->Y18_BolchaaStoronaDo24smPlen_grn();
+    }
+    function Z19_Summ_grn()
+    {//сумма
+        return $this->X19_BolchaaStorona25Tire49smRez_grn()+$this->Y19_BolchaaStorona25Tire49smPlen_grn();
+    }
+    function Z20_Summ_grn()
+    {//сумма
+        return $this->X20_BolchaaStorona50Tire99smRez_grn()+$this->Y20_BolchaaStorona50Tire99smPlen_grn();
+    }
+
+    function Z22_Summ_grn()
+    {//сумма
+        return $this->X22_MenchaaStoronaDo24smRez_grn()+$this->Y22_MenchaaStoronaDo24smPlen_grn();
+    }
+    function Z23_Summ_grn()
+    {//сумма
+        return $this->X23_MenchaaStorona25Tire49smRez_grn()+$this->Y23_MenchaaStorona25Tire49smPlen_grn();
+    }
+    function Z24_Summ_grn()
+    {//сумма
+        return $this->X24_MenchaaStorona50Tire99smRez_grn()+$this->Y24_MenchaaStorona50Tire99smPlen_grn();
+    }
+    function Z26_Summ_grn()
+    {//сумма
+        return $this->X26_MenchaaStoronaDo24smRez_grn()+$this->Y26_MenchaaStoronaDo24smPlen_grn();
+    }
+    function Z27_Summ_grn()
+    {//сумма
+        return $this->X27_MenchaaStorona25Tire49smRez_grn()+$this->Y27_MenchaaStorona25Tire49smPlen_grn();
+    }
+    function Z28_Summ_grn()
+    {//сумма
+        return $this->X28_MenchaaStorona50Tire99smRez_grn()+$this->Y28_MenchaaStorona50Tire99smPlen_grn();
+    }
+    function Z30_Summ1Stor_grn()
+    {
+        return round (min($this->Z18_Summ_grn(),$this->Z19_Summ_grn(),$this->Z20_Summ_grn(),$this->Z22_Summ_grn(),
+                          $this->Z23_Summ_grn(),$this->Z24_Summ_grn(),$this->Z26_Summ_grn(),$this->Z27_Summ_grn(),$this->Z28_Summ_grn()),0);
+    }
+    function Z31_StoronaItogo_grn()
+    {//умножение
+        return $this->Z30_Summ1Stor_grn()*$this->V5_1Storona();
+    }
+    //ШИРИНА ПЛЕНКА 1,22 М
+    function V36_BolchaaStoronaDo30smFlag()
+    {
+        //если r11<=30, то присвоить 1, иначе присвоить 10000
+        //вывод
+
+        if ($this->R11_BolshStorona_cm <= 30) {
+            return 1;
+        } else {
+            return 10000;
+        }
+    }
+    function V37_BolchaaStorona31Tire60smFlag()
+    {
+        //если r11>=31 и r11<=60, то присвоить 1, иначе присвоить 10000
+        //вывод
+
+        if ($this->R11_BolshStorona_cm >= 31 and $this->R11_BolshStorona_cm <= 60) {
+            return 1;
+        } else {
+            return 10000;
+        }
+    }
+
+    function V38_BolchaaStorona61Tire120smFlag()
+    {
+        //если r11>=61 и r11<=120, то присвоить 1, иначе присвоить 10000
+        //вывод
+
+        if ($this->R11_BolshStorona_cm >= 61 and $this->R11_BolshStorona_cm <= 120) {
+            return 1;
+        } else {
+            return 10000;
+        }
+    }
+    function V40_MenchaaStoronaDo30smFlag()
+    {
+        //если r12<=30, то присвоить 1, иначе присвоить 10000
+        //вывод
+
+        if ($this->R12_MenshStorona_cm <= 30) {
+            return 1;
+        } else {
+            return 10000;
+        }
+    }
+    function V41_MenchaaStorona31Tire60smFlag()
+    {
+        //если r12>=31 и r11<=60, то присвоить 1, иначе присвоить 10000
+        //вывод
+
+        if ($this->R12_MenshStorona_cm >= 31 and $this->R12_MenshStorona_cm <= 60) {
+            return 1;
+        } else {
+            return 10000;
+        }
+    }
+    function V42_MenchaaStorona61Tire120smFlag()
+    {
+        //если r12>=61 и r12<=120, то присвоить 1, иначе присвоить 10000
+        //вывод
+
+        if ($this->R12_MenshStorona_cm >= 61 and $this->R12_MenshStorona_cm <= 120) {
+            return 1;
+        } else {
+            return 10000;
+        }
+    }
+
+    function V44_MenchaaStorona121Tire150smFlag()
+    {
+        //если r12>=121 и r12<=150, то присвоить 1, иначе присвоить 10000
+        //вывод
+
+        if ($this->R12_MenshStorona_cm >= 121 and $this->R12_MenshStorona_cm <= 150) {
+            return 1;
+        } else {
+            return 10000;
+        }
+    }
+
+    function V45_MenchaaStorona151Tire154smFlag()
+    {
+        //если r12>=151 и r11<=154, то присвоить 1, иначе присвоить 10000
+        //вывод
+
+        if ($this->R12_MenshStorona_cm >= 151 and $this->R12_MenshStorona_cm <= 154) {
+            return 1;
+        } else {
+            return 10000;
+        }
+    }
+
+    function X36_BolStorDo30sm1StorRes_grn()
+    {//умножение
+        return $this->V11_Perimetr_m() * $this->R15_Porezka1mp_grn*$this->V36_BolchaaStoronaDo30smFlag();
+    }
+    function X37_BolStor31Tire60sm1StorRes_grn()
+    {//умножение
+        return $this->V11_Perimetr_m() * $this->R15_Porezka1mp_grn*$this->V37_BolchaaStorona31Tire60smFlag();
+    }
+    function X38_BolStor61Tire120sm1StorStorRes_grn()
+    {//умножение
+        return $this->V11_Perimetr_m() * $this->R15_Porezka1mp_grn*$this->V38_BolchaaStorona61Tire120smFlag();
+    }
+    function X40_MenStorDo30sm1StorRes_grn()
+    {//умножение
+        return $this->V11_Perimetr_m() * $this->R15_Porezka1mp_grn*$this->V40_MenchaaStoronaDo30smFlag();
+    }
+    function X41_MenlStor31Tire60sm1StorRes_grn()
+    {//умножение
+        return $this->V11_Perimetr_m() * $this->R15_Porezka1mp_grn*$this->V41_MenchaaStorona31Tire60smFlag();
+    }
+    function X42_MenStor61Tire120sm1StorStorRes_grn()
+    {//умножение
+        return $this->V11_Perimetr_m() * $this->R15_Porezka1mp_grn*$this->V42_MenchaaStorona61Tire120smFlag();
+    }
+    function X44_MenchaaStorona121Tire150smRez_grn()
+    {        //сложение и умножение
+        //вывод
+        return ($this->V11_Perimetr_m() + $this->V9_BolchaaStorona_m() * 2) * $this->R15_Porezka1mp_grn * $this->V44_MenchaaStorona121Tire150smFlag();
+    }
+    function X45_MenchaaStorona151Tire154smRez_grn()
+    {        //сложение и умножение
+        //вывод
+        return ($this->V11_Perimetr_m() + $this->V9_BolchaaStorona_m() * 2) * $this->R15_Porezka1mp_grn * $this->V45_MenchaaStorona151Tire154smFlag();
+    }
+    function Y36_BolchaaStoronaDo30smPlen_grn()
+    {
+        //умножение
+        //вывод
+        return 1 * $this->V10_MenchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V36_BolchaaStoronaDo30smFlag()*1.22;
+    }
+    function Y37_BolchaaStorona31Tire60smPlen_grn()
+    {
+        //умножение
+        //вывод
+        return 1 * $this->V10_MenchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V37_BolchaaStorona31Tire60smFlag()*1.22;
+    }
+
+    function Y38_BolchaaStorona61Tire120smPlen_grn()
+    {
+        //умножение
+        //вывод
+        return 1 * $this->V10_MenchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V38_BolchaaStorona61Tire120smFlag()*1.22;
+    }
+
+    function Y40_MenchaaStoronaDo30smPlen_grn()
+    {
+        //умножение
+        //вывод
+        return 1 * $this->V9_BolchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V40_MenchaaStoronaDo30smFlag()*1.22;
+    }
+
+    function Y41_MenchaaStorona31Tire60smPlen_grn()
+    {
+        //умножение
+        //вывод
+        return 1 * $this->V9_BolchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V41_MenchaaStorona31Tire60smFlag()*1.22;
+    }
+
+    function Y42_MenchaaStorona61Tire120smPlen_grn()
+    {
+        //умножение
+        //вывод
+        return 1 * $this->V9_BolchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V42_MenchaaStorona61Tire120smFlag()*1.22;
+    }
+    function Y44_MenchaaStorona121Tire150smPlen_grn()
+    {
+        // умножение
+        //вывод
+        return 2 * $this->V9_BolchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V44_MenchaaStorona121Tire150smFlag()*1.22;
+    }
+
+    function Y45_MenchaaStorona151Tire154smPlen_grn()
+    {
+        //умножение
+        //вывод
+        return 2 * $this->V9_BolchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V45_MenchaaStorona151Tire154smFlag()*1.22;
+    }
+
+    function Z36_Summ_grn()
+    {//сумма
+        return $this->X36_BolStorDo30sm1StorRes_grn()+$this->Y36_BolchaaStoronaDo30smPlen_grn();
+    }
+    function Z37_Summ_grn()
+    {//сумма
+        return $this->X37_BolStor31Tire60sm1StorRes_grn()+$this->Y37_BolchaaStorona31Tire60smPlen_grn();
+    }
+    function Z38_Summ_grn()
+    {//сумма
+        return $this->X38_BolStor61Tire120sm1StorStorRes_grn()+$this->Y38_BolchaaStorona61Tire120smPlen_grn();
+    }
+
+    function Z40_Summ_grn()
+    {//сумма
+        return $this->X40_MenStorDo30sm1StorRes_grn()+$this->Y40_MenchaaStoronaDo30smPlen_grn();
+    }
+    function Z41_Summ_grn()
+    {//сумма
+        return $this->X41_MenlStor31Tire60sm1StorRes_grn()+$this->Y41_MenchaaStorona31Tire60smPlen_grn();
+    }
+    function Z42_Summ_grn()
+    {//сумма
+        return $this->X42_MenStor61Tire120sm1StorStorRes_grn()+$this->Y42_MenchaaStorona61Tire120smPlen_grn();
+    }
+    function Z44_Summ_grn()
+    {//сумма
+        return $this->X44_MenchaaStorona121Tire150smRez_grn()+$this->Y44_MenchaaStorona121Tire150smPlen_grn();
+    }
+    function Z45_Summ_grn()
+    {//сумма
+        return $this->X45_MenchaaStorona151Tire154smRez_grn()+$this->Y45_MenchaaStorona151Tire154smPlen_grn();
+    }
+    function Z47_Summ1Stor_grn()
+    {
+        return round (min($this->Z36_Summ_grn(),$this->Z37_Summ_grn(),$this->Z38_Summ_grn(), $this->Z40_Summ_grn(),$this->Z41_Summ_grn(),$this->Z42_Summ_grn(),$this->Z44_Summ_grn(),$this->Z45_Summ_grn()),0);
+    }
+    function Z48_StoronaItogo_grn()
+    {//умножение
+        return $this->Z47_Summ1Stor_grn()*$this->V5_1Storona();
+    }
+//2 СТОРОНЫ
+//ШИРИНА ПЛЕНКИ 1 М
+    function AB18_BolchaaStoronaDo24smRez_grn()
+    {
+        //умножение
+        //вывод
+        return $this->V11_Perimetr_m() *2* $this->R15_Porezka1mp_grn * $this->V18_BolchaaStoronaDo24smFlag();
+    }
+    function AB19_BolchaaStorona25Tire49smRez_grn()
+    {
+        //умножение
+        //вывод
+        return $this->V11_Perimetr_m() *2* $this->R15_Porezka1mp_grn * $this->V19_BolchaaStorona25Tire49smFlag();
+    }
+    function AB20_BolchaaStorona50Tire99smRez_grn()
+    {
+        //умножение
+        //вывод
+        return $this->V11_Perimetr_m() *2* $this->R15_Porezka1mp_grn * $this->V20_BolchaaStorona50Tire99smFlag();
+    }
+    function AB22_MenchaaStoronaDo24smRez_grn()
+    {
+        //умножение
+        //вывод
+        return $this->V11_Perimetr_m() *2* $this->R15_Porezka1mp_grn * $this->V22_MenchaaStoronaDo24smFlag();
+    }
+    function AB23_MenchaaStorona25Tire49smRez_grn()
+    {
+        //умножение
+        //вывод
+        return $this->V11_Perimetr_m() *2* $this->R15_Porezka1mp_grn * $this->V23_MenchaaStorona25Tire49smFlag();
+    }
+    function AB24_MenchaaStorona50Tire99smRez_grn()
+    {
+        //умножение
+        //вывод
+        return $this->V11_Perimetr_m() * 2*$this->R15_Porezka1mp_grn * $this->V24_MenchaaStorona50Tire99smFlag();
+    }
+
+    function AB26_MenchaaStoronaDo24smRez_grn()
+    {
+        //сложение и умножение
+        //вывод
+        return ($this->V11_Perimetr_m() + $this->V9_BolchaaStorona_m() * 2) *2* $this->R15_Porezka1mp_grn * $this->V26_MenchaaStorona100Tire124smFlag();
+    }
+
+    function AB27_MenchaaStorona25Tire49smRez_grn()
+    {        //сложение и умножение
+        //вывод
+        return ($this->V11_Perimetr_m() + $this->V9_BolchaaStorona_m() * 2) *2* $this->R15_Porezka1mp_grn * $this->V27_MenchaaStorona125Tire149smFlag();
+    }
+
+    function AB28_MenchaaStorona50Tire99smRez_grn()
+    {        //сложение и умножение
+        //вывод
+        return ($this->V11_Perimetr_m() + $this->V9_BolchaaStorona_m() * 4) *2* $this->R15_Porezka1mp_grn * $this->V28_MenchaaStorona150Tire154smFlag();
+    }
+
+    function AC18_BolchaaStoronaDo24smPlen_grn()
+    {       //умножение
+        //вывод
+        return 1 * $this->V10_MenchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V18_BolchaaStoronaDo24smFlag();
+    }
+
+    function AC19_BolchaaStorona25Tire49smPlen_grn()
+    {        //умножение
+        //вывод
+        return 1 * $this->V10_MenchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V19_BolchaaStorona25Tire49smFlag();
+    }
+
+    function AC20_BolchaaStorona50Tire99smPlen_grn()
+    {        //умножение
+        //вывод
+        return 2 * $this->V10_MenchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V20_BolchaaStorona50Tire99smFlag();
+    }
+
+    function AC22_MenchaaStoronaDo24smPlen_grn()
+    {        //умножение
+        //вывод
+        return 1 * $this->V9_BolchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V22_MenchaaStoronaDo24smFlag();
+    }
+
+    function AC23_MenchaaStorona25Tire49smPlen_grn()
+    {        //умножение
+        //вывод
+        return 1 * $this->V9_BolchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V23_MenchaaStorona25Tire49smFlag();
+    }
+
+    function AC24_MenchaaStorona50Tire99smPlen_grn()
+    {        //умножение
+        //вывод
+        return 2 * $this->V9_BolchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V24_MenchaaStorona50Tire99smFlag();
+    }
+
+    function AC26_MenchaaStoronaDo24smPlen_grn()
+    {        //умножение
+        //вывод
+        return 3 * $this->V9_BolchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V26_MenchaaStorona100Tire124smFlag();
+    }
+
+    function AC27_MenchaaStorona25Tire49smPlen_grn()
+    {        // умножение
+        //вывод
+        return 3 * $this->V9_BolchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V27_MenchaaStorona125Tire149smFlag();
+    }
+
+    function AC28_MenchaaStorona50Tire99smPlen_grn()
+    {        //умножение и сложение
+        //вывод
+        return (3*$this->V9_BolchaaStorona_m()*$this->R14_PlenkaRitramaek1m2_grn+$this->V13_VertPolosDla1m_shtuk()*(1.54-$this->V10_MenchaaStorona_m())*2)*$this->V28_MenchaaStorona150Tire154smFlag();
+    }
+    function AD18_Summ_grn()
+    {//сумма
+        return $this->AB18_BolchaaStoronaDo24smRez_grn()+$this->AC18_BolchaaStoronaDo24smPlen_grn();
+    }
+    function AD19_Summ_grn()
+    {//сумма
+        return $this->AB19_BolchaaStorona25Tire49smRez_grn()+$this->AC19_BolchaaStorona25Tire49smPlen_grn();
+    }
+    function AD20_Summ_grn()
+    {//сумма
+        return $this->AB20_BolchaaStorona50Tire99smRez_grn()+$this->AC20_BolchaaStorona50Tire99smPlen_grn();
+    }
+    function AD22_Summ_grn()
+    {//сумма
+        return $this->AB22_MenchaaStoronaDo24smRez_grn()+$this->AC22_MenchaaStoronaDo24smPlen_grn();
+    }
+    function AD23_Summ_grn()
+    {//сумма
+        return $this->AB23_MenchaaStorona25Tire49smRez_grn()+$this->AC23_MenchaaStorona25Tire49smPlen_grn();
+    }
+    function AD24_Summ_grn()
+    {//сумма
+        return $this->AB24_MenchaaStorona50Tire99smRez_grn()+$this->AC24_MenchaaStorona50Tire99smPlen_grn();
+    }
+    function AD26_Summ_grn()
+    {//сумма
+        return $this->AB26_MenchaaStoronaDo24smRez_grn()+$this->AC26_MenchaaStoronaDo24smPlen_grn();
+    }
+    function AD27_Summ_grn()
+    {//сумма
+        return $this->AB27_MenchaaStorona25Tire49smRez_grn()+$this->AC27_MenchaaStorona25Tire49smPlen_grn();
+    }
+    function AD28_Summ_grn()
+    {//сумма
+        return $this->AB28_MenchaaStorona50Tire99smRez_grn()+$this->AC28_MenchaaStorona50Tire99smPlen_grn();
+    }
+    function AD30_Summ2Stor_grn()
+    {
+        return round (min($this->AD18_Summ_grn(),$this->AD19_Summ_grn(),$this->AD20_Summ_grn(), $this->AD22_Summ_grn(),$this->AD23_Summ_grn(),$this->AD24_Summ_grn(),$this->AD26_Summ_grn(),$this->AD27_Summ_grn(),$this->AD28_Summ_grn()),0);
+    }
+    function AD31_StoroniItogo_grn()
+    {//умножение
+        return $this->AD30_Summ2Stor_grn()*$this->V6_2Storony();
+    }
+//ШИРИНА ПЛНЕКИ 1,22 М
+    function AB36_BolStorDo30sm1StorRes_grn()
+    {//умножение
+        return 2*$this->V11_Perimetr_m() * $this->R15_Porezka1mp_grn*$this->V36_BolchaaStoronaDo30smFlag();
+    }
+    function AB37_BolStor31Tire60sm1StorRes_grn()
+    {//умножение
+        return 2*$this->V11_Perimetr_m() * $this->R15_Porezka1mp_grn*$this->V37_BolchaaStorona31Tire60smFlag();
+    }
+    function AB38_BolStor61Tire120sm1StorStorRes_grn()
+    {//умножение
+        return 2*$this->V11_Perimetr_m() * $this->R15_Porezka1mp_grn*$this->V38_BolchaaStorona61Tire120smFlag();
+    }
+    function AB40_MenStorDo30sm1StorRes_grn()
+    {//умножение
+        return 2*$this->V11_Perimetr_m() * $this->R15_Porezka1mp_grn*$this->V40_MenchaaStoronaDo30smFlag();
+    }
+    function AB41_MenlStor31Tire60sm1StorRes_grn()
+    {//умножение
+        return 2*$this->V11_Perimetr_m() * $this->R15_Porezka1mp_grn*$this->V41_MenchaaStorona31Tire60smFlag();
+    }
+    function AB42_MenStor61Tire120sm1StorStorRes_grn()
+    {//умножение
+        return 2*$this->V11_Perimetr_m() * $this->R15_Porezka1mp_grn*$this->V42_MenchaaStorona61Tire120smFlag();
+    }
+    function AB44_MenchaaStorona121Tire150smRez_grn()
+    {        //сложение и умножение
+        //вывод
+        return ($this->V11_Perimetr_m() + $this->V9_BolchaaStorona_m() * 2)*2 * $this->R15_Porezka1mp_grn * $this->V44_MenchaaStorona121Tire150smFlag();
+    }
+    function AB45_MenchaaStorona151Tire154smRez_grn()
+    {        //сложение и умножение
+        //вывод
+        return ($this->V11_Perimetr_m() + $this->V9_BolchaaStorona_m() * 4)*2 * $this->R15_Porezka1mp_grn * $this->V45_MenchaaStorona151Tire154smFlag();
+    }
+    function AC36_BolchaaStoronaDo30smPlen_grn()
+    {
+        //умножение
+        //вывод
+        return 1 * $this->V10_MenchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V36_BolchaaStoronaDo30smFlag()*1.22;
+    }
+    function AC37_BolchaaStorona31Tire60smPlen_grn()
+    {
+        //умножение
+        //вывод
+        return 1 * $this->V10_MenchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V37_BolchaaStorona31Tire60smFlag()*1.22;
+    }
+
+    function AC38_BolchaaStorona61Tire120smPlen_grn()
+    {
+        //умножение
+        //вывод
+        return 2 * $this->V10_MenchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V38_BolchaaStorona61Tire120smFlag()*1.22;
+    }
+
+    function AC40_MenchaaStoronaDo30smPlen_grn()
+    {
+        //умножение
+        //вывод
+        return 1 * $this->V9_BolchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V40_MenchaaStoronaDo30smFlag()*1.22;
+    }
+
+    function AC41_MenchaaStorona31Tire60smPlen_grn()
+    {
+        //умножение
+        //вывод
+        return 1 * $this->V9_BolchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V41_MenchaaStorona31Tire60smFlag()*1.22;
+    }
+
+    function AC42_MenchaaStorona61Tire120smPlen_grn()
+    {
+        //умножение
+        //вывод
+        return 2 * $this->V9_BolchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V42_MenchaaStorona61Tire120smFlag()*1.22;
+    }
+    function AC44_MenchaaStorona121Tire150smPlen_grn()
+    {
+        // умножение
+        //вывод
+        return 3 * $this->V9_BolchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V42_MenchaaStorona61Tire120smFlag()*1.22;
+    }
+
+    function AC45_MenchaaStorona151Tire154smPlen_grn()
+    {
+        //умножение
+        //вывод
+        return 3 * $this->V9_BolchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V42_MenchaaStorona61Tire120smFlag()*1.22;
+    }
+    function AD36_Summ_grn()
+    {//сумма
+        return $this->AB36_BolStorDo30sm1StorRes_grn()+$this->AC36_BolchaaStoronaDo30smPlen_grn();
+    }
+    function AD37_Summ_grn()
+    {//сумма
+        return $this->AB37_BolStor31Tire60sm1StorRes_grn()+$this->AC37_BolchaaStorona31Tire60smPlen_grn();
+    }
+    function AD38_Summ_grn()
+    {//сумма
+        return $this->AB38_BolStor61Tire120sm1StorStorRes_grn()+$this->AC38_BolchaaStorona61Tire120smPlen_grn();
+    }
+
+    function AD40_Summ_grn()
+    {//сумма
+        return $this->AB40_MenStorDo30sm1StorRes_grn()+$this->AC40_MenchaaStoronaDo30smPlen_grn();
+    }
+    function AD41_Summ_grn()
+    {//сумма
+        return $this->AB41_MenlStor31Tire60sm1StorRes_grn()+$this->AC41_MenchaaStorona31Tire60smPlen_grn();
+    }
+    function AD42_Summ_grn()
+    {//сумма
+        return $this->AB42_MenStor61Tire120sm1StorStorRes_grn()+$this->AC42_MenchaaStorona61Tire120smPlen_grn();
+    }
+    function AD44_Summ_grn()
+    {//сумма
+        return $this->AB44_MenchaaStorona121Tire150smRez_grn()+$this->AC44_MenchaaStorona121Tire150smPlen_grn();
+    }
+    function AD45_Summ_grn()
+    {//сумма
+        return $this->AB45_MenchaaStorona151Tire154smRez_grn()+$this->AC45_MenchaaStorona151Tire154smPlen_grn();
+    }
+    function AD47_Summ2Stor_grn()
+    {
+        return round ( 0.5 + min($this->AD36_Summ_grn(),$this->AD37_Summ_grn(),$this->AD38_Summ_grn(), $this->AD40_Summ_grn(),$this->AD41_Summ_grn(),$this->AD42_Summ_grn(),$this->AD44_Summ_grn(),$this->AD45_Summ_grn()),0);
+    }
+    function AD48_StoroniItogo_grn()
+    {//умножение
+        return $this->AD47_Summ2Stor_grn()*$this->V6_2Storony();
+    }
+//4 СТОРОНЫ
+//ШИРИНА ПЛЕНКИ 1 М
+    function AF18_BolchaaStoronaDo24smRez_grn()
+    {
+        //умножение
+        //вывод
+        return $this->V11_Perimetr_m() *4* $this->R15_Porezka1mp_grn * $this->V18_BolchaaStoronaDo24smFlag();
+    }
+    function AF19_BolchaaStorona25Tire49smRez_grn()
+    {
+        //умножение
+        //вывод
+        return $this->V11_Perimetr_m() *4* $this->R15_Porezka1mp_grn * $this->V19_BolchaaStorona25Tire49smFlag();
+    }
+    function AF20_BolchaaStorona50Tire99smRez_grn()
+    {
+        //умножение
+        //вывод
+        return $this->V11_Perimetr_m() *4* $this->R15_Porezka1mp_grn * $this->V20_BolchaaStorona50Tire99smFlag();
+    }
+    function AF22_MenchaaStoronaDo24smRez_grn()
+    {
+        //умножение
+        //вывод
+        return $this->V11_Perimetr_m() *4* $this->R15_Porezka1mp_grn * $this->V22_MenchaaStoronaDo24smFlag();
+    }
+    function AF23_MenchaaStorona25Tire49smRez_grn()
+    {
+        //умножение
+        //вывод
+        return $this->V11_Perimetr_m() *4* $this->R15_Porezka1mp_grn * $this->V23_MenchaaStorona25Tire49smFlag();
+    }
+    function AF24_MenchaaStorona50Tire99smRez_grn()
+    {
+        //умножение
+        //вывод
+        return $this->V11_Perimetr_m() *4*$this->R15_Porezka1mp_grn * $this->V24_MenchaaStorona50Tire99smFlag();
+    }
+    function AF26_MenchaaStoronaDo24smRez_grn()
+    {
+        //сложение и умножение
+        //вывод
+        return ($this->V11_Perimetr_m() + $this->V9_BolchaaStorona_m() * 2) *4* $this->R15_Porezka1mp_grn * $this->V26_MenchaaStorona100Tire124smFlag();
+    }
+    function AF27_MenchaaStorona25Tire49smRez_grn()
+    {        //сложение и умножение
+        //вывод
+        return ($this->V11_Perimetr_m() + $this->V9_BolchaaStorona_m() * 2) *4* $this->R15_Porezka1mp_grn * $this->V27_MenchaaStorona125Tire149smFlag();
+    }
+    function AF28_MenchaaStorona50Tire99smRez_grn()
+    {        //сложение и умножение
+        //вывод
+        return ($this->V11_Perimetr_m() + $this->V9_BolchaaStorona_m() * 4) *4* $this->R15_Porezka1mp_grn * $this->V28_MenchaaStorona150Tire154smFlag();
+    }
+    function AG18_BolchaaStoronaDo24smPlen_grn()
+    {       //умножение
+        //вывод
+        return 1 * $this->V10_MenchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V18_BolchaaStoronaDo24smFlag();
+    }
+
+    function AG19_BolchaaStorona25Tire49smPlen_grn()
+    {        //умножение
+        //вывод
+        return 2 * $this->V10_MenchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V19_BolchaaStorona25Tire49smFlag();
+    }
+    function AG20_BolchaaStorona50Tire99smPlen_grn()
+    {        //умножение
+        //вывод
+        return 4 * $this->V10_MenchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V20_BolchaaStorona50Tire99smFlag();
+    }
+    function AG22_MenchaaStoronaDo24smPlen_grn()
+    {        //умножение
+        //вывод
+        return 1 * $this->V9_BolchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V22_MenchaaStoronaDo24smFlag();
+    }
+    function AG23_MenchaaStorona25Tire49smPlen_grn()
+    {        //умножение
+        //вывод
+        return 2 * $this->V9_BolchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V23_MenchaaStorona25Tire49smFlag();
+    }
+    function AG24_MenchaaStorona50Tire99smPlen_grn()
+    {        //умножение
+        //вывод
+        return 4 * $this->V9_BolchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V24_MenchaaStorona50Tire99smFlag();
+    }
+    function AG26_MenchaaStoronaDo24smPlen_grn()
+    {        //умножение
+        //вывод
+        return 5 * $this->V9_BolchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V26_MenchaaStorona100Tire124smFlag();
+    }
+    function AG27_MenchaaStorona25Tire49smPlen_grn()
+    {        // умножение
+        //вывод
+        return 6 * $this->V9_BolchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V26_MenchaaStorona100Tire124smFlag();
+    }
+
+    function AG28_MenchaaStorona50Tire99smPlen_grn()
+    {        //умножение и сложение
+        //вывод
+        return (6*$this->V9_BolchaaStorona_m()*$this->R14_PlenkaRitramaek1m2_grn+$this->V13_VertPolosDla1m_shtuk()*(1.54-$this->V10_MenchaaStorona_m())*4)*$this->V28_MenchaaStorona150Tire154smFlag();
+    }
+    function AH18_Summ_grn()
+    {//сумма
+        return $this->AF18_BolchaaStoronaDo24smRez_grn()+$this->AG18_BolchaaStoronaDo24smPlen_grn();
+    }
+    function AH19_Summ_grn()
+    {//сумма
+        return $this->AF19_BolchaaStorona25Tire49smRez_grn()+$this->AG19_BolchaaStorona25Tire49smPlen_grn();
+    }
+    function AH20_Summ_grn()
+    {//сумма
+        return $this->AF20_BolchaaStorona50Tire99smRez_grn() + $this->AG20_BolchaaStorona50Tire99smPlen_grn();
+    }
+    function AH22_Summ_grn()
+    {//сумма
+        return $this->AF22_MenchaaStoronaDo24smRez_grn() + $this->AG22_MenchaaStoronaDo24smPlen_grn();
+    }
+
+    function AH23_Summ_grn()
+    {//сумма
+        return $this->AF23_MenchaaStorona25Tire49smRez_grn() + $this->AG23_MenchaaStorona25Tire49smPlen_grn();
+    }
+
+    function AH24_Summ_grn()
+    {//сумма
+        return $this->AF24_MenchaaStorona50Tire99smRez_grn() + $this->AG24_MenchaaStorona50Tire99smPlen_grn();
+    }
+
+    function AH26_Summ_grn()
+    {//сумма
+        return $this->AF26_MenchaaStoronaDo24smRez_grn() + $this->AG26_MenchaaStoronaDo24smPlen_grn();
+    }
+
+    function AH27_Summ_grn()
+    {//сумма
+        return $this->AF27_MenchaaStorona25Tire49smRez_grn() + $this->AG27_MenchaaStorona25Tire49smPlen_grn();
+    }
+
+    function AH28_Summ_grn()
+    {//сумма
+        return $this->AF28_MenchaaStorona50Tire99smRez_grn() + $this->AG28_MenchaaStorona50Tire99smPlen_grn();
+    }
+    function AH30_Summ4Stor_grn()
+    {
+        return round (min($this->AH18_Summ_grn(),$this->AH19_Summ_grn(),$this->AH20_Summ_grn(), $this->AH22_Summ_grn(),$this->AH23_Summ_grn(),$this->AH24_Summ_grn(),$this->AH26_Summ_grn(),$this->AH27_Summ_grn(),$this->AH28_Summ_grn()),0);
+    }
+    function AH31_StoroniItogo_grn()
+    {//умножение
+        return $this->AH30_Summ4Stor_grn()*$this->V7_4Storony();
+    }
+//ШИРИНА ПЛЕНКИ 1,22 М
+    function AF36_BolStorDo30sm1StorRes_grn()
+    {//умножение
+        return 4*$this->V11_Perimetr_m() * $this->R15_Porezka1mp_grn*$this->V36_BolchaaStoronaDo30smFlag();
+    }
+    function AF37_BolStor31Tire60sm1StorRes_grn()
+    {//умножение
+        return 4*$this->V11_Perimetr_m() * $this->R15_Porezka1mp_grn*$this->V37_BolchaaStorona31Tire60smFlag();
+    }
+    function AF38_BolStor61Tire120sm1StorStorRes_grn()
+    {//умножение
+        return 4*$this->V11_Perimetr_m() * $this->R15_Porezka1mp_grn*$this->V38_BolchaaStorona61Tire120smFlag();
+    }
+    function AF40_MenStorDo30sm1StorRes_grn()
+    {//умножение
+        return 4*$this->V11_Perimetr_m() * $this->R15_Porezka1mp_grn*$this->V40_MenchaaStoronaDo30smFlag();
+    }
+    function AF41_MenlStor31Tire60sm1StorRes_grn()
+    {//умножение
+        return 4*$this->V11_Perimetr_m() * $this->R15_Porezka1mp_grn*$this->V41_MenchaaStorona31Tire60smFlag();
+    }
+    function AF42_MenStor61Tire120sm1StorStorRes_grn()
+    {//умножение
+        return 4*$this->V11_Perimetr_m() * $this->R15_Porezka1mp_grn*$this->V42_MenchaaStorona61Tire120smFlag();
+    }
+    function AF44_MenchaaStorona121Tire150smRez_grn()
+    {        //сложение и умножение
+        //вывод
+        return ($this->V11_Perimetr_m() + $this->V9_BolchaaStorona_m() * 2)*4 * $this->R15_Porezka1mp_grn * $this->V44_MenchaaStorona121Tire150smFlag();
+    }
+    function AF45_MenchaaStorona151Tire154smRez_grn()
+    {        //сложение и умножение
+        //вывод
+        return ($this->V11_Perimetr_m() + $this->V9_BolchaaStorona_m() * 2)*4 * $this->R15_Porezka1mp_grn * $this->V45_MenchaaStorona151Tire154smFlag();
+    }
+    function AG36_BolchaaStoronaDo30smPlen_grn()
+    {
+        //умножение
+        //вывод
+        return 1 * $this->V10_MenchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V36_BolchaaStoronaDo30smFlag()*1.22;
+    }
+    function AG37_BolchaaStorona31Tire60smPlen_grn()
+    {
+        //умножение
+        //вывод
+        return 2 * $this->V10_MenchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V37_BolchaaStorona31Tire60smFlag()*1.22;
+    }
+    function AG38_BolchaaStorona61Tire120smPlen_grn()
+    {
+        //умножение
+        //вывод
+        return 4 * $this->V10_MenchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V38_BolchaaStorona61Tire120smFlag()*1.22;
+    }
+    function AG40_MenchaaStoronaDo30smPlen_grn()
+    {
+        //умножение
+        //вывод
+        return 1 * $this->V9_BolchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V40_MenchaaStoronaDo30smFlag()*1.22;
+    }
+    function AG41_MenchaaStorona31Tire60smPlen_grn()
+    {
+        //умножение
+        //вывод
+        return 2 * $this->V9_BolchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V41_MenchaaStorona31Tire60smFlag()*1.22;
+    }
+    function AG42_MenchaaStorona61Tire120smPlen_grn()
+    {
+        //умножение
+        //вывод
+        return 4 * $this->V9_BolchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V42_MenchaaStorona61Tire120smFlag()*1.22;
+    }
+    function AG44_MenchaaStorona121Tire150smPlen_grn()
+    {
+        // умножение
+        //вывод
+        return 5 * $this->V9_BolchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V44_MenchaaStorona121Tire150smFlag()*1.22;
+    }
+    function AG45_MenchaaStorona151Tire154smPlen_grn()
+    {
+        //умножение
+        //вывод
+        return 6 * $this->V9_BolchaaStorona_m() * $this->R14_PlenkaRitramaek1m2_grn * $this->V45_MenchaaStorona151Tire154smFlag()*1.22;
+    }
+    function AH36_Summ_grn()
+    {//сумма
+        return $this->AF36_BolStorDo30sm1StorRes_grn()+$this->AG36_BolchaaStoronaDo30smPlen_grn();
+    }
+    function AH37_Summ_grn()
+    {//сумма
+        return $this->AF37_BolStor31Tire60sm1StorRes_grn()+$this->AG37_BolchaaStorona31Tire60smPlen_grn();
+    }
+    function AH38_Summ_grn()
+    {//сумма
+        return $this->AF38_BolStor61Tire120sm1StorStorRes_grn()+$this->AG38_BolchaaStorona61Tire120smPlen_grn();
+    }
+    function AH40_Summ_grn()
+    {//сумма
+        return $this->AF40_MenStorDo30sm1StorRes_grn()+$this->AG40_MenchaaStoronaDo30smPlen_grn();
+    }
+    function AH41_Summ_grn()
+    {//сумма
+        return $this->AF41_MenlStor31Tire60sm1StorRes_grn()+$this->AG41_MenchaaStorona31Tire60smPlen_grn();
+    }
+    function AH42_Summ_grn()
+    {//сумма
+        return $this->AF42_MenStor61Tire120sm1StorStorRes_grn()+$this->AG42_MenchaaStorona61Tire120smPlen_grn();
+    }
+    function AH44_Summ_grn()
+    {//сумма
+        return $this->AF44_MenchaaStorona121Tire150smRez_grn()+$this->AG44_MenchaaStorona121Tire150smPlen_grn();
+    }
+    function AH45_Summ_grn()
+    {//сумма
+        return $this->AF45_MenchaaStorona151Tire154smRez_grn()+$this->AG45_MenchaaStorona151Tire154smPlen_grn();
+    }
+    function AH47_Summ4Stor_grn()
+    {
+        return round (min($this->AH36_Summ_grn(),$this->AH37_Summ_grn(),$this->AH38_Summ_grn(), $this->AH40_Summ_grn(),$this->AH41_Summ_grn(),$this->AH42_Summ_grn(),$this->AH44_Summ_grn(),$this->AH45_Summ_grn()),0);
+    }
+    function AH48_StoroniItogo_grn()
+    {//умножение
+        return $this->AH47_Summ4Stor_grn()*$this->V7_4Storony();
+    }
+    function AJ31_Itogo1m_grn()
+    {//сумма
+        return $this->Z31_StoronaItogo_grn()+$this->AD31_StoroniItogo_grn()+$this->AH31_StoroniItogo_grn();
+    }
+    function AJ48_Itogo1Tochka22m_grn()
+    {//сумма
+        return $this->Z48_StoronaItogo_grn()+$this->AD48_StoroniItogo_grn()+$this->AH48_StoroniItogo_grn();
+    }
+    function AJ50_ItogoPlenkaPlusPorezkaPlusPerarasxod()
+    {
+        return  round (min($this->AJ31_Itogo1m_grn(),$this->AJ48_Itogo1Tochka22m_grn())*L10_BB85_K_PererashPlenkFasad,0);
+    }
+    function AM24_Itogo_grn()
+    {
+        return $this->AJ50_ItogoPlenkaPlusPorezkaPlusPerarasxod();
+    }
+
+
+}
+
+class L15_3
+{
+    // Входные параметры:
+    public $AQ5_RoofVisorOut; // крыша/козырек улица
+    public $AQ6_WallOut; // стена улица
+    public $AQ7_WallIn; // стена помещение
+    public $AQ8_SideIn2; // 2 стороны помещение
+    public $AQ9_SideIn4; // 4 стороны помещение
+
+    public $AQ11_BolshStorona_cm; // большая сторона, см
+    public $AQ12_MenshStorona_cm; // меньшая сторона, см
+    public $AQ13_LicIzobr; // лицевое изображение
+
+    public $AQ15_MaketIzobr; // макет изображения
+    public $AQ16_PlenkaLic; // пленка лицевая
+    public $AQ18_PlenkZatazkEkon_grn;//пленка затяжка экон грн
+
+    private $L9, $L15_2;
+
+    public function __construct($SCLight = 1, $VarIspoln = 4,
+                                $Orientation = 1, $MaxSide_cm = 150, $MinSide_cm = 100,
+                                $FrontImg=1, $ColorSide=1, $ColorBack=0, $Ugol=[0,0,0,0],
+                                $MaketImg=1, $PlenkLic=3, $PlastLic=2, $IstochnikSveta = 1)
+    {
+        // Заполнение входных данных.
+        $this->AQ5_RoofVisorOut = 0;
+        $this->AQ6_WallOut = 0;
+        $this->AQ7_WallIn = 0;
+        $this->AQ8_SideIn2 = 0;
+        $this->AQ9_SideIn4 = 0;
+        switch ($VarIspoln){
+            case 1: $this->AQ5_RoofVisorOut = 1; break;
+            case 2: $this->AQ6_WallOut = 1; break;
+            case 3: $this->AQ7_WallIn = 1; break;
+            case 4: $this->AQ8_SideIn2 = 1; break;
+            case 5: $this->AQ9_SideIn4 = 1; break;
+            default: $this->AQ8_SideIn2 = 1; break;
+        }
+
+        $this->L9 = new L09($SCLight, $VarIspoln,
+                            $Orientation, $MaxSide_cm, $MinSide_cm,
+                            $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                            $MaketImg, $PlenkLic, $PlastLic, $IstochnikSveta);
+        $this->AQ11_BolshStorona_cm = $this->L9->J22_MaxSide_cm;
+        $this->AQ12_MenshStorona_cm = $this->L9->J23_MinSide_cm;
+        $this->AQ13_LicIzobr = $this->L9->J24_FrontImg;
+
+        $this->AQ15_MaketIzobr = ($this->L9->J38_MaketImg == 1) ? 0 : 1;
+        $this->AQ16_PlenkaLic = $this->L9->J39_PlenkLic;
+
+        $this->L15_2 = new L15_2($SCLight, $VarIspoln,
+                                 $Orientation, $MaxSide_cm, $MinSide_cm,
+                                 $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                                 $MaketImg, $PlenkLic, $PlastLic, $IstochnikSveta);
+        $this->AQ18_PlenkZatazkEkon_grn=$this->L15_2->AM24_Itogo_grn();
+
+    }
+
+    // C light - фасад пленка
+
+    function AT5_2Storony()
+    {
+        //2 стороны (1-да/0-нет)
+        //вывод
+
+        return $this->AQ8_SideIn2;
+    }
+    function AT6_4Storony()
+    {
+        //4 стороны (1-да/0-нет)
+        //вывод
+
+        return $this->AQ9_SideIn4;
+    }
+    function AT7_1Storona()
+    {
+        //1 сторона (1-да/0-нет)
+        //если 2 стороны = 0 и 4 стороны = 0, то вернуть 1
         //иначе - вернуть 0
         //вывод
 
-        if ($this->R13_LicIzobr == 1)
+        if ($this->AT5_2Storony() == 0 and $this->AT6_4Storony() == 0)
         {
             return 1;
         }
@@ -524,14 +1751,12 @@ class L15_2
             return 0;
         }
     }
-    function U10_DesignCreate()
+    function AT10_PolnocvetFoto()
     {
-        //дизайн создать (1-да/0-нет)
-        //если лицевое изображение = 1 и макет изображения = 2, то вернуть 1
+        //если aq16= 1, то вернуть 1
         //иначе - вернуть 0
         //вывод
-
-        if ($this->R13_LicIzobr == 1 and $this->R15_MaketIzobr == 2)
+        if ($this->AQ16_PlenkaLic == 1)
         {
             return 1;
         }
@@ -540,14 +1765,12 @@ class L15_2
             return 0;
         }
     }
-    function U11_DesignCheck()
+    function AT11_PolnocvetFotoPlusLaminat()
     {
-        //дизайн проверить (1-да/0-нет)
-        //если лицевое изображение = 1 и макет изображения = 1, то вернуть 1
+        //если aq16= 2, то вернуть 1
         //иначе - вернуть 0
         //вывод
-
-        if ($this->R13_LicIzobr == 1 and $this->R15_MaketIzobr == 1)
+        if ($this->AQ16_PlenkaLic == 2)
         {
             return 1;
         }
@@ -556,14 +1779,12 @@ class L15_2
             return 0;
         }
     }
-    function U13_FullColorPhoto()
+    function AT12_Polnocvet720()
     {
-        //полноцвет фото (1-да/0-нет)
-        //пленка лицевая = 1, то вернуть 1
+        //если aq16= 3, то вернуть 1
         //иначе - вернуть 0
         //вывод
-
-        if ($this->R16_PlenkaLic == 1)
+        if ($this->AQ16_PlenkaLic == 3)
         {
             return 1;
         }
@@ -572,14 +1793,12 @@ class L15_2
             return 0;
         }
     }
-    function U14_FullColorPhotoPlusLamin()
+    function AT13_Polnocvet720PlusLaminat()
     {
-        //полноцвет фото + ламинат (1-да/0-нет)
-        //пленка лицевая = 2, то вернуть 1
+        //если aq16= 4, то вернуть 1
         //иначе - вернуть 0
         //вывод
-
-        if ($this->R16_PlenkaLic == 2)
+        if ($this->AQ16_PlenkaLic == 4)
         {
             return 1;
         }
@@ -588,14 +1807,12 @@ class L15_2
             return 0;
         }
     }
-    function U15_FullColor720()
+    function AT14_REkonBeliiPlusAplikaciaa()
     {
-        //полноцвет 720 (1-да/0-нет)
-        //пленка лицевая = 3, то вернуть 1
+        //если aq16= 5, то вернуть 1
         //иначе - вернуть 0
         //вывод
-
-        if ($this->R16_PlenkaLic == 3)
+        if ($this->AQ16_PlenkaLic == 5)
         {
             return 1;
         }
@@ -604,14 +1821,12 @@ class L15_2
             return 0;
         }
     }
-    function U16_FullColor720PlusLamin()
+    function AT15_REkonCvetnoiiPlusProrez()
     {
-        //полноцвет 720 + ламинат (1-да/0-нет)
-        //пленка лицевая = 4, то вернуть 1
+        //если aq16= 6, то вернуть 1
         //иначе - вернуть 0
         //вывод
-
-        if ($this->R16_PlenkaLic == 4)
+        if ($this->AQ16_PlenkaLic == 6)
         {
             return 1;
         }
@@ -620,14 +1835,12 @@ class L15_2
             return 0;
         }
     }
-    function U17_EconWhitePlusApplication()
+    function AT16_REkonCvetnoiiPlusAplicacia()
     {
-        //экон, белый + аппликация (1-да/0-нет)
-        //пленка лицевая = 5, то вернуть 1
+        //если aq16= 7, то вернуть 1
         //иначе - вернуть 0
         //вывод
-
-        if ($this->R16_PlenkaLic == 5)
+        if ($this->AQ16_PlenkaLic == 7)
         {
             return 1;
         }
@@ -636,14 +1849,12 @@ class L15_2
             return 0;
         }
     }
-    function U18_EconWhitePlusProrez()
+    function AT17_RSvetBeliiPlusAplikaciaa()
     {
-        //экон, цветной + прорез (1-да/0-нет)
-        //пленка лицевая = 6, то вернуть 1
+        //если aq16= 8, то вернуть 1
         //иначе - вернуть 0
         //вывод
-
-        if ($this->R16_PlenkaLic == 6)
+        if ($this->AQ16_PlenkaLic == 8)
         {
             return 1;
         }
@@ -652,14 +1863,12 @@ class L15_2
             return 0;
         }
     }
-    function U19_EconColorfullPlusApp()
+    function AT18_RSvetCvetnoiiPlusProrez()
     {
-        //экон, цветной + аппликация (1-да/0-нет)
-        //пленка лицевая = 7, то вернуть 1
+        //если aq16= 9, то вернуть 1
         //иначе - вернуть 0
         //вывод
-
-        if ($this->R16_PlenkaLic == 7)
+        if ($this->AQ16_PlenkaLic == 9)
         {
             return 1;
         }
@@ -668,14 +1877,12 @@ class L15_2
             return 0;
         }
     }
-    function U20_LWhitePlusApp()
+    function AT19_RSvetCvetnoiiPlusAplicacia()
     {
-        //свет, белый + аппликация (1-да/0-нет)
-        //пленка лицевая = 8, то вернуть 1
+        //если aq16= 10, то вернуть 1
         //иначе - вернуть 0
         //вывод
-
-        if ($this->R16_PlenkaLic == 8)
+        if ($this->AQ16_PlenkaLic == 10)
         {
             return 1;
         }
@@ -684,14 +1891,12 @@ class L15_2
             return 0;
         }
     }
-    function U21_LColorfullPlusProrez()
+    function AT21_FasadCvetnayaPlenka()
     {
-        //свет, цветной + прорез (1-да/0-нет)
-        //пленка лицевая = 9, то вернуть 1
+        //если at14+at15+at16+at17+at18+at19>0, то вернуть 1
         //иначе - вернуть 0
         //вывод
-
-        if ($this->R16_PlenkaLic == 9)
+        if ($this->AT14_REkonBeliiPlusAplikaciaa()+$this->AT15_REkonCvetnoiiPlusProrez()+$this->AT16_REkonCvetnoiiPlusAplicacia()+$this->AT17_RSvetBeliiPlusAplikaciaa()+$this->AT18_RSvetCvetnoiiPlusProrez()+$this->AT19_RSvetCvetnoiiPlusAplicacia() >0)
         {
             return 1;
         }
@@ -700,14 +1905,12 @@ class L15_2
             return 0;
         }
     }
-    function U22_LColorfullPlusApp()
+    function AT22_Svetorasseivauchaa()
     {
-        //свет, цветной + аппликация (1-да/0-нет)
-        //пленка лицевая = 10, то вернуть 1
+        //если at17+at18+at19>0, то вернуть 1
         //иначе - вернуть 0
         //вывод
-
-        if ($this->R16_PlenkaLic == 10)
+        if ($this->AT17_RSvetBeliiPlusAplikaciaa()+$this->AT18_RSvetCvetnoiiPlusProrez()+$this->AT19_RSvetCvetnoiiPlusAplicacia() >0 )
         {
             return 1;
         }
@@ -716,30 +1919,12 @@ class L15_2
             return 0;
         }
     }
-    function U24_FasadColorfullPlenka()
+    function AT23_KoefUdoroganiesvetRitrama()
     {
-        //фасад цветная пленка (1-да/0-нет)
-        //прибавление и умножение переменных
+        //если at22= 1, то вернуть u13
+        //иначе - вернуть 1
         //вывод
-
-        return ($this->U17_EconWhitePlusApplication()+$this->U18_EconWhitePlusProrez()+$this->U19_EconColorfullPlusApp()+$this->U20_LWhitePlusApp()+$this->U21_LColorfullPlusProrez()+$this->U22_LColorfullPlusApp())*$this->U9_PlenkaFasadEst();
-    }
-    function U26_Svetorass()
-    {
-        //светорассеивающая (1-да/0-нет)
-        //прибавление переменных
-        //вывод
-
-        return $this->U20_LWhitePlusApp()+$this->U21_LColorfullPlusProrez()+$this->U22_LColorfullPlusApp();
-    }
-    function U27_KUdorojLRitrama()
-    {
-        //коэф удорожания  свет "Ritrama" (1-да/0-нет)
-        //если светорассеивающая = 1, то вывести L10_U13_RitramaTRLSK
-        //иначе - вывести 1
-        //вывод
-
-        if ($this->U26_Svetorass() == 1)
+        if ($this->AT22_Svetorasseivauchaa() == 1)
         {
             return L10_U13_RitramaTRLSK;
         }
@@ -747,1309 +1932,375 @@ class L15_2
         {
             return 1;
         }
-
     }
-
-    function U29_BolshStorNeBol30cm()
-    {
-        //большая сторона не более 30 см
-        //если большая сторона, см <= 30, то вернуть 1
-        //иначе - вернуть 0
-        //вывод
-
-        if ($this->R11_BolshStorona_cm <= 30)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
-
-    }
-    function U30_BolshStorBol60cm()
-    {
-        //большая сторона более 60 см
-        //если большая сторона, см > 60, то вернуть 1
-        //иначе - вернуть 0
-        //вывод
-
-        if ($this->R11_BolshStorona_cm > 60)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
-
-    }
-    function U31_BolshStorNeBol60cm()
-    {
-        //большая сторона не более 60 см
-        //если большая сторона, см <= 60, то вернуть 1
-        //иначе - вернуть 0
-        //вывод
-
-        if ($this->R11_BolshStorona_cm <= 60)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
-
-    }
-    function U33_BolshStorNeBol120cm()
-    {
-        //большая сторона не более 120 см
-        //если большая сторона, см <= 120, то вернуть 1
-        //иначе - вернуть 0
-        //вывод
-
-        if ($this->R11_BolshStorona_cm <= 120)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
-
-    }
-    function U32_BolshBol60cmAndMen120cm()
-    {
-        //боль более 60 см и менее 120 см
-        //перемножение переменных
-        //вывод
-
-        return $this->U30_BolshStorBol60cm()*$this->U33_BolshStorNeBol120cm();
-    }
-    function U34_BolshStorBol120cm()
-    {
-        //большая сторона более 120 см
-        //если большая сторона, см > 120, то вернуть 1
-        //иначе - вернуть 0
-        //вывод
-
-        if ($this->R11_BolshStorona_cm > 120)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
-
-    }
-    function U35_MenshStorNeBol60cm()
-    {
-        //меньшая сторона не более 60 см
-        //меньшая сторона, см <= 60, то вернуть 1
-        //иначе - вернуть 0
-        //вывод
-
-        if ($this->R12_MenshStorona_cm <= 60)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
-
-    }
-    function U36_MenshStorBol60cm()
-    {
-        //меньшая сторона более 60 см
-        //меньшая сторона, см > 60, то вернуть 1
-        //иначе - вернуть 0
-        //вывод
-
-        if ($this->R12_MenshStorona_cm > 60)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
-
-    }
-    function U37_BolshBol120cmMenshMen60cm()
-    {
-        //боль более 120 см, мень менее 60 см
-        //перемножение переменных
-        //вывод
-
-        return $this->U34_BolshStorBol120cm()*$this->U35_MenshStorNeBol60cm();
-    }
-    function U38_BolshBol120cmMenshBol60cm()
-    {
-        //боль более 120 см, мень более 60 см
-        //перемножение переменных
-        //вывод
-
-        return $this->U34_BolshStorBol120cm()*$this->U36_MenshStorBol60cm();
-    }
-    function X5_BolshStor_m()
+    function AW5_BolshStor_m()
     {
         //большая сторона, м
         //деление и округление
         //вывод
 
-        return round($this->R11_BolshStorona_cm/100, 2);
+        return round($this->AQ11_BolshStorona_cm/100, 2);
     }
-    function X5_BolshStorm()
-    {
-        //большая сторона, м
-        //деление и округление
-        //вывод
-
-        return round($this->R11_BolshStorona_cm/100, 2);
-    }
-    function X6_MenshStorm()
+    function AW6_MenshStorm()
     {
         //меньшая сторона, м
         //деление и округление
         //вывод
 
-        return round($this->R12_MenshStorona_cm/100, 2);
+        return round($this->AQ12_MenshStorona_cm/100, 2);
     }
-    function X8_KolFasadov()
+    function AW8_KolFasadov()
     {
         //количество фасадов
         //умножение и прибавление
         //вывод
-
-        return 1*$this->U5_1Storona()+2*$this->U6_2Storony()+4*$this->U7_4Storony();
+        return 1*$this->AT7_1Storona()+2*$this->AT5_2Storony()+4*$this->AT6_4Storony();
     }
-    function X9_PloshFasadam2()
+    function AW9_PloshFasadam2()
     {
         //площадь фасада, м2
         //умножение
         //вывод
 
-        return $this->X5_BolshStorm()*$this->X6_MenshStorm();
+        return $this->AW5_BolshStor_m()*$this->AW6_MenshStorm();
     }
-    function X10_PloshAllFasadovm2()
+    function AW10_PloshAllFasadovm2()
     {
         //площадь всех фасадов, м2
         //умножение
         //вывод
 
-        return $this->X9_PloshFasadam2()*$this->X8_KolFasadov();
+        return $this->AW9_PloshFasadam2()*$this->AW8_KolFasadov();
     }
-    function X11_RaschPFasadDlTrudm2()
+    function AW11_RaschPFasadDlTrudm2()
     {
         //расчетная площ. фасадов для трудоем., м2
         //если площадь всех фасадов, м2 > L10_BT32_MinCalcSqureFullColor_m2, то вернуть площадь всех фасадов, м2
         //иначе - вернуть L10_BT32_MinCalcSqureFullColor_m2
         //вывод
 
-        if ($this->X10_PloshAllFasadovm2() > L10_BT32_MinCalcSqureFullColor_m2)
+        if ($this->AW10_PloshAllFasadovm2() > L10_BT32_MinCalcSqureFullColor_m2)
         {
-            return $this->X10_PloshAllFasadovm2();
+            return $this->AW10_PloshAllFasadovm2();
         }
         else
         {
             return L10_BT32_MinCalcSqureFullColor_m2;
         }
     }
-    function X12_PlenkaDlAppm2()
+    function AW12_PlenkaDlApp_m2()
     {
         //пленка для аппликации, м2
         //умножение
         //вывод
-
-        return $this->X8_KolFasadov()*$this->X9_PloshFasadam2()*L10_BB93_K_PloshFasadPloshPlenkDlApp;
+        return $this->AW9_PloshFasadam2()*L10_BB93_K_PloshFasadPloshPlenkDlApp;
     }
-    function X13_PlenkaDlAppgrn()
+    function AW13_PlenkaDlApp_grn()
     {
         //пленка для аппликации, грн.
         //умножение
         //вывод
-
-        return $this->X12_PlenkaDlAppm2()*L10_U12_RitramaM300E*$this->U27_KUdorojLRitrama();
+        return $this->AW12_PlenkaDlApp_m2()*L10_U12_RitramaM300E*$this->AT23_KoefUdoroganiesvetRitrama();
     }
-    function X14_PerimetrIzobrmp()
+    function AW14_Perimetr1Fasada_mp()
     {
         //периметр изображения, мп
-        //прибавление и умножение
+        //прибавление
         //вывод
-
-        return ($this->X5_BolshStorm()+$this->X6_MenshStorm()+$this->X5_BolshStorm()+$this->X6_MenshStorm())*$this->X8_KolFasadov();
+        return $this->AW5_BolshStor_m()+$this->AW6_MenshStorm()+$this->AW5_BolshStor_m()+$this->AW6_MenshStorm();
     }
-    function X15_DlinaResamp()
+    function AW15_DlinaResaDla1Fasada_mp()
     {
         //длинна реза, мп
         //умножение
         //вывод
-
-        return $this->X14_PerimetrIzobrmp()*L10_BB95_K_PerimVivesDlinaResaPlot;
+        return $this->AW14_Perimetr1Fasada_mp()*L10_BB95_K_PerimVivesDlinaResaPlot;
     }
-    function X16_StoimRezamp()
+    function AW16_StoimRezamp()
     {
         //стоимость реза, мп
         //умножение
         //вывод
-
-        return $this->X15_DlinaResamp()*L10_U27_PlotterCutLexx;
+        return $this->AW15_DlinaResaDla1Fasada_mp()*L10_U27_PlotterCutLexx;
     }
-    function X17_PlenkaMontajm2()
+    function AW17_PlenkaMontajm2()
     {
         //пленка монтажная, м2
         //умножение
         //вывод
-
-        return $this->X9_PloshFasadam2()*L10_BB94_K_PloshFasadPloshPlenkTransp;
+        return $this->AW9_PloshFasadam2()*L10_BB94_K_PloshFasadPloshPlenkTransp;
     }
-    function X18_PlenkaMontajgrn()
+    function AW18_PlenkaMontajgrn()
     {
         //пленка монтажная, грн
         //умножение
         //вывод
-
-        return $this->X17_PlenkaMontajm2()*L10_U25_AssemblyFilm;
+        return $this->AW17_PlenkaMontajm2()*L10_U25_AssemblyFilm;
     }
-    function X21_1StBolshNeBol120cmm2()
+
+    function AW19_KoefPerasxodaPolnocveta()
+    {//коэф перерасхода полноцвета
+        //вывод
+        return L10_BB86_K_PererashPolnocvet;
+    }
+    function AW21_AplicaciiaMaterial1Fasad_grn()
     {
-        //1 ст. большая, не более 120 см, м2
+        //сложение
+        //вывод
+        return $this->AW13_PlenkaDlApp_grn()+$this->AW16_StoimRezamp()+$this->AW18_PlenkaMontajgrn();
+    }
+    function AW22_ZatazkaFonaPlusProrezEkon1Fasad_grn()
+    {
         //умножение
         //вывод
-
-        return $this->X6_MenshStorm()*1.2;
+        return $this->AQ18_PlenkZatazkEkon_grn*$this->AT23_KoefUdoroganiesvetRitrama();
     }
-    function X22_1StBolshBol120cmm2()
+    function AW25_PolnocverFoto1Fasad_grn()
     {
-        //1 ст. большая, более 120 см, м2
         //умножение
         //вывод
-
-        return $this->X5_BolshStorm()*1.2;
+        return $this->AW9_PloshFasadam2()*L10_U7_RitramaPhoto*$this->AW19_KoefPerasxodaPolnocveta();
     }
-    function X23_Plenka1Storm2()
+    function AW26_PolnocverFotoPlusLaminat1Fasa_grn()
     {
-        //пленка 1 сторона, м2
-        //алгебраические выражения
+        //умножение и сложение
         //вывод
-
-        return $this->X21_1StBolshNeBol120cmm2()*$this->U33_BolshStorNeBol120cm()+$this->X22_1StBolshBol120cmm2()*$this->U34_BolshStorBol120cm();
+        return $this->AW9_PloshFasadam2()*(L10_U7_RitramaPhoto+L10_U8_RitramaLaminat)*$this->AW19_KoefPerasxodaPolnocveta();
     }
-    function X24_Plenka1Storgrn()
+    function AW27_Polnocvet720_1Fasad_grn()
     {
-        //пленка 1 сторона, грн.
         //умножение
         //вывод
-
-        return $this->X23_Plenka1Storm2()*L10_BB85_K_PererashPlenkFasad*L10_U12_RitramaM300E*$this->U27_KUdorojLRitrama();
+        return $this->AW9_PloshFasadam2()*L10_U6_Ritrama_720dpi*$this->AW19_KoefPerasxodaPolnocveta();
     }
-    function X26_2StorBolshNeBol60cmm2()
+    function AW28_PolnocverFotoPlusLaminat1Fasa_grn()
     {
-        //2 стор. большая, не более 60 см, м2
+        //умножение и сложение
+        //вывод
+        return $this->AW9_PloshFasadam2()*(L10_U6_Ritrama_720dpi+L10_U8_RitramaLaminat)*$this->AW19_KoefPerasxodaPolnocveta();
+    }
+    function AW29_RBeliiPlusAplikaciaa1Fasad_grn()
+    {//вывод
+        return $this->AW21_AplicaciiaMaterial1Fasad_grn();
+    }
+    function AW30_RCvetnoiiPlusProrez1Fasad_grn()
+    {//вывод
+        return $this->AW22_ZatazkaFonaPlusProrezEkon1Fasad_grn();
+    }
+    function AW31_RCvetnoiiPlusAplikacia1Fasad_grn()
+    {//сложение
+        //вывод
+        return $this->AW29_RBeliiPlusAplikaciaa1Fasad_grn()+$this->AW30_RCvetnoiiPlusProrez1Fasad_grn();
+    }
+    function AW33_PolnocvetFotoItogo_grn()
+    {
         //умножение
         //вывод
-
-        return $this->X6_MenshStorm()*1.2;
+        return $this->AW25_PolnocverFoto1Fasad_grn()*$this->AW8_KolFasadov()*$this->AT10_PolnocvetFoto();
     }
-    function X27_2StorBolshBol60cmAndMen120cmm2()
+    function AW34_PolnocvetFotoPlusLaminatItogo()
     {
-        //2 ст. боль. более 60 см и менее 120 см, м2
         //умножение
         //вывод
-
-        return $this->X6_MenshStorm()*1.2*2;
+        return $this->AW26_PolnocverFotoPlusLaminat1Fasa_grn()*$this->AW8_KolFasadov()*$this->AT11_PolnocvetFotoPlusLaminat();
     }
-    function X28_2StorBolshBol120cmMenshMen60cmm2()
+    function AW35_Polnocvet720Itogo_grn()
     {
-        //2 ст. боль более 120 см, мень менее 60 см, м2
         //умножение
         //вывод
-
-        return $this->X5_BolshStor_m()*1.2;
+        return $this->AW27_Polnocvet720_1Fasad_grn()*$this->AW8_KolFasadov()*$this->AT12_Polnocvet720();
     }
-    function X29_2StorBolshBol120cmMenBol60cmm2()
+    function AW36_Polnocvet720PlusLaminatItogo_grn()
     {
-        //2 ст. боль более 120 см, мень более 60 см, м2
         //умножение
         //вывод
-
-        return $this->X5_BolshStor_m()*1.2*2;
+        return $this->AW28_PolnocverFotoPlusLaminat1Fasa_grn()*$this->AW8_KolFasadov()*$this->AT13_Polnocvet720PlusLaminat();
     }
-    function X30_Plenka2Storm2()
+    function AW37_REkonBeliiPlusApplicaciaItogo_grn()
     {
-        //пленка 2 стороны, м2
-        //алгебраические выражения
-        //вывод
-
-        return $this->X26_2StorBolshNeBol60cmm2()*$this->U31_BolshStorNeBol60cm()+$this->X27_2StorBolshBol60cmAndMen120cmm2()*$this->U32_BolshBol60cmAndMen120cm()+$this->X28_2StorBolshBol120cmMenshMen60cmm2()*$this->U37_BolshBol120cmMenshMen60cm()+$this->X29_2StorBolshBol120cmMenBol60cmm2()*$this->U38_BolshBol120cmMenshBol60cm();
-    }
-    function X31_Plenka2Storgrn()
-    {
-        //пленка 2 стороны, грн.
         //умножение
         //вывод
-
-        return $this->X30_Plenka2Storm2()*L10_BB85_K_PererashPlenkFasad*L10_U12_RitramaM300E*$this->U27_KUdorojLRitrama();
+        return $this->AW29_RBeliiPlusAplikaciaa1Fasad_grn()*$this->AW8_KolFasadov()*$this->AT14_REkonBeliiPlusAplikaciaa();
     }
-    function X33_4StorBolshNeBol30cmm2()
+    function AW38_REkonCvetnoiiPlusProrezItogo_grn()
     {
-        //4 стор. большая, не более 30 см, м2
         //умножение
         //вывод
-
-        return $this->X6_MenshStorm()*1.2;
+        return $this->AW30_RCvetnoiiPlusProrez1Fasad_grn()*$this->AW8_KolFasadov()*$this->AT15_REkonCvetnoiiPlusProrez();
     }
-    function X34_4StorBolshBol60cmAndMen120cmm2()
+    function AW39_REkonCvetnoiiPlusApplicaciaItogo_grn()
     {
-        //4 ст. боль. более 60 см и менее 120 см, м2
         //умножение
         //вывод
-
-        return $this->X6_MenshStorm()*1.2*2;
+        return $this->AW31_RCvetnoiiPlusAplikacia1Fasad_grn()*$this->AW8_KolFasadov()*$this->AT16_REkonCvetnoiiPlusAplicacia();
     }
-    function X35_4StorBolshBol120cmMenshMen60cmm2()
+    function AW40_RSvetBeliiPlusAplicaciaItogo_grn()
     {
-        //4 ст. боль более 120 см, мень менее 60 см, м2
         //умножение
         //вывод
-
-        return $this->X5_BolshStorm()*1.2*2;
+        return $this->AW29_RBeliiPlusAplikaciaa1Fasad_grn()*$this->AW8_KolFasadov()*$this->AT17_RSvetBeliiPlusAplikaciaa();
     }
-    function X36_4StorBolshBol120cmMenshBol60cmm2()
+    function AW41_RSvetCvetnoiiPlusProrezItogo_grn()
     {
-        //4 ст. боль более 120 см, мень более 60 см, м2
         //умножение
         //вывод
-
-        return $this->X5_BolshStorm()*1.2*4;
+        return $this->AW30_RCvetnoiiPlusProrez1Fasad_grn()*$this->AW8_KolFasadov()*$this->AT18_RSvetCvetnoiiPlusProrez();
     }
-    function X37_Plemka4Storm2()
+    function AW42_RSvetCvetnoiiPlusAplicaciaItogo_grn()
     {
-        //пленка 4 стороны, м2
-        //арифметичиские вычисления
-        //вывод
-
-        return $this->X33_4StorBolshNeBol30cmm2()*$this->U29_BolshStorNeBol30cm()+$this->X34_4StorBolshBol60cmAndMen120cmm2()*$this->U32_BolshBol60cmAndMen120cm()+$this->X35_4StorBolshBol120cmMenshMen60cmm2()*$this->U37_BolshBol120cmMenshMen60cm()+$this->X36_4StorBolshBol120cmMenshBol60cmm2()*$this->U38_BolshBol120cmMenshBol60cm();
-    }
-    function X38_Plemka4Storgrn()
-    {
-        //пленка 4 стороны, грн.
-        //арифметичиские вычисления
-        //вывод
-
-        return $this->X37_Plemka4Storm2()*L10_BB85_K_PererashPlenkFasad*L10_U12_RitramaM300E*$this->U27_KUdorojLRitrama();
-    }
-    function X39_CvetnPlenkaFasadItogm2()
-    {
-        //цветная пленка фасад итого, м2
-        //арифметичиские вычисления
-        //вывод
-
-        return $this->X23_Plenka1Storm2()*$this->U5_1Storona()+$this->X30_Plenka2Storm2()*$this->U6_2Storony()+$this->X37_Plemka4Storm2()*$this->U7_4Storony();
-    }
-    function X40_CvetnPlenkaFasadItoggrn()
-    {
-        //цветная пленка фасад итого, грн
-        //арифметичиские вычисления
-        //вывод
-
-        return $this->X24_Plenka1Storgrn()*$this->U5_1Storona()+$this->X31_Plenka2Storgrn()*$this->U6_2Storony()+$this->X38_Plemka4Storgrn()*$this->U7_4Storony();
-    }
-    function X43_PolnCvetFotogrn()
-    {
-        //полноцвет фото, грн.
         //умножение
         //вывод
-
-        return $this->X10_PloshAllFasadovm2()*L10_U7_RitramaPhoto*L10_BB86_K_PererashPolnocvet;
+        return $this->AW31_RCvetnoiiPlusAplikacia1Fasad_grn()*$this->AW8_KolFasadov()*$this->AT19_RSvetCvetnoiiPlusAplicacia();
     }
-    function X44_PolnCvetFotoPlusLamingrn()
+    function AW43_VseFasadiMaterialiItogo_grn()
+    {//сложение и округление
+        return round($this->AW33_PolnocvetFotoItogo_grn()+$this->AW34_PolnocvetFotoPlusLaminatItogo()+$this->AW35_Polnocvet720Itogo_grn()+$this->AW36_Polnocvet720PlusLaminatItogo_grn()+$this->AW37_REkonBeliiPlusApplicaciaItogo_grn()+$this->AW38_REkonCvetnoiiPlusProrezItogo_grn()+$this->AW39_REkonCvetnoiiPlusApplicaciaItogo_grn()+$this->AW40_RSvetBeliiPlusAplicaciaItogo_grn()+$this->AW41_RSvetCvetnoiiPlusProrezItogo_grn()+$this->AW42_RSvetCvetnoiiPlusAplicaciaItogo_grn(),0);
+    }
+    function AZ5_Polnocvet1m2_min()
     {
-        //полноцвет фото + ламинат, грн.
-        //арифметичиские вычисления
         //вывод
-
-        return $this->X10_PloshAllFasadovm2()*(L10_U7_RitramaPhoto+L10_U8_RitramaLaminat)*L10_BB86_K_PererashPolnocvet;
+        return L10_BT33_KnurlFullColor_m2;
     }
-    function X45_PolnCvet720grn()
+    function AZ6_ZatazhPolyprPlusVub1m2_min()
     {
-        //полноцвет 720, грн.
+        //вывод
+        return L10_BT34_KnurlRitramaHalfCat_m2;
+    }
+    function AZ7_Aplicacia1m2_min()
+    {//вывод
+        return L10_BT35_SampleAplication_m2;
+    }
+    function AZ8_ZatazhPlusAplicacia1m2_min()
+    {
+        return $this->AZ6_ZatazhPolyprPlusVub1m2_min()+$this->AZ7_Aplicacia1m2_min();
+    }
+    function AZ10_Polnocvet_min()
+    {  //умножение
+        //вывод
+        return $this->AZ5_Polnocvet1m2_min()*$this->AW11_RaschPFasadDlTrudm2();
+    }
+    function AZ11_BeliiFonPlusApll_min()
+    {  //умножение
+        //вывод
+        return $this->AZ7_Aplicacia1m2_min()*$this->AW11_RaschPFasadDlTrudm2();
+    }
+    function AZ12_CvetnaaPlusProrez_min()
+    {  //умножение
+        //вывод
+        return $this->AZ6_ZatazhPolyprPlusVub1m2_min()*$this->AW11_RaschPFasadDlTrudm2();
+    }
+    function AZ13_CvetnaaPlusProrezPlusApll_min()
+    {  //умножение и сложение
+        //вывод
+        return ($this->AZ6_ZatazhPolyprPlusVub1m2_min()+$this->AZ7_Aplicacia1m2_min())*$this->AW11_RaschPFasadDlTrudm2();
+    }
+    function AZ15_PolnocvetFoto_min()
+    {  //умножение
+        //вывод
+        return $this->AZ10_Polnocvet_min()*$this->AT10_PolnocvetFoto();
+    }
+    function AZ16_PolnocvetFotoPlusLam_min()
+    {  //умножение
+        //вывод
+        return $this->AZ10_Polnocvet_min()*$this->AT11_PolnocvetFotoPlusLaminat();
+    }
+    function AZ17_Polnocvet720_min()
+    {  //умножение
+        //вывод
+        return $this->AZ10_Polnocvet_min()*$this->AT12_Polnocvet720();
+    }
+    function AZ18_Polnocvet720PlusLam_min()
+    {  //умножение
+        //вывод
+        return $this->AZ10_Polnocvet_min()*$this->AT13_Polnocvet720PlusLaminat();
+    }
+    function AZ19_REkonBeliiPlusApll_min()
+    {  //умножение
+        //вывод
+        return $this->AZ11_BeliiFonPlusApll_min()*$this->AT21_FasadCvetnayaPlenka();
+    }
+    function AZ20_REkonCvetPlusProrez_min()
+    {  //умножение
+        //вывод
+        return $this->AZ12_CvetnaaPlusProrez_min()*$this->AT15_REkonCvetnoiiPlusProrez();
+    }
+    function AZ21_REkonCvetPlusApll_min()
+    {  //умножение
+        //вывод
+        return $this->AZ13_CvetnaaPlusProrezPlusApll_min()*$this->AT16_REkonCvetnoiiPlusAplicacia();
+    }
+    function AZ22_RSvetBeliiPlusApll_min()
+    {  //умножение
+        //вывод
+        return $this->AZ11_BeliiFonPlusApll_min()*$this->AT17_RSvetBeliiPlusAplikaciaa();
+    }
+    function AZ23_RSvetCvetPlusProrez_min()
+    {
         //умножение
         //вывод
-
-        return $this->X10_PloshAllFasadovm2()*L10_U6_Ritrama_720dpi*L10_BB86_K_PererashPolnocvet;
+        return $this->AZ12_cvetnaaPlusProrez_min()*$this->AT18_RSvetCvetnoiiPlusProrez();
     }
-    function X46_PolnCvet720PlusLamingrn()
+    function AZ24_RSvetCvetnoiiPlusApll_min()
     {
-        //полноцвет 720 + ламинат, грн.
-        //арифметичиские вычисления
-        //вывод
-
-        return $this->X10_PloshAllFasadovm2()*(L10_U6_Ritrama_720dpi+L10_U8_RitramaLaminat)*L10_BB86_K_PererashPolnocvet;
-    }
-    function X47_RWhitePlusAppgrn()
-    {
-        //R, белый + аппликация , грн.
-        //прибавление
-        //вывод
-
-        return $this->X13_PlenkaDlAppgrn()+$this->X16_StoimRezamp()+$this->X18_PlenkaMontajgrn();
-    }
-    function X48_RCvetnPlusProrezgrn()
-    {
-        //R, цветной + прорез, грн.
-        //прибавление
-        //вывод
-
-        return $this->X40_CvetnPlenkaFasadItoggrn()+$this->X16_StoimRezamp();
-    }
-    function X49_RCvetnPlusAppgrn()
-    {
-        //R, цветной + аппликация, грн.
-        //прибавление
-        //вывод
-
-        return $this->X40_CvetnPlenkaFasadItoggrn()+$this->X13_PlenkaDlAppgrn()+$this->X16_StoimRezamp()+$this->X18_PlenkaMontajgrn();
-    }
-    function X51_FullColorFotoItoggrn()
-    {
-        //полноцвет фото, итого грн.
         //умножение
         //вывод
-
-        return $this->X43_PolnCvetFotogrn()*$this->U13_FullColorPhoto();
+        return $this->AZ13_CvetnaaPlusProrezPlusApll_min()*$this->AT19_RSvetCvetnoiiPlusAplicacia();
     }
-    function X52_FullColorFotoPlusLaminItoggrn()
+    function AZ25_VseFasadiTrudPlenkaItogo_grn()
     {
-        //полноцвет фото + ламинат, итого грн.
+        return round($this->AZ15_PolnocvetFoto_min()+$this->AZ16_PolnocvetFotoPlusLam_min()+$this->AZ17_Polnocvet720_min()+$this->AZ18_Polnocvet720PlusLam_min()+$this->AZ19_REkonBeliiPlusApll_min()+$this->AZ20_REkonCvetPlusProrez_min()+$this->AZ21_REkonCvetPlusApll_min()+$this->AZ22_RSvetBeliiPlusApll_min()+$this->AZ23_RSvetCvetPlusProrez_min()+$this->AZ24_RSvetCvetnoiiPlusApll_min());
+    }
+    function AZ27_DizainRazrabotka_min()
+    {
         //умножение
         //вывод
-
-        return $this->X44_PolnCvetFotoPlusLamingrn()*$this->U14_FullColorPhotoPlusLamin();
+        return L10_BT49_MaketL24_1sht*$this->AQ15_MaketIzobr;
     }
-    function X53_FullColor720Itoggrn()
-    {
-        //полноцвет 720, итого грн.
-        //умножение
-        //вывод
-
-        return $this->X45_PolnCvet720grn()*$this->U15_FullColor720();
-    }
-    function X54_FullColor720PlusLaminItoggrn()
-    {
-        //полноцвет 720 + ламинат, итого грн.
-        //умножение
-        //вывод
-
-        return $this->X46_PolnCvet720PlusLamingrn()*$this->U16_FullColor720PlusLamin();
-    }
-    function X55_REconWhitePlusAppItoggrn()
-    {
-        //R экон, белый + аппликация итого, грн.
-        //умножение
-        //вывод
-
-        return $this->X47_RWhitePlusAppgrn()*$this->U17_EconWhitePlusApplication();
-    }
-    function X56_REconCvetnPlusProrezItoggrn()
-    {
-        //R экон, цветной + прорез итого, грн.
-        //умножение
-        //вывод
-
-        return $this->X48_RCvetnPlusProrezgrn()*$this->U18_EconWhitePlusProrez();
-    }
-    function X57_REconCvetnPlusAppItoggrn()
-    {
-        //R экон, цветной + аппликация итого, грн.
-        //умножение
-        //вывод
-
-        return $this->X49_RCvetnPlusAppgrn()*$this->U19_EconColorfullPlusApp();
-    }
-    function X58_RSvetWhitePlusAppItoggrn()
-    {
-        //R, свет белый + аппликация итого, грн.
-        //умножение
-        //вывод
-
-        return $this->X47_RWhitePlusAppgrn()*$this->U20_LWhitePlusApp();
-    }
-    function X59_RSvetCvetnPlusProrezItoggrn()
-    {
-        //R свет, цветной + прорез итого, грн.
-        //умножение
-        //вывод
-
-        return $this->X48_RCvetnPlusProrezgrn()*$this->U21_LColorfullPlusProrez();
-    }
-    function X60_RSvetCvetnPlusAppItoggrn()
-    {
-        //R свет, цветной + аппликация итого, грн.
-        //умножение
-        //вывод
-
-        return $this->X49_RCvetnPlusAppgrn()*$this->U22_LColorfullPlusApp();
-    }
-    function X61_FasadMatItoggrn()
-    {
-        //фасад материалы итого, грн
-        //прибавление
-        //вывод
-
-        return $this->X51_FullColorFotoItoggrn()+$this->X52_FullColorFotoPlusLaminItoggrn()+$this->X53_FullColor720Itoggrn()+$this->X54_FullColor720PlusLaminItoggrn()+$this->X55_REconWhitePlusAppItoggrn()+$this->X56_REconCvetnPlusProrezItoggrn()+$this->X57_REconCvetnPlusAppItoggrn()+$this->X58_RSvetWhitePlusAppItoggrn()+$this->X59_RSvetCvetnPlusProrezItoggrn()+$this->X60_RSvetCvetnPlusAppItoggrn();
-    }
-    function AA5_FullColormin()
-    {
-        //полноцвет, мин
-        //умножение
-        //вывод
-
-        return $this->X11_RaschPFasadDlTrudm2()*L10_BT33_KnurlFullColor_m2;
-    }
-    function AA6_ColorPolPrmin()
-    {
-        //цветная полупрорез, мин
-        //умножение
-        //вывод
-
-        return $this->X11_RaschPFasadDlTrudm2()*L10_BT34_KnurlRitramaHalfCat_m2;
-    }
-    function AA7_Appmin()
-    {
-        //аппликация, мин
-        //умножение
-        //вывод
-
-        return $this->X12_PlenkaDlAppm2()*L10_BT35_SampleAplication_m2;
-    }
-    function AA9_FullColorFotomin()
-    {
-        //полноцвет фото, мин
-        //вывод
-
-        return $this->AA5_FullColormin();
-    }
-    function AA10_FullColorFotoPluslammin()
-    {
-        //полноцвет фото + лам, мин
-        //вывод
-
-        return $this->AA5_FullColormin();
-    }
-    function AA11_FullColor720min()
-    {
-        //полноцвет 720, мин
-        //вывод
-
-        return $this->AA5_FullColormin();
-    }
-    function AA12_FullColor720PlusLammin()
-    {
-        //полн 720 + лам, мин
-        //вывод
-
-        return $this->AA5_FullColormin();
-    }
-    function AA13_REconWhitePlusAppmin()
-    {
-        //R экон, белый + аппл, мин
-        //вывод
-
-        return $this->AA7_Appmin();
-    }
-    function AA14_REconCvetPlusPrmin()
-    {
-        //R экон, цвет + прорез, мин
-        //вывод
-
-        return $this->AA6_ColorPolPrmin();
-    }
-    function AA15_REconCvetPlusAppmin()
-    {
-        //R экон, цвет + аппл, мин
-        //прибавление
-        //вывод
-
-        return $this->AA6_ColorPolPrmin()+$this->AA7_Appmin();
-    }
-    function AA16_RSvetWhitePlusAppmin()
-    {
-        //R, свет белый + аппл, мин
-        //вывод
-
-        return $this->AA7_Appmin();
-    }
-    function AA17_RSvetCvetPlusPrmin()
-    {
-        //R свет, цвет + прорез, мин
-        //вывод
-
-        return $this->AA6_ColorPolPrmin();
-    }
-    function AA18_RCvetFullColorPlusAppmin()
-    {
-        //R свет, цветной + аппл, мин
-        //вывод
-
-        return $this->AA6_ColorPolPrmin()+$this->AA7_Appmin();
-    }
-    function AA20_PolnCvetFotomin()
-    {
-        //полноцвет фото, мин
-        //умножение
-        //вывод
-
-        return $this->AA9_FullColorFotomin()*$this->U13_FullColorPhoto();
-    }
-    function AA21_PolnCvetFotoPlusLammin()
-    {
-        //полноцвет фото + лам, мин
-        //умножение
-        //вывод
-
-        return $this->AA10_FullColorFotoPluslammin()*$this->U14_FullColorPhotoPlusLamin();
-    }
-    function AA22_PolnCvet720min()
-    {
-        //полноцвет 720, мин
-        //умножение
-        //вывод
-
-        return $this->AA11_FullColor720min()*$this->U15_FullColor720();
-    }
-    function AA23_Poln720PlusLammin()
-    {
-        //полн 720 + лам, мин
-        //умножение
-        //вывод
-
-        return $this->AA12_FullColor720PlusLammin()*$this->U16_FullColor720PlusLamin();
-    }
-    function AA24_REconWhitePlusAppmin()
-    {
-        //R экон, белый + аппл, мин
-        //умножение
-        //вывод
-
-        return $this->AA13_REconWhitePlusAppmin()*$this->U17_EconWhitePlusApplication();
-    }
-    function AA25_REconCvetPlusPrmin()
-    {
-        //R экон, цвет + прорез, мин
-        //умножение
-        //вывод
-
-        return $this->AA14_REconCvetPlusPrmin()*$this->U18_EconWhitePlusProrez();
-    }
-    function AA26_REconCvetPlusAppmin()
-    {
-        //R экон, цвет + аппл, мин
-        //умножение
-        //вывод
-
-        return $this->AA15_REconCvetPlusAppmin()*$this->U19_EconColorfullPlusApp();
-    }
-    function AA27_RSvetWhitePlusAppmin()
-    {
-        //R, свет белый + аппл, мин
-        //умножение
-        //вывод
-
-        return $this->AA16_RSvetWhitePlusAppmin()*$this->U20_LWhitePlusApp();
-    }
-    function AA28_RSvetCvetPlusPrmin()
+    function AZ28_Dizainproverka_min()
     {
         //R свет, цвет + прорез, мин
         //умножение
         //вывод
 
-        return $this->AA17_RSvetCvetPlusPrmin()*$this->U21_LColorfullPlusProrez();
+        return L10_BT50_MaketZakazch_1sht*$this->AQ13_LicIzobr;
     }
-    function AA29_RSvetFullColorPlusAppmin()
+    function AZ29_DizainItogo_min()
     {
-        //R свет, цветной + аппл, мин
-        //умножение
+        //сложение
         //вывод
-
-        return $this->AA18_RCvetFullColorPlusAppmin()*$this->U22_LColorfullPlusApp();
+        return $this->AZ27_DizainRazrabotka_min()+$this->AZ28_Dizainproverka_min();
     }
-    function AA30_TrudItogomin()
+    function BC6_FasadMatItogo_grn()
     {
-        //трудоемкость итого, мин
-        //прибавление
         //вывод
-
-        return $this->AA20_PolnCvetFotomin()+$this->AA21_PolnCvetFotoPlusLammin()+$this->AA22_PolnCvet720min()+$this->AA23_Poln720PlusLammin()+$this->AA24_REconWhitePlusAppmin()+$this->AA25_REconCvetPlusPrmin()+$this->AA26_REconCvetPlusAppmin()+$this->AA27_RSvetWhitePlusAppmin()+$this->AA28_RSvetCvetPlusPrmin()+$this->AA29_RSvetFullColorPlusAppmin();
+        return $this->AW43_VseFasadiMaterialiItogo_grn();
     }
-    function AA32_Designmin()
+    function BC10_TrudoemkostNanesenia_min()
     {
-        //дизайн, мин
+        //вывод
+        return $this->AZ25_VseFasadiTrudPlenkaItogo_grn();
+    }
+    function BC11_Dizain_min()
+    {
+        //вывод
+        return $this->AZ29_DizainItogo_min();
+    }
+    function BC12_StoimostRaboti_grn()
+    {
+
         //арифметические вычисления
         //вывод
 
-        return L10_BT49_MaketL24_1sht*$this->U10_DesignCreate()+L10_BT50_MaketZakazch_1sht*$this->U11_DesignCheck();
+        return round(($this->BC10_TrudoemkostNanesenia_min()+$this->BC11_Dizain_min())*L10_C67_K1,0);
     }
-    function AD6_CvetPlFasad12mmp()
+    function BC24_Itigo_grn()
     {
-        //цветная пленка фасад (1,2м), мп
-        //арифметические вычисления
+        //сложение
         //вывод
 
-        return round($this->X39_CvetnPlenkaFasadItogm2()/1.2, 2)*$this->U24_FasadColorfullPlenka()*$this->U9_PlenkaFasadEst();
+        return $this->BC6_FasadMatItogo_grn()+$this->BC12_StoimostRaboti_grn();
     }
-    function AD7_FasadMatItogogrn()
-    {
-        //фасад материалы итого, грн.
-        //арифметические вычисления
-        //вывод
 
-        return round($this->X61_FasadMatItoggrn()*$this->U9_PlenkaFasadEst(), 0);
-    }
-    function AD10_Trudmin()
-    {
-        //трудоемкость, мин
-        //арифметические вычисления
-        //вывод
-
-        return round($this->AA30_TrudItogomin()*$this->U9_PlenkaFasadEst(), 0);
-    }
-    function AD11_StoimRabotigrn()
-    {
-        //стоимость работы, грн.
-        //арифметические вычисления
-        //вывод
-
-        return round($this->AD10_Trudmin()*L10_C67_K1, 0);
-    }
-    function AD13_Designgrn()
-    {
-        //дизайн, грн
-        //арифметические вычисления
-        //вывод
-
-        return $this->AA32_Designmin()*$this->U9_PlenkaFasadEst()*L10_C67_K1;
-    }
-    function AD24_Itigogrn()
-    {
-        //итого, грн.
-        //арифметические вычисления
-        //вывод
-
-        return $this->AD7_FasadMatItogogrn()+$this->AD11_StoimRabotigrn()+$this->AD13_Designgrn();
-    }
 }
 
-class L15_3
-{
-    // Входные параметры:
-    public $AH5_RoofVisorOut; // крыша/козырек улица
-    public $AH6_WallOut; // стена улица
-    public $AH7_WallIn; // стена помещение
-    public $AH8_2SideIn; // 2 стороны помещение
-    public $AH9_4SideIn; // 4 стороны помещение
-
-    public $AH11_Orientation; // ориентация
-    public $AH12_MaxSide_cm; // большая сторона, см
-    public $AH13_MinSide_cm; // меньшая сторона, см
-
-    public $AH15_Konstruct; // конструктив
-
-    public function __construct($RoofVisorOut = 0, $WallOut = 0, $WallIn = 0, $SideIn2 = 1, $SideIn4 = 0,
-                                $Orientation = 1,
-                                $MaxSide_cm = 300, $MinSide_cm = 60,
-                                $Konstruct = 2)
-    {
-        // Заполнение входных данных.
-        $this->AH5_RoofVisorOut = $RoofVisorOut;
-        $this->AH6_WallOut = $WallOut;
-        $this->AH7_WallIn = $WallIn;
-        $this->AH8_2SideIn = $SideIn2;
-        $this->AH9_4SideIn = $SideIn4;
-
-        $this->AH11_Orientation = $Orientation;
-        $this->AH12_MaxSide_cm = $MaxSide_cm;
-        $this->AH13_MinSide_cm = $MinSide_cm;
-
-        $this->AH15_Konstruct = $Konstruct;
-    }
-
-    // C light - пленка борт/тыл
-
-    function AK5_TrebNerazb()
-    {
-        //требование неразборности
-        //если условие = true, то вывести 1
-        //иначе вывести 0
-        //вывод
-
-        if ($this->AH15_Konstruct == 1)
-        {
-            return  1;
-        }
-        else
-        {
-            return 0;
-        }
-
-    }
-    function AN5_GorRazmcm()
-    {
-        //горизонтальный размер, см
-        //если условие = true, то вывести AH12
-        //иначе вывести AH13
-        //вывод
-
-        if ($this->AH11_Orientation == 1)
-        {
-            return  $this->AH12_MaxSide_cm;
-        }
-        else
-        {
-            return $this->AH13_MinSide_cm;
-        }
-
-    }
-    function AN6_VerRazmcm()
-    {
-        //вертикальный размер, см
-        //если условие = true, то вывести AH12
-        //иначе вывести AH13
-        //вывод
-
-        if ($this->AH11_Orientation == 2)
-        {
-            return  $this->AH12_MaxSide_cm;
-        }
-        else
-        {
-            return $this->AH13_MinSide_cm;
-        }
-
-    }
-    function AN7_GorRazmm()
-    {
-        //горизонтальный размер, м
-        //округление и деление
-        //вывод
-
-        return round($this->AN5_GorRazmcm()/100, 2);
-
-    }
-    function AN8_VerRazmm()
-    {
-        //вертикальный размер, м
-        //округление и деление
-        //вывод
-
-        return round($this->AN6_VerRazmcm()/100, 2);
-
-    }
-    function AK6_DopustNerazb()
-    {
-        //допустимость неразборности
-        //если условие = true, то вывести 1
-        //иначе вывести 0
-        //вывод
-
-        if ($this->AN7_GorRazmm() <= L10_BB122_PredGorRazmNeRazb4StorVivesm)
-        {
-            return  1;
-        }
-        else
-        {
-            return 0;
-        }
-
-    }
-    function AK7_NerazbItogo()
-    {
-        //неразборность, итого
-        //умножение
-        //вывод
-
-        return $this->AK5_TrebNerazb() * $this->AK6_DopustNerazb();
-
-    }
-    function AK8_RazbItogo()
-    {
-        //разборность, итого
-        //если условие = true, то вывести 1
-        //иначе вывести 0
-        //вывод
-
-        if ($this->AK7_NerazbItogo() == 0)
-        {
-            return  1;
-        }
-        else
-        {
-            return 0;
-        }
-
-    }
-    function AK10_1Stor()
-    {
-        //1 сторона
-        //если условие = true, то вывести 1
-        //иначе вывести 0
-        //вывод
-
-        if ($this->AH5_RoofVisorOut+$this->AH6_WallOut+$this->AH7_WallIn > 0)
-        {
-            return  1;
-        }
-        else
-        {
-            return 0;
-        }
-
-    }
-    function AK11_2Stor()
-    {
-        //2 стороны
-        //значение
-        //вывод
-
-        return $this->AH8_2SideIn;
-
-    }
-    function AK12_4Nerazb()
-    {
-        //4 неразборный
-        //умножение
-        //вывод
-
-        return $this->AH9_4SideIn*$this->AK7_NerazbItogo();
-
-    }
-    function AK13_4Razb()
-    {
-        //4 разборный
-        //умножение
-        //вывод
-
-        return $this->AH9_4SideIn*$this->AK8_RazbItogo();
-
-    }
-    function AN9_Streych1m2grn()
-    {
-        //стрейч 1 м2, грн
-        //значение
-        //вывод
-
-        return round(L10_U77_PlenkaStrech_20mkm_1m2, 1);
-
-    }
-    function AN10_Skotch1mpgrn()
-    {
-        //скотч 1 мп, грн
-        //значение
-        //вывод
-
-        return round(L10_U81_SkotchChinese_1mp,1);
-
-    }
-    function AN12_Perimmp()
-    {
-        //периметр, мп
-        //прибавление
-        //вывод
-
-        return $this->AN7_GorRazmm()+$this->AN8_VerRazmm()+$this->AN7_GorRazmm()+$this->AN8_VerRazmm();
-
-    }
-    function AN13_Plosh1Storm2()
-    {
-        //площадь 1 сторона, м2
-        //прибавление и умножение
-        //вывод
-
-        return $this->AN7_GorRazmm()*$this->AN8_VerRazmm()*2+$this->AN12_Perimmp()*0.12;
-
-    }
-    function AN14_Plosh2Storm2()
-    {
-        //площадь 2 стороны, м2
-        //прибавление и умножение
-        //вывод
-
-        return $this->AN7_GorRazmm()*$this->AN8_VerRazmm()*2+$this->AN12_Perimmp()*0.24;
-
-    }
-    function AN15_Plosh4StorNerazbm2()
-    {
-        //площадь 4 стороны неразб, м2
-        //прибавление и умножение
-        //вывод
-
-        return $this->AN7_GorRazmm()*$this->AN8_VerRazmm()*4+$this->AN7_GorRazmm()*$this->AN7_GorRazmm()*2;
-
-    }
-    function AN16_Plosh4StorRazbm2()
-    {
-        //площадь 4 стороны разб, м2
-        //прибавление и умножение
-        //вывод
-
-        return $this->AN13_Plosh1Storm2()*4;
-
-    }
-    function AN18_Streych1Storgrn()
-    {
-        //стрейч 1 сторона, грн
-        //умножение
-        //вывод
-
-        return $this->AN13_Plosh1Storm2()*$this->AN9_Streych1m2grn()*L10_BB101_K_PererashStrchObshPlVives;
-
-    }
-    function AN19_Streych2Storgrn()
-    {
-        //стрейч 2 стороны, грн
-        //умножение
-        //вывод
-
-        return $this->AN14_Plosh2Storm2()*$this->AN9_Streych1m2grn()*L10_BB101_K_PererashStrchObshPlVives;
-
-    }
-    function AN20_Streych4StorNerazbgrn()
-    {
-        //стрейч 4 стороны неразб, грн
-        //умножение
-        //вывод
-
-        return $this->AN15_Plosh4StorNerazbm2()*$this->AN9_Streych1m2grn()*L10_BB101_K_PererashStrchObshPlVives;
-
-    }
-    function AN21_Streych4StorRazbgrn()
-    {
-        //стрейч 4 стороны разб, грн
-        //умножение
-        //вывод
-
-        return $this->AN16_Plosh4StorRazbm2()*$this->AN9_Streych1m2grn()*L10_BB101_K_PererashStrchObshPlVives;
-
-    }
-    function AN23_Streych1Storgrn()
-    {
-        //стрейч 1 сторона, грн
-        //умножение
-        //вывод
-
-        return $this->AN18_Streych1Storgrn()*$this->AK10_1Stor();
-
-    }
-    function AN24_Streych2Storgrn()
-    {
-        //стрейч 2 стороны, грн
-        //умножение
-        //вывод
-
-        return $this->AN19_Streych2Storgrn()*$this->AK11_2Stor();
-
-    }
-    function AN25_Streych4StorNerazbgrn()
-    {
-        //стрейч 4 стороны неразб, грн
-        //умножение
-        //вывод
-
-        return $this->AN20_Streych4StorNerazbgrn()*$this->AK12_4Nerazb();
-
-    }
-    function AN26_Streych4StorRazbgrn()
-    {
-        //стрейч 4 стороны разб, грн
-        //умножение
-        //вывод
-
-        return $this->AN21_Streych4StorRazbgrn()*$this->AK13_4Razb();
-
-    }
-    function AN27_Streychgrn()
-    {
-        //стрейч, грн
-        //прибавление
-        //вывод
-
-        return $this->AN23_Streych1Storgrn()+$this->AN24_Streych2Storgrn()+$this->AN25_Streych4StorNerazbgrn()+
-               $this->AN26_Streych4StorRazbgrn();
-
-    }
-    function AN28_Streychmp()
-    {
-        //стрейч, мп
-        //деление и умножение
-        //вывод
-
-        return $this->AN27_Streychgrn()/$this->AN9_Streych1m2grn()*2;
-
-    }
-    function AN29_Skotchmp()
-    {
-        //скотч, мп
-        //умножение
-        //вывод
-
-        return $this->AN28_Streychmp()*L10_BB100_K_RashSkotchStreych;
-
-    }
-    function AN30_Skotchgrn()
-    {
-        //скотч, грн
-        //умножение
-        //вывод
-
-        return $this->AN29_Skotchmp()*$this->AN10_Skotch1mpgrn();
-
-    }
-    function AQ5_TrudUpak1m2min()
-    {
-        //трудоемкость упаковки 1 м2, мин
-        //значение
-        //вывод
-
-        return L10_BT66_UpakVStrech_1m2;
-
-    }
-    function AQ7_1Stormin()
-    {
-        //1 сторона, мин
-        //умножение
-        //вывод
-
-        return $this->AN13_Plosh1Storm2()*$this->AQ5_TrudUpak1m2min();
-
-    }
-    function AQ8_2Stormin()
-    {
-        //2 стороны, мин
-        //умножение
-        //вывод
-
-        return $this->AN14_Plosh2Storm2()*$this->AQ5_TrudUpak1m2min();
-
-    }
-    function AQ9_4StorNerazbmin()
-    {
-        //4 стороны неразб, мин
-        //умножение
-        //вывод
-
-        return $this->AN15_Plosh4StorNerazbm2()*$this->AQ5_TrudUpak1m2min();
-
-    }
-    function AQ10_4StorRazbmin()
-    {
-        //4 стороны разб, мин
-        //умножение
-        //вывод
-
-        return $this->AN16_Plosh4StorRazbm2()*$this->AQ5_TrudUpak1m2min();
-
-    }
-    function AQ12_1Stormin()
-    {
-        //1 сторона, мин
-        //умножение
-        //вывод
-
-        return $this->AQ7_1Stormin()*$this->AK10_1Stor();
-
-    }
-    function AQ13_2Stormin()
-    {
-        //2 стороны, мин
-        //умножение
-        //вывод
-
-        return $this->AQ8_2Stormin()*$this->AK11_2Stor();
-
-    }
-    function AQ14_4StorNerazbmin()
-    {
-        //4 стороны неразб, мин
-        //умножение
-        //вывод
-
-        return $this->AQ9_4StorNerazbmin()*$this->AK12_4Nerazb();
-
-    }
-    function AQ15_4StorRazbmin()
-    {
-        //4 стороны разб, мин
-        //умножение
-        //вывод
-
-        return $this->AQ10_4StorRazbmin()*$this->AK13_4Razb();
-
-    }
-    function AQ16_Upakmin()
-    {
-        //упаковка, мин
-        //прибавление
-        //вывод
-
-        return $this->AQ12_1Stormin()+$this->AQ13_2Stormin()+$this->AQ14_4StorNerazbmin()+$this->AQ15_4StorRazbmin();
-
-    }
-    function AT6_PlenkaStreych500mmItogomp()
-    {
-        //пленка стрейч (500 мм) итого, мп
-        //округление
-        //вывод
-
-        return round($this->AN28_Streychmp(), 0);
-
-    }
-    function AT7_StoimPlgrn()
-    {
-        //стоимость пленки, грн
-        //округление
-        //вывод
-
-        return round($this->AN27_Streychgrn(), 0);
-
-    }
-    function AT11_TrudUpakmin()
-    {
-        //трудоемкость упаковки , мин
-        //округление
-        //вывод
-
-        return round($this->AQ16_Upakmin(), 0);
-
-    }
-    function AT12_StoimRabgrn()
-    {
-        //стоимость работы, грн
-        //умножение
-        //вывод
-
-        return $this->AT11_TrudUpakmin()*L10_C67_K1;
-
-    }
-    function AT24_Itogogrn()
-    {
-        //итого, грн
-        //умножение
-        //вывод
-
-        return $this->AT7_StoimPlgrn()+$this->AT12_StoimRabgrn();
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-}
+class L15_4{}

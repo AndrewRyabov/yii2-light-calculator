@@ -1,4 +1,5 @@
-<?php namespace almaz44\light\calculator;
+<?php
+namespace almaz44\light\calculator;
 //
 /**
  * ИСХОДНЫЕ ДАННЫЕ.
@@ -12,8 +13,8 @@
 class L09
 {
     // Cloud Calculators
-    public $B4_C_light; // C_light
-    public $B5_S_Light; // S_light
+    public $B4_C_light; // C_light = 0
+    public $B5_S_Light; // S_light = 1
 
     // C_light_2
     // шаг  0
@@ -40,17 +41,21 @@ class L09
 
     // шаг  3
 
-    public function __construct($C_light = 0, $S_Light = 1,
-                                $VarIspoln = 4,
-                                $Orientacia = 1, $MaxSide = 150, $MinSide = 100, $LicIzobr = 1, $CvetBort =1, $CvetTil = 0,
-                                $LevVerhUgol = 0, $PravVerhUgol = 0, $PravNijnUgol = 0, $LevNijnUgol = 0,
+    public function __construct($SCLight = 1, $VarIspoln = 4,
+                                $Orientacia = 1, $MaxSide = 150, $MinSide = 100,
+                                $FrontImg = 1, $ColorSide = 1, $ColorBack = 0, $Ugol = [0, 0, 0, 0],
                                 $MaketImg = 1, $PlenkLic = 3, $PlastLic = 2, $Light = 1
                                 )
 
     {
         // Заполнение входных данных.
-        $this->B4_C_light = $C_light;
-        $this->B5_S_Light = $S_Light;
+        $this->B4_C_light = 0;
+        $this->B5_S_Light = 0;
+        switch ($SCLight) {
+            case 0: $this->B4_C_light = 1; break;
+            case 1: $this->B5_S_Light = 1; break;
+            default: $this->B5_S_Light = 1; break;
+        }
 
         // C_light_2
         // шаг 0
@@ -60,14 +65,14 @@ class L09
         $this->J21_Orientation = $Orientacia;
         $this->J22_MaxSide_cm = $MaxSide;
         $this->J23_MinSide_cm = $MinSide;
-        $this->J24_FrontImg = $LicIzobr;
-        $this->J25_ColorSide = $CvetBort;
-        $this->J26_ColorBack = $CvetTil;
+        $this->J24_FrontImg = $FrontImg;
+        $this->J25_ColorSide = $ColorSide;
+        $this->J26_ColorBack = $ColorBack;
 
-        $this->J29_LevVerhUgolRad = $LevVerhUgol;
-        $this->J30_PravVerhUgolRad = $PravVerhUgol;
-        $this->J31_PravNijnUgolRad = $PravNijnUgol;
-        $this->J32_LevNijnUgolRad = $LevNijnUgol;
+        $this->J29_LevVerhUgolRad = $Ugol[0];
+        $this->J30_PravVerhUgolRad = $Ugol[1];
+        $this->J31_PravNijnUgolRad = $Ugol[2];
+        $this->J32_LevNijnUgolRad = $Ugol[3];
 
         // шаг  2
         $this->J38_MaketImg = $MaketImg;

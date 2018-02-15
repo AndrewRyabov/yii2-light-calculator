@@ -31,6 +31,7 @@ $L10 = new L10();
 $L15_1 = new L15_1();
 $L15_2 = new L15_2();
 $L15_3 = new L15_3();
+$L15_4 = new L15_4();
 //
 //
 //$L16_1 = new L16_1();
@@ -85,21 +86,7 @@ $L25 = new L25();
 <?php include_once 'L10.php' ?>
 <!------------------------------------------------------------------------->
 <br><br>
-<table border="1">
-    <tr>
-        <td colspan="3" align="center">Class 15</td>
-    </tr>
-    <tr>
-        <td>Борт/тыл плёнка</td>
-        <td>фасад плёнка</td>
-        <td>Упаковка в Стрейяч плёнку</td>
-    </tr>
-    <tr>
-        <td><?php include_once 'L15_A.php' ?></td>
-        <td><?php include_once 'L15_Q.php' ?></td>
-        <td><?php include_once 'L15_AP.php' ?></td>
-    </tr>
-</table>
+<?php include_once 'L15.php' ?>
 <?php return(0) ?>
 <!------------------------------------------------------------------------->
 <br><br>
