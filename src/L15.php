@@ -2303,4 +2303,55 @@ class L15_3
 
 }
 
-class L15_4{}
+class L15_4{
+    // Входные параметры:
+    public $BG5_RoofVisorOut; // крыша/козырек улица
+    public $BG6_WallOut; // стена улица
+    public $BG7_WallIn; // стена помещение
+    public $BG8_2SideIn; // 2 стороны помещение
+    public $BG9_4SideIn; // 4 стороны помещение
+    //
+    public $BG11_Orientation; // ориентация
+    public $BG12_MaxSide_cm; // большая сторона, см
+    public $BG13_MinSide_cm; // меньшая сторона, см
+    public $BG14_; // Глубина борта, см
+
+    private $L09, $L15_1, $L15_2, $L15_3;
+
+    public function __construct($SCLight = 1, $VarIspoln = 4,
+                                $Orientation = 1, $MaxSide_cm = 150, $MinSide_cm = 100,
+                                $FrontImg=1, $ColorSide=1, $ColorBack=0, $Ugol=[0,0,0,0],
+                                $MaketImg=1, $PlenkLic=3, $PlastLic=2, $IstochnikSveta = 1)
+    {
+        // Заполнение входных данных.
+        $this->BG5_RoofVisorOut = 0; // крыша/козырек улица
+        $this->BG6_WallOut = 0;      // стена улица
+        $this->BG7_WallIn = 0;       // стена помещение
+        $this->BG8_2SideIn = 0;      // 2 стороны помещение
+        $this->BG9_4SideIn = 0;      // 4 стороны помещение
+        switch ($VarIspoln) {
+            case 1: $this->BG5_RoofVisorOut = 1; break;
+            case 2: $this->BG6_WallOut = 1; break;
+            case 3: $this->BG7_WallIn = 1; break;
+            case 4: $this->BG8_2SideIn = 1; break;
+            case 5: $this->BG9_4SideIn = 1; break;
+            default: $this->BG8_2SideIn = 1; break;
+        }
+
+        // Запрос исходных данных
+        $this->L09 = new L09(
+            $SCLight , $VarIspoln , $Orientation , $MaxSide_cm , $MinSide_cm , $FrontImg , $ColorSide , $ColorBack , $Ugol , $MaketImg , $PlenkLic , $PlastLic , $IstochnikSveta);
+        //
+        $this->BG11_Orientation = $this->L09->J21_Orientation;   // ориентация
+        $this->BG12_MaxSide_cm = $this->L09->J22_MaxSide_cm;     // большая сторона, см
+        $this->BG13_MinSide_cm = $this->L09->J23_MinSide_cm;     // меньшая сторона, см
+        //
+        $this->L15_1 = new L15_1($SCLight , $VarIspoln , $Orientation , $MaxSide_cm , $MinSide_cm , $FrontImg , $ColorSide , $ColorBack , $Ugol , $MaketImg , $PlenkLic , $PlastLic , $IstochnikSveta);
+        $this->L15_2 = new L15_2($SCLight , $VarIspoln , $Orientation , $MaxSide_cm , $MinSide_cm , $FrontImg , $ColorSide , $ColorBack , $Ugol , $MaketImg , $PlenkLic , $PlastLic , $IstochnikSveta);
+        $this->L15_3 = new L15_3($SCLight , $VarIspoln , $Orientation , $MaxSide_cm , $MinSide_cm , $FrontImg , $ColorSide , $ColorBack , $Ugol , $MaketImg , $PlenkLic , $PlastLic , $IstochnikSveta);
+        //
+        $this->BG14_GlubinaBorta_sm = $this->L15_1->N20_GlubinaBorta_sm();       // Глубина борта, см
+
+
+    }
+}
