@@ -16,7 +16,7 @@ header('Content-Type: text/html');
 // Загрузка классов
 include_once '../src/L09.php';
 include_once '../src/L10.php';
-include_once '../src/L15.php';
+include_once '../src/L15-old.php';
 include_once '../src/L16.php';
 include_once '../src/L17.php';
 include_once '../src/L18.php';
