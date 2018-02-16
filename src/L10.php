@@ -131,10 +131,10 @@ const L10_U25_AssemblyFilm = L10_U25_AssemblyFilm_; // монтажная пле
 const L10_U27_PlotterCutLexx = L10_C44_PlotterCut; // плоттер порезка, Lexx
 
 // 7. Упакова. 75-110(T-AB)
-define('L10_U77_PlenkaStrech_20mkm_1m2_', L10_C49_Streich20mkm / 150);
+define('L10_U77_PlenkaStrech_20mkm_1m2_', round(L10_C49_Streich20mkm / 150, 1));
 const L10_U77_PlenkaStrech_20mkm_1m2 = L10_U77_PlenkaStrech_20mkm_1m2_; // пленка стрейч 20 мкм, 1 м2
 
-define('L10_U81_SkotchChinese_1mp_', L10_C50_Scotch20050 / 200);
+define('L10_U81_SkotchChinese_1mp_', round(L10_C50_Scotch20050 / 200, 1));
 const L10_U81_SkotchChinese_1mp = L10_U81_SkotchChinese_1mp_; // скотч "китайский", 1 мп
 
 const L10_U85_GofroCardboard_4mm = L10_C48_KartonGofro; // гофрокартон 4 мм
