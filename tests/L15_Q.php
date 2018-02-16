@@ -7,14 +7,14 @@
  */
 
 echo '<b>Входные параметры (фасад пленка затяжка 1):</b>';
-echo '<br>$R5_RoofVisorOut // крыша/козырек улица =' . $L15_2->R5_RoofVisorOut;
-echo '<br>$R6_WallOut // стена улица =' . $L15_2->R6_WallOut;
-echo '<br>$R7_WallIn // стена помещение =' . $L15_2->R7_WallIn;
-echo '<br>$R8_2SideIn // 2 стороны помещение =' . $L15_2->R8_2SideIn;
-echo '<br>$R9_4SideIn // 4 стороны помещение =' . $L15_2->R9_4SideIn;
+echo '<br>крыша/козырек улица =' . $L15_2->R5_RoofVisorOut;
+echo '<br>стена улица =' . $L15_2->R6_WallOut;
+echo '<br>стена помещение =' . $L15_2->R7_WallIn;
+echo '<br>2 стороны помещение =' . $L15_2->R8_2SideIn;
+echo '<br>4 стороны помещение =' . $L15_2->R9_4SideIn;
 echo '<br>';
-echo '<br>$B12_MaxSide_cm // большая сторона, см =' . $L15_2->R11_BolshStorona_cm;
-echo '<br>$B13_MinSide_cm // меньшая сторона, см =' . $L15_2->R12_MenshStorona_cm;
+echo '<br>большая сторона, см =' . $L15_2->R11_BolshStorona_cm;
+echo '<br>меньшая сторона, см =' . $L15_2->R12_MenshStorona_cm;
 echo '<br>';
 echo '<br>пленка "Ritrama" эк 1 м2, грн =' . $L15_2->R14_PlenkaRitramaek1m2_grn;
 echo '<br>порезка 1 мп, грн =' . $L15_2->R15_Porezka1mp_grn;
