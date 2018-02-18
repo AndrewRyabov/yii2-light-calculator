@@ -20,9 +20,8 @@ class L17_1
 
     public $B14_PlastikLicevoy;//Пластик лицевой
 
-    public function __construct($RoofVisorOut = 0, $WallOut = 0, $WallIn = 0, $SideIn2 = 1, $SideIn4 = 0,
-                                $BigStor = 300, $SmallStor = 60,
-                                $PlastikLicevoy = 1)
+    public function __construct($RoofVisorOut, $WallOut, $WallIn,
+                                $SideIn2, $SideIn4, $BigStor, $SmallStor, $PlastikLicevoy)
 
     {
         // Заполнение входных данных.
@@ -38,13 +37,6 @@ class L17_1
     }
 
 
-    function H5_LargeSize_m()
-    {
-        //деление и округление
-        //вывод
-
-        return round($this->B11_BigStor/100, 2);
-    }
     function H6_SmallSize_m()
     {
         //деление и округление
@@ -52,6 +44,7 @@ class L17_1
 
         return round($this->B12_SmallStor/100, 2);
     }
+
     function E5_Ulica()
     {
         //если B7+B8+B9 =0, то присвоить 1, иначе вернуть 0
@@ -117,6 +110,14 @@ class L17_1
 
         }
 
+    }
+
+    function H5_LargeSize_m()
+    {
+        //деление и округление
+        //вывод
+
+        return round($this->B11_BigStor/100, 2);
     }
 
     function H7_PlochadFasada_m2()
@@ -554,15 +555,10 @@ class L17_2
 
     public $S20_StoimostOporLicevix_grn;//Стоимость опор лицевых
 
-    public function __construct($RoofVisorOut = 0, $WallOut = 0, $WallIn = 0, $SideIn2 = 1, $SideIn4 = 0,
-                                $Orientacia = 1,
-                                $BigStor = 300, $SmallStor = 60, $PlastikLicevoy = 1)
+    public function __construct($RoofVisorOut, $WallOut, $WallIn,
+                                $SideIn2, $SideIn4, $Orientacia, $BigStor, $SmallStor, $StoimostOporLicevix_grn)
 
     {
-        $L17_1 = new L17_1($RoofVisorOut,$WallOut,$WallIn,$SideIn2,$SideIn4,
-                           $BigStor,$SmallStor,
-                           $PlastikLicevoy);
-
         // Заполнение входных данных.
         $this->S5_RoofVisorOut = $RoofVisorOut;
         $this->S6_WallOut = $WallOut;
@@ -572,7 +568,7 @@ class L17_2
         $this->S11_Orientacia = $Orientacia;
         $this->S12_BigStor = $BigStor;
         $this->S13_SmallStor = $SmallStor;
-        $this->S20_StoimostOporLicevix_grn = $L17_1->O24_Itogo_grn();
+        $this->S20_StoimostOporLicevix_grn = $StoimostOporLicevix_grn;
     }
 
 
@@ -1151,10 +1147,8 @@ class L17_3
 
     public $AJ11_Konstrukt; // конструктив
 
-    public function __construct($WallIn4 = 0,
-                                $Orientation = 1,
-                                $BigStor = 300, $SmallStor = 60,
-                                $Konstrukt = 2)
+    public function __construct($WallIn4, $Orientation, $BigStor,
+                                $SmallStor, $Konstrukt)
 
     {
         // Заполнение входных данных.
