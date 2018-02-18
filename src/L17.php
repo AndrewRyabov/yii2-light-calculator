@@ -342,7 +342,7 @@ class L17_1
 
         //вывод
 
-        return L10_AS24_ProfileUD_05mmV;
+        return L10_AS24_ProfileUD_05mm;
     }
     function I18_AkrilOpora1Storona_grn_kg()
     {
@@ -789,7 +789,7 @@ class L17_2
 
         //вывод
 
-        return L10_AR24_ProfileUD_05mmS;
+        return L10_AR24_ProfileUD_05mm;
     }
     function Y13_Pererasxod1Profila()
     {
@@ -959,7 +959,7 @@ class L17_2
 
         //вывод
 
-        return L10_AS24_ProfileUD_05mmV;
+        return L10_AS24_ProfileUD_05mm;
     }
     function Z20_DlinaUDProfila_grn_kg()
     {
@@ -1444,20 +1444,12 @@ class L17_3
     }
     function AP19_Kronsht4x41shtgrn()
     {
-
         //кронштейн 4*4    1 шт, грн
-        //значение
-        //вывод
-
         return L10_AR48_Kronsht_4x4;
     }
     function AQ19_Kronsht4x41shtgrn()
     {
-
         //кронштейн 4*4    1 шт, грн
-        //значение
-        //вывод
-
         return L10_AS48_Kronsht_4x4;
     }
     function AP20_Kraska1lgrn()
