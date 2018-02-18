@@ -90,71 +90,18 @@ $L25 = new L25();
 <!------------------------------------------------------------------------->
 <br><br>
 <?php include_once 'L16.php' ?>
-<?php return(0) ?>
 <!------------------------------------------------------------------------->
 <br><br>
-<table border="1">
-    <tr>
-        <td colspan="3" align="center">Class 17</td>
-    </tr>
-    <tr>
-        <td>Опоры лицевого пластика</td>
-        <td>Рама внутренняя</td>
-        <td>Рама внешняя</td>
-    </tr>
-    <tr>
-        <td><?php include_once 'L17_A.php' ?></td>
-        <td><?php include_once 'L17_R.php' ?></td>
-        <td><?php include_once 'L17_AP.php'?></td>
-    </tr>
-</table>
+<?php include_once 'L17.php' ?>
 <!------------------------------------------------------------------------->
 <br><br>
-<table border="1">
-    <tr>
-        <td colspan="4" align="center">Class 18</td>
-    </tr>
-    <tr>
-        <td>Лампы дневного света</td>
-        <td>Кластеры 3750</td>
-        <td>Диодная лента 3750</td>
-        <td>Электрика Итого</td>
-    </tr>
-    <tr>
-        <td><?php include_once 'L18_A.php' ?></td>
-        <td><?php include_once 'L18_S.php' ?></td>
-        <td><?php include_once 'L18_AK.php'?></td>
-        <td><?php include_once 'L18_BC.php'?></td>
-    </tr>
-</table>
+<?php //include_once 'L18.php' ?>
 <!------------------------------------------------------------------------->
 <br><br>
-<table border="1">
-    <tr>
-        <td colspan="2" align="center">Class 19</td>
-    </tr>
-    <tr>
-        <td>Снабжение</td>
-        <td>Подвесы</td>
-    </tr>
-    <tr>
-        <td><?php include_once 'L19_A.php' ?></td>
-        <td><?php include_once 'L19_Q.php' ?></td>
-    </tr>
-</table>
+<?php //include_once 'L19.php' ?>
 <!------------------------------------------------------------------------->
 <br><hr size="5" color="red"><br>
-<table border="1">
-    <tr>
-        <td>Class 25</td>
-    </tr>
-    <tr>
-        <td>Интегратор</td>
-    </tr>
-    <tr>
-        <td><?php include_once 'L25_Integrator.php' ?></td>
-    </tr>
-</table>
+<?php //include_once 'L25.php' ?>
 <!------------------------------------------------------------------------->
 </body>
 </html>

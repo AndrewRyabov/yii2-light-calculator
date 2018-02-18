@@ -8,7 +8,7 @@
 ?>
 <table border="1">
     <tr>
-        <td colspan="3" align="center">Class 17</td>
+        <td colspan="4" align="center">Class 17</td>
     </tr>
     <tr>
         <td>Опоры лицевого пластика</td>
