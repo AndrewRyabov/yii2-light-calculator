@@ -1,5 +1,5 @@
-<?php namespace almaz44\light\calculator;
-include_once __DIR__ . '/L10.php';
+<?php
+namespace almaz44\light\calculator;
 /**
  * Created by PhpStorm.
  * User: Andrew
