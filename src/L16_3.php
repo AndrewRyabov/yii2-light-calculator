@@ -23,7 +23,7 @@ class L16
     public function __construct($RoofVisorOut, $WallOut, $WallIn, $SideIn2, $SideIn4, $MaxSide_cm, $MinSide_cm)
 
     {
-        // Заполнение входных данных.
+        // Заполнение входных данных
 	$this->AJ5_RoofVisorOut = $RoofVisorOut;
 	$this->AJ6_WallOut = $WallOut;
 	$this->AJ7_WallIn = $WallIn;
