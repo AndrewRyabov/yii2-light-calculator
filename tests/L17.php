@@ -17,9 +17,9 @@
         <td>рама электро</td>
     </tr>
     <tr>
-        <td><?php //include_once 'L17_A.php' ?></td>
-        <td><?php //include_once 'L17_.php' ?></td>
-        <td><?php //include_once 'L17_.php'?></td>
-        <td><?php //include_once 'L17_.php'?></td>
+        <td><?php include_once 'L17_A.php' ?></td>
+        <td><?php include_once 'L17_R.php' ?></td>
+        <td><?php include_once 'L17_AI.php'?></td>
+        <td><?php include_once 'L17_AZ.php'?></td>
 </tr>
 </table>
