@@ -2,9 +2,9 @@
 namespace almaz44\light\calculator;
 /**
  * Created by PhpStorm.
- * User: VovaP
- * Date: 27.07.2017
- * Time: 8:01
+ * User: Andrii
+ * Date: 28.02.2018
+ * Time: 18:11
  */
 class L17_1
 {
@@ -14,530 +14,412 @@ class L17_1
     public $B7_WallIn; // стена помещение
     public $B8_2SideIn; // 2 стороны помещение
     public $B9_4SideIn; // 4 стороны помещение
+    //
+    public $B11_MaxSide_cm; // большая сторона, см
+    public $B12_MinSide_cm; // меньшая сторона, см
+    //
+    public $B14_PlastikFront; //Пластик лицевой (1-пол/2-акр)
 
-    public $B11_BigStor; // Большая сторона
-    public $B12_SmallStor; // Маленькая сторона
+    // Промежуточные данные.
+    private $L09;       // класс исходных данных.
 
-    public $B14_PlastikLicevoy;//Пластик лицевой
-
-    public function __construct($RoofVisorOut, $WallOut, $WallIn,
-                                $SideIn2, $SideIn4, $BigStor, $SmallStor, $PlastikLicevoy)
+    public function __construct($SCLight = 1, $VarIspoln = 4,
+                                $Orientation = 1, $MaxSide_cm = 150, $MinSide_cm = 100,
+                                $FrontImg=1, $ColorSide=1, $ColorBack=0, $Ugol=[0,0,0,0],
+                                $MaketImg=1, $PlenkLic=3, $PlastLic=2, $IstochnikSveta = 1)
 
     {
         // Заполнение входных данных.
-        $this->B5_RoofVisorOut = $RoofVisorOut;
-        $this->B6_WallOut = $WallOut;
-        $this->B7_WallIn = $WallIn;
-        $this->B8_2SideIn = $SideIn2;
-        $this->B9_4SideIn = $SideIn4;
+        $this->B5_RoofVisorOut = 0; // крыша/козырек улица
+        $this->B6_WallOut = 0;      // стена улица
+        $this->B7_WallIn = 0;       // стена помещение
+        $this->B8_2SideIn = 0;      // 2 стороны помещение
+        $this->B9_4SideIn = 0;      // 4 стороны помещение
+        switch ($VarIspoln){
+            case 1: $this->B5_RoofVisorOut = 1; break;
+            case 2: $this->B6_WallOut = 1; break;
+            case 3: $this->B7_WallIn = 1; break;
+            case 4: $this->B8_2SideIn = 1; break;
+            case 5: $this->B9_4SideIn = 1; break;
+            default: $this->B8_2SideIn = 1; break;
+        }
 
-        $this->B11_BigStor = $BigStor;
-        $this->B12_SmallStor = $SmallStor;
-        $this->B14_PlastikLicevoy = $PlastikLicevoy;
+        // Запрос исходных данных
+        $this->L09 = new L09($SCLight, $VarIspoln,
+            $Orientation, $MaxSide_cm, $MinSide_cm,
+            $FrontImg, $ColorSide, $ColorBack, $Ugol,
+            $MaketImg, $PlenkLic, $PlastLic, $IstochnikSveta);
+
+        $this->B11_MaxSide_cm = $this->L09->J22_MaxSide_cm;
+        $this->B12_MinSide_cm = $this->L09->J23_MinSide_cm;
+        $this->B14_PlastikFront = $this->L09->J40_PlasticLic;
     }
 
-
-    function H6_SmallSize_m()
+//// флаги
+    function E5_MinSideM()
     {
-        //деление и округление
-        //вывод
-
-        return round($this->B12_SmallStor/100, 2);
+        return $this->B12_MinSide_cm/100;
     }
-
-    function E5_Ulica()
+    //
+    function E7_Polikarbonat()
     {
-        //если B7+B8+B9 =0, то присвоить 1, иначе вернуть 0
-        //вывод
-
-        if (($this->B7_WallIn+$this->B8_2SideIn+$this->B9_4SideIn)== 0)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
+    return ( $this->B14_PlastikFront == 1) ? 1 : 0;
     }
-
-    function E6_Pomechenie()
+    function E8_Akril()
     {
-        //если E5_MaxSize =0, то присвоить 1, иначе вернуть 0
-        //вывод
-
-        if ($this->E5_Ulica() == 0)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-
-        }
-
+    return ($this->E7_Polikarbonat() == 0) ? 1 : 0;
     }
-
-
-    function E8_NalichieOporUlica()
+    function E9_Street()
     {
-        //если H6 >V19'10',то присвоить 1, иначе вернуть 0
-        //вывод
-
-        if ($this->H6_SmallSize_m()>L10_BB34_K_GranicaPOLicUlica_m)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-
-        }
-
+        $temp = $this->B7_WallIn + $this->B8_2SideIn + $this->B9_4SideIn;
+    return ($temp == 0) ? 1 : 0;
     }
-
-    function E9_NalichieOporPomech()
+    function E10_In()
     {
-        //если E8_MaxSize =0, то присвоить 1, иначе вернуть 0
-        //вывод
-
-        if ($this->H6_SmallSize_m()>L10_BB35_K_GranicaPOLicPomesh_m)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-
-        }
-
+        return ($this->E9_Street() == 0) ? 1 : 0;
     }
-
-    function H5_LargeSize_m()
+    //
+    function E12_BorderSupportOut()
     {
-        //деление и округление
-        //вывод
-
-        return round($this->B11_BigStor/100, 2);
+        $temp = L10_BK34_GranicPrimOporLicPolikUlica_m * $this->E7_Polikarbonat() +
+                L10_BK35_GranicPrimOporLicAkrilUlica_m + $this->E8_Akril();
+        return $temp;
     }
-
-    function H7_PlochadFasada_m2()
+    function E13_BorderSupportIn()
     {
-        //умножение
-        //вывод
-
-        return ($this->H5_LargeSize_m()*$this->H6_SmallSize_m());
+        return ($this->E8_Akril() == 1) ? L10_BK36_GranicPrimOporLicAkrilPomesh_m : 2;
     }
-
+    //
+    function E15_AvailabilitySupportOu()
+    {
+        return ($this->E5_MinSideM() > $this->E12_BorderSupportOut()) ? 1 : 0;
+    }
+    function E16_AvailabilitySupportIn()
+    {
+        return ($this->E5_MinSideM() > $this->E13_BorderSupportIn()) ? 1 : 0;
+    }
+//// расчетная величина, материал
+    function H5_MaxSizeM()
+    {
+    return round($this->B11_MaxSide_cm / 100, 2);
+    }
+    function H6_MinSizeM()
+    {
+        return round($this->B12_MinSide_cm / 100, 2);
+    }
+    function H7_AreaFasada_m2()
+    {
+        return ($this->H5_MaxSizeM() * $this->H6_MinSizeM());
+    }
+    //
     function H9_Acril3mm_1m2()
     {
-
-        //вывод
-
         return L10_J15_AkrilM3S;
     }
-
-    function H10_PererashodAcrila()
+    function H10_OvergrowthAcrila()
     {
-
-        //вывод
-
         return L10_BB7_K_PererashodAkryl;
     }
-
-    function H11_StoimostRezaAkril1mp_grn()
+    function H11_PriceOvergrowthAkril1mp_grn()
     {
-
-        //вывод
-
         return L10_J40_RaskrAkrlLazS;
     }
-
-
     function H12_UDProfil1mp_grn()
     {
-
-        //вывод
-
         return  L10_AR24_ProfileUD_05mm;
 
     }
-
-
-    function H13_PererashodUDProfil()
+    function H13_OvergrowthUDProfil()
     {
-
-        //вывод
-
         return  L10_BB58_K_PererashCDUD;
 
     }
-
-    function H14_Samorez_1shtuk()
+    function H14_Samorez_1ps_grn()
     {
-
-        //вывод
-
         return  L10_AR42_Samorez19ZnBur;
 
     }
-    function H15_RashodSamorezna1mp_shtuk()
+    function H15_RashodSamorezna1mp_ps()
     {
-
-        //вывод
-
         return  L10_BB61_K_KolSamorezVRamaPVHKorobShtMp;
 
     }
-
-    function H18_PAcrilOpora1storona_grn()
+    //
+    function H18_AcrilSupport1Side_grn()
     {
-        //умножение
-        //вывод
-
-        return (0.12*0.1*$this->H9_Acril3mm_1m2()*$this->H10_PererashodAcrila());
+        return (0.1 * 0.1 * $this->H9_Acril3mm_1m2() * $this->H10_OvergrowthAcrila());
     }
-
-    function H19_Vurezanie1Opori_grn()
+    function H19_Cutting1Support_grn()
     {
-        //умножение и сложение
-        //вывод
-
-        return (0.12+0.12+0.1+0.1)*$this->H11_StoimostRezaAkril1mp_grn();
+        return ((0.1 + 0.1 + 0.1 + 0.1) * $this->H11_PriceOvergrowthAkril1mp_grn());
     }
-
-    function H20_UDOpora1Storona_grn()
+    function H20_UDSupport1Side_grn()
     {
-        //умножение
-        //вывод
-
-        return ($this->H6_SmallSize_m()*$this->H12_UDProfil1mp_grn()*$this->H13_PererashodUDProfil());
+        $temp = $this->H6_MinSizeM() *
+                $this->H12_UDProfil1mp_grn() *
+                $this->H13_OvergrowthUDProfil();
+        return $temp;
     }
-
-
-    function H21_SamorezOpora1Storona_shtuk()
+    function H21_SamorezSupport1Side_ps()
     {
-        //умножение и округление
-        //вывод
-
-        return round($this->H6_SmallSize_m()*$this->H15_RashodSamorezna1mp_shtuk(), 0);
+        $temp = $this->H6_MinSizeM() *
+                $this->H15_RashodSamorezna1mp_ps() +
+                1;
+        return round($temp, 0);
     }
-
-    function H22_SamorezOpora1Storona_grn()
+    function H22_SamorezSupport1Side_grn()
     {
-        //умножение
-        //вывод
-
-        return ($this->H21_SamorezOpora1Storona_shtuk()*$this->H14_Samorez_1shtuk());
+        return ($this->H21_SamorezSupport1Side_ps() * $this->H14_Samorez_1ps_grn());
     }
-
-    function H23_Opora1storona_grn()
-
+    function H23_SamorezClampingAkril_grn()
     {
-//сложение
-//вывод
-        return ($this->H18_PAcrilOpora1storona_grn()+$this->H19_Vurezanie1Opori_grn() +$this->H20_UDOpora1Storona_grn()+$this->H22_SamorezOpora1Storona_grn());
+        return (2 * $this->H14_Samorez_1ps_grn());
     }
-
-
-    function H24_opora2Storoni_grn()
+    function H24_Support1Side_grn()
     {
-        //умножение и сложение
-        //вывод
-
-        return ($this->H18_PAcrilOpora1storona_grn()+$this->H19_Vurezanie1Opori_grn()+$this->H14_Samorez_1shtuk())*2;
+        $temp = $this->H18_AcrilSupport1Side_grn() +
+                $this->H19_Cutting1Support_grn() +
+                $this->H20_UDSupport1Side_grn() +
+                $this->H22_SamorezSupport1Side_grn() +
+                $this->H23_SamorezClampingAkril_grn();
+        return $temp;
     }
-
-    function H26_KolichestvoOporKrusha_shtuk()
+    function H25_Support2Side_grn()
     {
-        //умножение, деление и округление
-        //вывод
-
-        return round($this->H7_PlochadFasada_m2()/L10_BB38_K_OpirPloshK_m2, 0)*$this->E8_NalichieOporUlica()*$this->B5_RoofVisorOut;
+        $temp = $this->H18_AcrilSupport1Side_grn() * 2 +
+                $this->H19_Cutting1Support_grn() * 2 +
+                $this->H20_UDSupport1Side_grn() +
+                $this->H14_Samorez_1ps_grn() +
+                $this->H23_SamorezClampingAkril_grn();
+        return $temp;
     }
-
-
-    function H27_KolichestvoOporStenaUlica_shtuk()
+    //
+    function H27_NumberRoofSupports_ps()
     {
-        //умножение, деление и округление
-        //вывод
-
-        return round($this->H7_PlochadFasada_m2()/L10_BB39_K_OpirPloshS_m2, 0)*$this->E8_NalichieOporUlica()*$this->B6_WallOut;
+        $temp = round($this->H7_AreaFasada_m2() / L10_BB38_K_OpirPloshK_m2, 0) *
+                $this->E15_AvailabilitySupportOu() *
+                $this->B5_RoofVisorOut;
+        return $temp;
     }
-
-    function H28_KolichestvoOporPomechenie1_shtuk()
+    function H28_NumberSupportsWallStreet_ps()
     {
-        //умножение, деление и округление
-        //вывод
-
-        return round($this->H7_PlochadFasada_m2()/L10_BB40_K_OpirPloshP_m2, 0)*$this->E9_NalichieOporPomech()*$this->B7_WallIn;
+        $temp = round($this->H7_AreaFasada_m2() / L10_BB39_K_OpirPloshS_m2, 0) *
+                $this->E15_AvailabilitySupportOu() *
+                $this->B6_WallOut;
+        return $temp;
     }
-
-    function H29_KolichestvoOporPomechenie2_shtuk()
+    function H29_NumberSupportsIn1_ps()
     {
-        //умножение, деление и округление
-        //вывод
-
-        return round($this->H7_PlochadFasada_m2()/L10_BB40_K_OpirPloshP_m2, 0)*$this->E9_NalichieOporPomech()*$this->B8_2SideIn;
+        $temp = round($this->H7_AreaFasada_m2() / L10_BB40_K_OpirPloshP_m2, 0) *
+                $this->E16_AvailabilitySupportIn() *
+                $this->B7_WallIn;
+        return $temp;
     }
-    function H30_KolichestvoOporPomechenie4_shtuk()
+    function H30_NumberSupportsIn2_ps()
     {
-        //умножение
-        //вывод
-
-        return $this->H29_KolichestvoOporPomechenie2_shtuk()*4*$this->E9_NalichieOporPomech()*$this->B9_4SideIn;
+        $temp = round($this->H7_AreaFasada_m2() / L10_BB40_K_OpirPloshP_m2) *
+                $this->E16_AvailabilitySupportIn() *
+                $this->B8_2SideIn;
+        return $temp;
     }
-    function H32_OporuKrushaItogo_grn()
+    function H31_NumberSupportIn4_ps()
     {
-        //умножение
-        //вывод
-
-        return $this->H23_Opora1storona_grn()*$this->H26_KolichestvoOporKrusha_shtuk();
+        $temp = $this->H30_NumberSupportsIn2_ps() * 4 *
+                $this->E16_AvailabilitySupportIn() *
+                $this->B9_4SideIn;
+        return $temp;
     }
-    function H33_OporuKrushaItogo_grn()
+    //
+    function H33_SupportWallItogo_grn()
     {
-        //умножение
-        //вывод
-
-        return $this->H23_Opora1storona_grn()*$this->H27_KolichestvoOporStenaUlica_shtuk();
+        return $this->H24_Support1Side_grn() *
+               $this->H27_NumberRoofSupports_ps();
     }
-
-    function H34_OporuStenaPomecheniaItogo_grn()
+    function H34_SupportRoofItogo_grn()
     {
-        //умножение
-        //вывод
-
-        return $this->H23_Opora1storona_grn()*$this->H28_KolichestvoOporPomechenie1_shtuk();
+        return $this->H24_Support1Side_grn() *
+               $this->H28_NumberSupportsWallStreet_ps();
     }
-    function H35_Oporu2StoroniItogo_grn()
+    function H35_SupportWallInItogo_grn()
     {
-        //умножение
-        //вывод
-
-        return $this->H24_opora2Storoni_grn()*$this->H29_KolichestvoOporPomechenie2_shtuk();
+        return $this->H24_Support1Side_grn() *
+               $this->H29_NumberSupportsIn1_ps();
     }
-    function H36_Oporu4StoroniItogo_grn()
+    function H36_Support2SideItogo_grn()
     {
-        //умножение
-        //вывод
-
-        return $this->H23_Opora1storona_grn()*$this->H30_KolichestvoOporPomechenie4_shtuk()*$this->E9_NalichieOporPomech();
+        return $this->H24_Support1Side_grn() *
+               $this->H30_NumberSupportsIn2_ps();
     }
-    function H37_MaterialOporItogo_grn()
-
+    function H37_Support4SideItogo_grn()
     {
-//сложение
-//вывод
-        return ($this->H32_OporuKrushaItogo_grn()+$this->H33_OporuKrushaItogo_grn() +$this->H34_OporuStenaPomecheniaItogo_grn()+$this->H35_Oporu2StoroniItogo_grn()+$this->H36_Oporu4StoroniItogo_grn());
+        return $this->H24_Support1Side_grn() *
+               $this->H31_NumberSupportIn4_ps() *
+               $this->E16_AvailabilitySupportIn();
     }
-
+    function H38_MaterialSupportItogo_grn()
+    {
+        $temp = $this->H33_SupportWallItogo_grn() +
+                $this->H34_SupportRoofItogo_grn() +
+                $this->H35_SupportWallInItogo_grn() +
+                $this->H36_Support2SideItogo_grn() +
+                $this->H37_Support4SideItogo_grn();
+        return $temp;
+    }
+////
     function I9_Akril3mm1m2_kg()
     {
-
-        //вывод
-
         return L10_L15_AkrilM3P;
     }
     function I12_UDprofil1mp_grn_kg()
     {
-
-        //вывод
-
         return L10_AS24_ProfileUD_05mm;
     }
-    function I18_AkrilOpora1Storona_grn_kg()
+    //
+    function I18_AcrilSupport1Side_kg()
     {
-        //умножение
-        //вывод
-
-        return 0.12*0.1*$this->I9_Akril3mm1m2_kg();
+        $temp = 0.12 * 0.1 * $this->I9_Akril3mm1m2_kg();
+        return $temp;
     }
-    function I20_UDOpora1Storona_grn_kg()
+    function I20_UDSupport1Side_kg()
     {
-        //умножение
-        //вывод
-
-        return $this->H6_SmallSize_m()*$this->I12_UDprofil1mp_grn_kg();
+        $temp = $this->H6_MinSizeM() * $this->I12_UDprofil1mp_grn_kg();
+        return $temp;
     }
-
-    function I23_Opora1storona_grn()
-
+    //
+    function I24_Support1Side_kg()
     {
-//сложение
-//вывод
-        return ($this->I18_AkrilOpora1Storona_grn_kg()+$this->I20_UDOpora1Storona_grn_kg());
+        $temp = $this->I18_AcrilSupport1Side_kg() + $this->I20_UDSupport1Side_kg();
+        return $temp;
     }
-    function I24_opora2Storoni_grn()
+    function I25_Support2Side_kg()
     {
-        //умножение
-        //вывод
-
-        return $this->I18_AkrilOpora1Storona_grn_kg()*2;
+        $temp = $this->I18_AcrilSupport1Side_kg() * 2;
+        return $temp;
     }
-    function I32_OporiKrushaItogo_grn()
+    //
+    function I33_SupportWallItogo_kg()
     {
-        //умножение
-        //вывод
-
-        return $this->I23_Opora1storona_grn()*$this->H26_KolichestvoOporKrusha_shtuk();
+        return $this->I24_Support1Side_kg() *
+               $this->H27_NumberRoofSupports_ps();
     }
-    function I33_OporiUlicaItogo_grn()
+    function I34_SupportRoofItogo_kg()
     {
-        //умножение
-        //вывод
-
-        return $this->I23_Opora1storona_grn()*$this->H27_KolichestvoOporStenaUlica_shtuk();
+        return $this->I24_Support1Side_kg() *
+               $this->H28_NumberSupportsWallStreet_ps();
     }
-    function I34_OporiStenaPomechenieItogo_grn()
+    function I35_SupportWallInItogo_kg()
     {
-        //умножение
-        //вывод
-
-        return $this->I23_Opora1storona_grn()*$this->H28_KolichestvoOporPomechenie1_shtuk();
+        return $this->I24_Support1Side_kg() *
+               $this->H29_NumberSupportsIn1_ps();
     }
-    function I35_Opori2StoroniItogo_grn()
+    function I36_Support2SideItogo_kg()
     {
-        //умножение
-        //вывод
-
-        return $this->I24_opora2Storoni_grn()*$this->H29_KolichestvoOporPomechenie2_shtuk();
+        return $this->I25_Support2Side_kg() *
+               $this->H30_NumberSupportsIn2_ps();
     }
-    function I36_Opori4StoroniItogo_grn()
+    function I37_Support4SideItogo_kg()
     {
-        //умножение
-        //вывод
-
-        return $this->I23_Opora1storona_grn()*$this->H30_KolichestvoOporPomechenie4_shtuk()*$this->E9_NalichieOporPomech();
+        return $this->I24_Support1Side_kg() *
+               $this->H31_NumberSupportIn4_ps() *
+               $this->E16_AvailabilitySupportIn();
     }
-    function I37_MaterialOporItogo_grn()
-
+    function I38_MaterialSupportItogo_kg()
     {
-//сложение
-//вывод
-        return ($this->I32_OporiKrushaItogo_grn()+$this->I33_OporiUlicaItogo_grn()+$this->I34_OporiStenaPomechenieItogo_grn()+$this->I35_Opori2StoroniItogo_grn()+$this->I36_Opori4StoroniItogo_grn());
+        $temp = $this->I33_SupportWallItogo_kg() +
+                $this->H34_SupportRoofItogo_grn() +
+                $this->H35_SupportWallInItogo_grn() +
+                $this->H36_Support2SideItogo_grn() +
+                $this->H37_Support4SideItogo_grn();
+        return $temp;
     }
-
-    function L5_Virezat1ProfilUD_min()
+//// трудоемкость
+    function L5_Cut1ProfilUD_min()
     {
-
-        //вывод
-
         return L10_BT21_PriresStalProfCDUDStilk_1sht;
     }
-    function L6_Virezat1Samorez_min()
+    function L6_Screw1Samorez_min()
     {
-
-        //вывод
-
         return L10_BT25_VkruchSamorez_1sht;
     }
-    function L8_SobratOpory1Storona_min()
+    //
+    function L8_AssembleSupport1Side_min()
     {
-        //умножение и сложение
-        //вывод
-
-        return ($this->L5_Virezat1ProfilUD_min()+$this->L6_Virezat1Samorez_min()*$this->H21_SamorezOpora1Storona_shtuk());
+        $temp = $this->L5_Cut1ProfilUD_min() +
+                $this->L6_Screw1Samorez_min() * 2;
+        return $temp;
     }
-    function L10_OporaIzgotovit1Storona_min()
+    //
+    function L10_SupportAssemble1Side_min()
     {
-        //умножение и сложение
-        //вывод
-
-        return $this->L5_Virezat1ProfilUD_min()+($this->H21_SamorezOpora1Storona_shtuk()+2)*$this->L6_Virezat1Samorez_min();
+        $temp = $this->L5_Cut1ProfilUD_min() +
+                ($this->H21_SamorezSupport1Side_ps() + 2) *
+                $this->L6_Screw1Samorez_min();
+        return $temp;
     }
-    function L11_OporaIzgotovit2Storona_min()
+    function L11_SupportAssemble2Side_min()
     {
-        //умножение
-        //вывод
-
-        return 2*$this->L6_Virezat1Samorez_min();
+        return 4 * $this->L6_Screw1Samorez_min();
     }
-    function L13_OporaKrushaItogo_min()
+    //
+    function L13_SupportRoofItogo_min()
     {
-        //умножение
-        //вывод
-
-        return $this->H26_KolichestvoOporKrusha_shtuk()*$this->L10_OporaIzgotovit1Storona_min();
+        return $this->H27_NumberRoofSupports_ps() *
+               $this->L10_SupportAssemble1Side_min();
     }
-    function L14_OporaulicaItogo_min()
+    function L14_SupportOutItogo_min()
     {
-        //умножение
-        //вывод
-
-        return $this->H27_KolichestvoOporStenaUlica_shtuk()*$this->L10_OporaIzgotovit1Storona_min();
+        return $this->H28_NumberSupportsWallStreet_ps() *
+               $this->L10_SupportAssemble1Side_min();
     }
-    function L15_OporaStenaPomech1Itogo_min()
+    function L15_SupportWallIn1Itogo_min()
     {
-        //умножение
-        //вывод
-
-        return $this->H28_KolichestvoOporPomechenie1_shtuk()*$this->L10_OporaIzgotovit1Storona_min();
+        return $this->H29_NumberSupportsIn1_ps() *
+               $this->L10_SupportAssemble1Side_min();
     }
-
-    function L16_OporaStenaPomech2Itogo_min()
+    function L16_Support2SideItogo_min()
     {
-        //умножение
-        //вывод
-
-        return $this->H29_KolichestvoOporPomechenie2_shtuk()*$this->L11_OporaIzgotovit2Storona_min();
+        return $this->H30_NumberSupportsIn2_ps() *
+               $this->L11_SupportAssemble2Side_min();
     }
-    function L17_OporaStenaPomech4Itogo_min()
+    function L17_Support4SideItogo_min()
     {
-        //умножение
-        //вывод
-
-        return $this->H30_KolichestvoOporPomechenie4_shtuk()*$this->L10_OporaIzgotovit1Storona_min();
+        return $this->H31_NumberSupportIn4_ps() *
+               $this->L10_SupportAssemble1Side_min();
     }
-    function L18_OporiItogo_min()
+    function L18_SupportItogo_min()
     {
-        //умножение, деление и округление
-        //вывод
-
-        return round($this->L13_OporaKrushaItogo_min()+$this->L14_OporaulicaItogo_min()+$this->L15_OporaStenaPomech1Itogo_min()+$this->L16_OporaStenaPomech2Itogo_min()+$this->L17_OporaStenaPomech4Itogo_min(), 0);
+        $temp = round($this->L13_SupportRoofItogo_min() +
+                      $this->L14_SupportOutItogo_min() +
+                      $this->L15_SupportWallIn1Itogo_min() +
+                      $this->L16_Support2SideItogo_min() +
+                      $this->L17_Support4SideItogo_min(), 0);
+        return $temp;
     }
-    function O6_StoimostMaterialov_grn()
+//// выходная величина
+    function O6_CostMaterials_grn()
     {
-        //умножение
-        //вывод
-
-        return round($this->H37_MaterialOporItogo_grn(), 0);
+        return round($this->H38_MaterialSupportItogo_grn(), 0);
     }
-
-    function O10_TrydoemkostRobotu_min()
+    //
+    function O10_TrydoemkostSupport_min()
     {
-
-        //вывод
-
-        return $this->L18_OporiItogo_min();
+        return $this->L18_SupportItogo_min();
     }
-    function O11_StoimostRabotu_grn()
+    function O11_CostWork_grn()
     {
-        //умножение и округление
-        //вывод
-
-        return round($this->O10_TrydoemkostRobotu_min()*L10_C67_K1, 0);
+        return round($this->O10_TrydoemkostSupport_min() * L10_C67_K1, 0);
     }
-    function O22_Ves_kg()
+    //
+    function O22_Massa_kg()
     {
-        //умножение и округление
-        //вывод
-
-        return round($this->I37_MaterialOporItogo_grn(), 1);
+        return round($this->I38_MaterialSupportItogo_kg(), 1);
     }
-
-
-
+    //
     function O24_Itogo_grn()
     {
-        //сложение
-        //вывод
-
-        return $this->O6_StoimostMaterialov_grn()+$this->O11_StoimostRabotu_grn();
+        return $this->O6_CostMaterials_grn() +
+               $this->O11_CostWork_grn();
     }
-
-
-
-
-
 }
 
 class L17_2
@@ -548,468 +430,308 @@ class L17_2
     public $S7_WallIn; // стена помещение
     public $S8_2SideIn; // 2 стороны помещение
     public $S9_4SideIn; // 4 стороны помещение
+    //
+    public $S11_Orientation; // Ориентация
+    public $S12_MaxSide_cm; // большая сторона, см
+    public $S13_MinSide_cm; // меньшая сторона, см
+    //
+    public $S15_PlastikFront; //Пластик лицевой (1-пол/2-акр)
+    //
+    public $S20_CosSupportFront; // стоимость опор лицевых, грн
 
-    public $S11_Orientacia; // ориентация
-    public $S12_BigStor; // Большая сторона
-    public $S13_SmallStor; // Маленькая сторона
+    // Промежуточные данные.
+    private $L09, $L17_1;       // класс исходных данных.
 
-    public $S20_StoimostOporLicevix_grn;//Стоимость опор лицевых
-
-    public function __construct($RoofVisorOut, $WallOut, $WallIn,
-                                $SideIn2, $SideIn4, $Orientacia, $BigStor, $SmallStor, $StoimostOporLicevix_grn)
+    public function __construct($SCLight = 1, $VarIspoln = 4,
+                                $Orientation = 1, $MaxSide_cm = 150, $MinSide_cm = 100,
+                                $FrontImg=1, $ColorSide=1, $ColorBack=0, $Ugol=[0,0,0,0],
+                                $MaketImg=1, $PlenkLic=3, $PlastLic=2, $IstochnikSveta = 1)
 
     {
         // Заполнение входных данных.
-        $this->S5_RoofVisorOut = $RoofVisorOut;
-        $this->S6_WallOut = $WallOut;
-        $this->S7_WallIn = $WallIn;
-        $this->S8_2SideIn = $SideIn2;
-        $this->S9_4SideIn = $SideIn4;
-        $this->S11_Orientacia = $Orientacia;
-        $this->S12_BigStor = $BigStor;
-        $this->S13_SmallStor = $SmallStor;
-        $this->S20_StoimostOporLicevix_grn = $StoimostOporLicevix_grn;
+        $this->S5_RoofVisorOut = 0; // крыша/козырек улица
+        $this->S6_WallOut = 0;      // стена улица
+        $this->S7_WallIn = 0;       // стена помещение
+        $this->S8_2SideIn = 0;      // 2 стороны помещение
+        $this->S9_4SideIn = 0;      // 4 стороны помещение
+        switch ($VarIspoln){
+            case 1: $this->S5_RoofVisorOut = 1; break;
+            case 2: $this->S6_WallOut = 1; break;
+            case 3: $this->S7_WallIn = 1; break;
+            case 4: $this->S8_2SideIn = 1; break;
+            case 5: $this->S9_4SideIn = 1; break;
+            default: $this->S8_2SideIn = 1; break;
+        }
+
+        // Запрос исходных данных
+        $this->L09 = new L09($SCLight, $VarIspoln,
+                             $Orientation, $MaxSide_cm, $MinSide_cm,
+                             $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                             $MaketImg, $PlenkLic, $PlastLic, $IstochnikSveta);
+
+        $this->S11_Orientation = $Orientation;
+        $this->S12_MaxSide_cm = $MaxSide_cm;
+        $this->S13_MinSide_cm = $MinSide_cm;
+        $this->S15_PlastikFront = $this->L09->J40_PlasticLic;
+
+        $this->L17_1 = new L17_1($SCLight, $VarIspoln,
+                             $Orientation, $MaxSide_cm, $MinSide_cm,
+                             $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                             $MaketImg, $PlenkLic, $PlastLic, $IstochnikSveta);
+
+        $this->S20_CosSupportFront =  $this->L17_1->O24_Itogo_grn();
     }
 
-
-    function V5_MaxSizeBolee300cm()
+//// Флаги
+    function V5_MaxSizeMore400sm()
     {
-        //если S12 >300,  то присвоить 1, иначе вернуть 0
-        //иначе - вернуть 0
-        //вывод
-
-        if ($this->S12_BigStor >300)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
+    return ($this->S12_MaxSide_cm > (100 * L10_BK19_RazmObyazIspGorRam_m)) ? 1 : 0;
     }
-
-
-    function V6_MinSizeBolee44sm()
+    function V6_MaxSizeMore300sm()
     {
-        //если S13 >44,  то присвоить 1, иначе вернуть 0
-        //иначе - вернуть 0
-        //вывод
-
-        if ($this->S13_SmallStor >44)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
+    return ($this->S12_MaxSide_cm > (100 * L10_BK20_GorRazmSvyazIspGorRam_m)) ? 1 : 0;
     }
-    function V7_SmallSize_m()
+    function V7_MinSizeMore44sm()
     {
-        //умножение
-        //вывод
-
-        return ($this->V5_MaxSizeBolee300cm()*$this->V6_MinSizeBolee44sm());
+    return ($this->S13_MinSide_cm > (100 * L10_BK21_VertRazmSvyazIspGorRam_m)) ? 1 : 0;
     }
-
-    function V9_1Storona()
+    function V8_More300x44sm()
     {
-        //если S8=0 и S9=0, то присвоить 1, иначе вернуть 0
-        //вывод
-
-
-        if ($this->S8_2SideIn==0 and $this->S9_4SideIn==0)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
+        return ($this->V6_MaxSizeMore300sm() * $this->V7_MinSizeMore44sm());
     }
-    function V10_2Storoni()
+    function V9_PlankaDiod()
     {
-
-        //вывод
-
+        return ($this->S13_MinSide_cm > (100 * L10_BK22_MaxRazmOtsutElectroram2Stor_m)) ? 1 : 0;
+    }
+    //
+    function V11_1Side()
+    {
+    return (($this->S8_2SideIn == 0) AND ($this->S9_4SideIn == 0)) ? 1 : 0;
+    }
+    function V12_2Side()
+    {
         return ($this->S8_2SideIn);
     }
-    function V11_4Storoni()
+    function V13_4Side()
     {
-
-        //вывод
-
         return ($this->S9_4SideIn);
     }
-
-    function V13_Ulica()
+    //
+    function V15_Street()
     {
-        //сложение
-        //вывод
-
-        if ($this->S7_WallIn+$this->S8_2SideIn+$this->S9_4SideIn==0)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
+        $temp = $this->S7_WallIn +
+                $this->S8_2SideIn +
+                $this->S9_4SideIn;
+        return ($temp == 0) ? 1 : 0;
     }
-    function V14_OporiLicevieEst()
+    function V16_SupportFrontOn()
     {
-        //если S20>0, то присвоить 1, иначе вернуть 0
-        //вывод
-
-        if ($this->S20_StoimostOporLicevix_grn>0)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
+        return ($this->S20_CosSupportFront > 0) ? 1 : 0;
     }
-    function V15_OporiUlica()
+    function V17_SupportStreet()
     {
-        //умножение
-        //вывод
-
-        return ($this->V13_Ulica()*$this->V14_OporiLicevieEst());
+        return ($this->V15_Street() * $this->V16_SupportFrontOn());
     }
-    function V17_DlinnaiChastRamu()
+    //
+    function V19_LongBox()
     {
-        //если V7 =1,V15=1, S5=1, то присвоить 1, иначе вернуть 0
-        //иначе - вернуть 0
-        //вывод
-
-        if ($this->V7_SmallSize_m() == 1 or $this->V15_OporiUlica() == 1 or $this->S5_RoofVisorOut == 1)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
+        $temp = ($this->V5_MaxSizeMore400sm() == 1) OR
+        ($this->V8_More300x44sm() == 1) OR
+        ($this->V17_SupportStreet() == 1) OR
+        ($this->S5_RoofVisorOut);
+        return ($temp) ? 1 : 0;
     }
-    function V18_KorotkaChastRami()
+    function V20_ShortBox()
     {
-
-        //вывод
-
         return ($this->S5_RoofVisorOut);
     }
-
-    function V20_OporLicevixNet()
+    //
+    function V22_SupportFrontOff()
     {
-        //V14=0, то присвоить 1, иначе вернуть 0
-        //вывод
-
-        if ($this->V14_OporiLicevieEst()==0)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
+        return ($this->V16_SupportFrontOn() == 0) ? 1 : 0;
     }
-    function V21_PeremickyEst()
+    function V23_JumperOn()
     {
-        //умножение
-        //вывод
-
-        return ($this->S5_RoofVisorOut*$this->V20_OporLicevixNet());
+        return ($this->S5_RoofVisorOut * $this->V22_SupportFrontOff());
     }
-
-
-
+    //
+    function V26_PolikarbonatFront()
+    {
+        return ($this->S15_PlastikFront == 1) ? 1 : 0;
+    }
+    function V27_AkrilFront()
+    {
+        return ($this->S15_PlastikFront == 2) ? 1 : 0;
+    }
+//// расчетная величина, материал
     function Y5_LargeSize_m()
     {
-        //деление и округление
-        //вывод
-
-        return round($this->S12_BigStor/100, 2);
+        return round($this->S12_MaxSide_cm / 100, 2);
     }
-
     function Y6_SmallSize_m()
     {
-        //деление и округление
-        //вывод
-
-        return round($this->S13_SmallStor/100, 2);
+        return round($this->S13_MinSide_cm / 100, 2);
     }
-
     function Y7_GorizontalSize_m()
     {
-        //S11=1, то присвоить Y5, иначе вернуть Y6
-        //вывод
-
-        if ($this->S11_Orientacia==1)
-        {
-            return $this->Y5_LargeSize_m();
-        }
-        else
-        {
-            return $this->Y6_SmallSize_m();
-        }
+        return ($this->S11_Orientation == 1) ? $this->Y5_LargeSize_m() : $this->Y6_SmallSize_m();
     }
-
     function Y8_VerticalSize_m()
     {
-        //S11=2, то присвоить Y5, иначе вернуть Y6
-        //вывод
-
-        if ($this->S11_Orientacia==2)
-        {
-            return $this->Y5_LargeSize_m();
-        }
-        else
-        {
-            return $this->Y6_SmallSize_m();
-        }
+        return ($this->S11_Orientation == 2) ? $this->Y5_LargeSize_m() : $this->Y6_SmallSize_m();
     }
-    function Y9_PlochadFasada_m2()
+    function Y9_AreaFront_m2()
     {
-        //сложение
-        //вывод
-
-        return ($this->Y5_LargeSize_m()*$this->Y6_SmallSize_m());
+        return ($this->Y5_LargeSize_m() * $this->Y6_SmallSize_m());
+    }
+    function Y10_PerimetrBox_m()
+    {
+        $temp = $this->Y5_LargeSize_m() + $this->Y5_LargeSize_m() +
+                $this->Y6_SmallSize_m() + $this->Y6_SmallSize_m();
+        return $temp;
     }
 
-    function Y10_PerimetrViveski_m()
+    function Y15_2UDPodves()
     {
-        //сложение
-        //вывод
-
-        return ($this->Y5_LargeSize_m()+$this->Y5_LargeSize_m()+$this->Y6_SmallSize_m()+$this->Y6_SmallSize_m());
+        return ($this->Z13_Massa_kg() <= ($this->Z14_MassaMax1UD_kg() * 2)) ? 1 : 0;
     }
-    function Y12_UDProfil1mp_grn()
+    function Y16_4UDPodves()
     {
-
-        //вывод
-
+        $temp = ($this->Z13_Massa_kg() > ($this->Z14_MassaMax1UD_kg() * 2)) AND
+        ($this->Z13_Massa_kg() <= ($this->Z14_MassaMax1UD_kg() * 4));
+        return ($temp) ? 1 : 0;
+    }
+    function Y17_6UDPodves()
+    {
+        $temp = $this->Y15_2UDPodves() + $this->Y16_4UDPodves();
+        return ($temp == 0) ? 1 : 0;
+    }
+    //
+    function Y19_UDProfil1mp_gr()
+    {
         return L10_AR24_ProfileUD_05mm;
     }
-    function Y13_Pererasxod1Profila()
+    function Y20_OverflowUDProfil()
     {
-
-        //вывод
-
         return L10_BB58_K_PererashCDUD;
     }
-    function Y14_Samorez1shtuk_grn()
+    function Y21_Samorez1_grn()
     {
-
-        //вывод
-
         return L10_AR42_Samorez19ZnBur;
     }
-    function Y15_RasxodSamorezovNa1mp_shtuk()
+    function Y22_NumberSamorez1mpBox_ps()
     {
-
-        //вывод
-
         return L10_BB61_K_KolSamorezVRamaPVHKorobShtMp;
     }
-    function Y18_KolichectvoPeremichek_shtuk()
+    function Y23_NumberSamorez1mpPack()
     {
-        //отнимание и округление
-        //вывод
-
-        return round($this->Y5_LargeSize_m()-1, 0);
+        return L10_BB60_K_KolSamorezVZadStShtMp;
     }
-    function Y19_KolichestvoUDElementov_shtuk()
+    function Y24_PlankaPack1mp_grn()
     {
-        //умножение и сложение
-        //вывод
-
-        return (2*$this->V17_DlinnaiChastRamu()+2*$this->V18_KorotkaChastRami()+$this->Y18_KolichectvoPeremichek_shtuk()*$this->V21_PeremickyEst());
+        return L10_U92_PlankUpakDer25x15;
     }
-    function Y20_DlinaUDKarkasaItogo_mp()
+    function Y25_OverflowPlankaPack()
     {
-        //умножение и сложение
-        //вывод
-
-        return ($this->Y5_LargeSize_m()*2*$this->V17_DlinnaiChastRamu()+$this->Y6_SmallSize_m()*2*$this->V18_KorotkaChastRami()+$this->Y6_SmallSize_m()*$this->Y18_KolichectvoPeremichek_shtuk()*$this->V21_PeremickyEst());
+        return L10_BB56_K_PererashTrubaBlack_20x20_40x20; // TODO Возможна ошибка.
     }
-    function Y21_StoimostUDProfila_grn()
+    function Y26_PVH5mm1mm2_grn()
     {
-        //умножение
-        //вывод
-
-        return ($this->Y20_DlinaUDKarkasaItogo_mp()*$this->Y13_Pererasxod1Profila()*$this->Y12_UDProfil1mp_grn());
+        return L10_J25_PVH_5mmS;
     }
-    function Y22_KolvoSamorezov_grn()
+    //
+    function Y29_NumberJump_ps()
     {
-        //умножение и округление
-        //вывод
-
-        return round($this->Y20_DlinaUDKarkasaItogo_mp()*$this->Y15_RasxodSamorezovNa1mp_shtuk(), 0);
+        return round($this->Y5_LargeSize_m() - 1, 0);
     }
-    function Y23_StoimostSamorezov_grn()
+    function Y30_NumberUDItogo_ps()
     {
-        //умножение
-        //вывод
-
-        return ($this->Y22_KolvoSamorezov_grn()*$this->Y14_Samorez1shtuk_grn());
+        $temp = 2 * $this->V19_LongBox() +
+                2 * $this->V20_ShortBox() +
+                $this->Y29_NumberJump_ps() * $this->V23_JumperOn();
+        return $temp;
     }
-    function Y24_RamaMaterialu1Storona_grn()
+    function Y31_LongUDBox_mp()
     {
-        //сложение
-        //вывод
-
-        return ($this->Y21_StoimostUDProfila_grn()+$this->Y23_StoimostSamorezov_grn());
+        $temp = $this->Y5_LargeSize_m() * 2 * $this->V19_LongBox() +
+                $this->Y6_SmallSize_m() * 2 * $this->V20_ShortBox() +
+                $this->Y6_SmallSize_m() *
+                $this->Y29_NumberJump_ps() *
+                $this->V23_JumperOn();
+        return $temp;
     }
-    function Y26_KolichestvoPeremichek_shtuk()
+    function Y32_CostUDProfil_grn()
     {
-        //деление и округление
-        //вывод
-
-        return round($this->Y5_LargeSize_m()/0.24, 0);
+        $temp = $this->Y31_LongUDBox_mp() *
+                $this->Y20_OverflowUDProfil() *
+                $this->Y19_UDProfil1mp_gr();
+        return $temp;
     }
-    function Y27_DlinnaPeremichek_mp()
+    function Y33_NumberSamorezItogo_ps()
     {
-        //умножение
-        //вывод
-
-        return ($this->Y6_SmallSize_m()*$this->Y26_KolichestvoPeremichek_shtuk());
+        $temp = $this->Y31_LongUDBox_mp() * $this->Y22_NumberSamorez1mpBox_ps();
+        return round($temp, 0);
     }
-    function Y28_KolichestvoUDElementov_shtuk()
+    function Y34_CostSamorez_grn()
     {
-        //сложение
-        //вывод
-
-        return ($this->Y26_KolichestvoPeremichek_shtuk()+1);
+        return $this->Y33_NumbeSamorezItogo_ps() * $this->Y21_Samorez1_grn();
     }
-    function Y29_DlinaUDKarkasa_mp()
+    function Y35_BoxMaterial1side_grn()
     {
-        //сложение
-        //вывод
-
-        return ($this->Y5_LargeSize_m()+$this->Y27_DlinnaPeremichek_mp());
-    }
-    function Y30_StoimostUDProfila()
-    {
-        //умножение
-        //вывод
-
-        return ($this->Y12_UDProfil1mp_grn()*$this->Y13_Pererasxod1Profila()*$this->Y29_DlinaUDKarkasa_mp());
-    }
-    function Y31_KolvoSamorezovItogo_shtuk()
-    {
-        //умножение и сложение
-        //вывод
-
-        return ($this->Y5_LargeSize_m()*$this->Y15_RasxodSamorezovNa1mp_shtuk()+$this->Y26_KolichestvoPeremichek_shtuk()*2);
-    }
-    function Y32_StoimostSamorezov_grn()
-    {
-        //умножение
-        //вывод
-
-        return ($this->Y31_KolvoSamorezovItogo_shtuk()*$this->Y14_Samorez1shtuk_grn());
-    }
-    function Y33_RamaMateriali2Storoni_grn()
-    {
-        //сложение
-        //вывод
-        return ($this->Y30_StoimostUDProfila()+$this->Y32_StoimostSamorezov_grn());
-    }
-    function Y35_DlinaUDKarkasa_mp()
-    {
-        //умножение
-        //вывод
-        return ($this->Y7_GorizontalSize_m()*4);
-    }
-    function Y36_DlinaUDKarkasa()
-    {
-        //умножение
-        //вывод
-        return ($this->Y12_UDProfil1mp_grn()*$this->Y13_Pererasxod1Profila()*$this->Y35_DlinaUDKarkasa_mp());
-    }
-    function Y37_KolvoSamorezovItogo_Shtuk()
-    {
-        //умножение
-        //вывод
-        return ($this->Y35_DlinaUDKarkasa_mp()*$this->Y15_RasxodSamorezovNa1mp_shtuk());
-    }
-    function Y38_StoimostSamorezov_grn()
-    {
-        //умножение
-        //вывод
-        return ($this->Y14_Samorez1shtuk_grn()*$this->Y37_KolvoSamorezovItogo_Shtuk());
-    }
-    function Y39_RamaMateriali4Storoni_grn()
-    {
-        //сложение
-        //вывод
-        return ($this->Y36_DlinaUDKarkasa()+$this->Y38_StoimostSamorezov_grn());
-    }
-    function  Y41_RamaMateriakItogo_grn()
-    {
-        //умножение и сложение
-        //вывод
-
-        return ($this->Y24_RamaMaterialu1Storona_grn()*$this->V9_1Storona()+$this->Y33_RamaMateriali2Storoni_grn()*$this->V10_2Storoni()+$this->Y39_RamaMateriali4Storoni_grn()*$this->V11_4Storoni());
+        return ($this->Y32_CostUDProfil_grn() + $this->Y34_CostSamorez_grn());
     }
 
-    function Z12_UDProfil1mp_grn_kg()
+////
+    function Z11_DensityPolikarbonat6mm_kg()
     {
-
-        //вывод
-
+        return L10_L7_Plikarb6P;
+    }
+    function Z12_DensityAkril3mm_kg()
+    {
+        return L10_L15_AkrilM3P;
+    }
+    function Z13_Massa_kg()
+    {
+        $temp = $this->Y9_AreaFront_m2() * 3 *
+                $this->Z11_DensityPolikarbonat6mm_kg() * $this->V26_PolikarbonatFront() +
+                $this->Y9_AreaFront_m2() * 2.5 *
+                $this->Z12_DensityAkril3mm_kg() * $this->V27_AkrilFront();
+        return $temp;
+    }
+    function Z14_MassaMax1UD_kg()
+    {
+        return L10_BK29_PredVesNa1UDDl2StorPomesh_kg;
+    }
+    //
+    function Z19_UDProfil1mp_grn()
+    {
         return L10_AS24_ProfileUD_05mm;
     }
-    function Z20_DlinaUDProfila_grn_kg()
+    //
+    function Z24_Planka1mp_grn()
     {
-        //умножение
-        //вывод
-
-        return $this->Y20_DlinaUDKarkasaItogo_mp()*$this->Z12_UDProfil1mp_grn_kg();
+        return L10_V92_PlankUpakDer25x15;
     }
-    function Z24_RamaMateriali1Storona_mp_kg()
+    //
+    function Z31_LongUDBoxItogo_mp()
     {
-
-        //вывод
-
-        return $this->Z20_DlinaUDProfila_grn_kg();
+        return ($this->Y23_NumberSamorez1mpPack() * $this->Z19_UDProfil1mp_grn());
     }
-    function Z29_DlinaUDKarkasa_grn_kg()
+    //
+    function Z35_BoxMaterial1Side_kg()
     {
-        //умножение
-        //вывод
-
-        return $this->Y29_DlinaUDKarkasa_mp()*$this->Z12_UDProfil1mp_grn_kg();
+        return $this->Z31_LongUDBoxItogo_mp();
     }
-    function Z33_RamaMateriali2Storona_grn_kg()
-    {
+    //
 
-        //вывод
 
-        return $this->Z29_DlinaUDKarkasa_grn_kg();
-    }
-    function Z35_DlinaUDKarkasa_mp_kg()
-    {
-        //умножение
-        //вывод
 
-        return $this->Y35_DlinaUDKarkasa_mp()*$this->Z12_UDProfil1mp_grn_kg();
-    }
-    function Z39_RamaMateriali2Storona_grn_kg()
-    {
 
-        //вывод
 
-        return $this->Z35_DlinaUDKarkasa_mp_kg();
-    }
-    function  Z41_RamaMateriakItogo_grn()
-    {
-        //умножение и сложение
-        //вывод
 
-        return ($this->Z24_RamaMateriali1Storona_mp_kg()*$this->V9_1Storona()+$this->Z33_RamaMateriali2Storona_grn_kg()*$this->V10_2Storoni()+$this->Z39_RamaMateriali2Storona_grn_kg()*$this->V11_4Storoni());
-    }
+
+
+
 
 
 
@@ -2126,3 +1848,5 @@ class L17_3
 
 
 }
+
+class L17_4{}
