@@ -680,6 +680,74 @@ class L17_2
     {
         return ($this->Y32_CostUDProfil_grn() + $this->Y34_CostSamorez_grn());
     }
+    //
+    function Y37_LongPlanka_m()
+    {
+        return $this->Y5_LargeSize_m() * 2 * $this->V9_PlankaDiod();
+    }
+    function Y38_CostPlanka_grn()
+    {
+        return $this->Y37_LongPlanka_m() * $this->Y25_OverflowPlankaPack() * $this->Y24_PlankaPack1mp_grn();
+    }
+    function Y39_SamorezPlanka_ps()
+    {
+        return $this->Y37_LongPlanka_m() * $this->Y23_NumberSamorez1mpPack();
+    }
+    function Y40_CostSamorez_grn()
+    {
+        return $this->Y39_SamorezPlanka_ps() * $this->Y21_Samorez1_grn();
+    }
+    function Y41_PVHLineSupportBack_mp()
+    {
+        return 2 * $this->Y7_GorizontalSize_m();
+    }
+    function Y42_VHLineSupportBack_grn()
+    {
+        return $this->Y41_PVHLineSupportBack_mp() * L10_BK16_OporDVPTilPVH5mm_m * $this->Y26_PVH5mm1mm2_grn();
+    }
+    function Y43_NumberUDpodves_ps()
+    {
+        $temp = 2 * $this->Y15_2UDPodves() +
+                4 * $this->Y16_4UDPodves() +
+                6 * $this->Y17_6UDPodves();
+        return $temp;
+    }
+    function Y44_CostUDPodvesov_grn()
+    {
+        $temp = $this->Y43_NumberUDpodves_ps() *
+                L10_BK8_GlubinaBort2StorViveskaLentDiod_m *
+                $this->Y20_OverflowUDProfil() *
+                $this->Y19_UDProfil1mp_gr();
+        return $temp;
+    }
+    function Y45_NumberSamorez_ps()
+    {
+        return 2* $this->Y43_NumberUDpodves_ps();
+    }
+    function Y46_CostSamorez_grn()
+    {
+        return $this->Y45_NumberSamorez_ps() * L10_AR42_Samorez19ZnBur;
+    }
+    function Y47_CostBoltM8x50_grn()
+    {
+        $temp = $this->Y43_NumberUDpodves_ps() / 1.5 * L10_AR38_BoltMetrichM8x50PlusGaika;
+        return $temp;
+    }
+    function Y48_BoxMaterial2Side_grn()
+    {
+        $temp = $this->Y38_CostPlanka_grn() +
+                $this->Y40_CostSamorez_grn() +
+                $this->Y42_VHLineSupportBack_grn() +
+                $this->Y44_CostUDPodvesov_grn() +
+                $this->Y47_CostBoltM8x50_grn();
+        return $temp;
+    }
+
+
+
+
+
+
 
 ////
     function Z11_DensityPolikarbonat6mm_kg()
@@ -735,125 +803,125 @@ class L17_2
 
 
 
-    function AC5_Virezat1ProfilUD_min()
-    {
-
-        //вывод
-
-        return L10_BT21_PriresStalProfCDUDStilk_1sht;
-    }
-    function AC6_Vkrytit1Samorez_min()
-    {
-
-        //вывод
-
-        return L10_BT26_VkruchSeriiSamorezov_1sht;
-    }
-    function AC8_VirezatProfilz1Storon_min()
-    {
-        //умножение
-        //вывод
-
-        return ($this->AC5_Virezat1ProfilUD_min()*$this->Y19_KolichestvoUDElementov_shtuk());
-    }
-    function AC9_VkrytitSamorezi1Stor_min()
-    {
-        //умножение
-        //вывод
-
-        return ($this->AC6_Vkrytit1Samorez_min()*$this->Y22_KolvoSamorezov_grn());
-    }
-    function AC10_Rabota1Storona_min()
-    {
-        //сложение
-        //вывод
-
-        return ($this->AC8_VirezatProfilz1Storon_min()+$this->AC9_VkrytitSamorezi1Stor_min());
-    }
-    function AC12_VirezatProfilz2Storon_min()
-    {
-        //умножение
-        //вывод
-
-        return ($this->AC5_Virezat1ProfilUD_min()*$this->Y28_KolichestvoUDElementov_shtuk());
-    }
-    function AC13_VkrytitSamorezi2Stor_min()
-    {
-        //умножение
-        //вывод
-
-        return ($this->AC6_Vkrytit1Samorez_min()*$this->Y31_KolvoSamorezovItogo_shtuk());
-    }
-    function AC14_Rabota2Storona_min()
-    {
-        //сложение
-        //вывод
-
-        return ($this->AC12_VirezatProfilz2Storon_min()+$this->AC13_VkrytitSamorezi2Stor_min());
-    }
-    function AC16_VkrytitSamorezi4Stor_min()
-    {
-        //умножение
-        //вывод
-
-        return ($this->AC5_Virezat1ProfilUD_min()*4);
-    }
-    function AC17_VkrytitSamorezi4Stor_min()
-    {
-        //умножение
-        //вывод
-
-        return ($this->AC6_Vkrytit1Samorez_min()*$this->Y37_KolvoSamorezovItogo_Shtuk());
-    }
-    function AC18_Rabota4Storona_min()
-    {
-        //сложение
-        //вывод
-
-        return ($this->AC16_VkrytitSamorezi4Stor_min()+$this->AC17_VkrytitSamorezi4Stor_min());
-    }
-    function AC20_RabotaItogo_min()
-    {
-        //умножение и сложение
-        //вывод
-
-        return ($this->AC10_Rabota1Storona_min()*$this->V9_1Storona()+$this->AC14_Rabota2Storona_min()*$this->V10_2Storoni()+$this->AC18_Rabota4Storona_min()*$this->V11_4Storoni());
-    }
-    function AF6_StoimostMaterialov_grn()
-    {
-        //округление
-        //вывод
-
-        return round($this->Y41_RamaMateriakItogo_grn(), 0);
-    }
-    function AF10_TrydoemkostRama_min()
-    {
-        //округление
-        //вывод
-
-        return round($this->AC20_RabotaItogo_min(), 0);
-    }
-    function AF11_StoimostRaboti_grn()
-    {
-        //умножение и округление
-        //вывод
-
-        return round($this->AF10_TrydoemkostRama_min()*L10_C67_K1, 0);
-    }
-    function AF22_Ves_kg()
-    {
-        //округление
-        //вывод
-
-        return round($this->Z41_RamaMateriakItogo_grn(), 1);
-    }
-    function AF24_Itogo_grn()
-    {
-        //сложение
-        //вывод
-
-        return ($this->AF6_StoimostMaterialov_grn()+$this->AF11_StoimostRaboti_grn());
-    }
+//    function AC5_Virezat1ProfilUD_min()
+//    {
+//
+//        //вывод
+//
+//        return L10_BT21_PriresStalProfCDUDStilk_1sht;
+//    }
+//    function AC6_Vkrytit1Samorez_min()
+//    {
+//
+//        //вывод
+//
+//        return L10_BT26_VkruchSeriiSamorezov_1sht;
+//    }
+//    function AC8_VirezatProfilz1Storon_min()
+//    {
+//        //умножение
+//        //вывод
+//
+//        return ($this->AC5_Virezat1ProfilUD_min()*$this->Y19_KolichestvoUDElementov_shtuk());
+//    }
+//    function AC9_VkrytitSamorezi1Stor_min()
+//    {
+//        //умножение
+//        //вывод
+//
+//        return ($this->AC6_Vkrytit1Samorez_min()*$this->Y22_KolvoSamorezov_grn());
+//    }
+//    function AC10_Rabota1Storona_min()
+//    {
+//        //сложение
+//        //вывод
+//
+//        return ($this->AC8_VirezatProfilz1Storon_min()+$this->AC9_VkrytitSamorezi1Stor_min());
+//    }
+//    function AC12_VirezatProfilz2Storon_min()
+//    {
+//        //умножение
+//        //вывод
+//
+//        return ($this->AC5_Virezat1ProfilUD_min()*$this->Y28_KolichestvoUDElementov_shtuk());
+//    }
+//    function AC13_VkrytitSamorezi2Stor_min()
+//    {
+//        //умножение
+//        //вывод
+//
+//        return ($this->AC6_Vkrytit1Samorez_min()*$this->Y31_KolvoSamorezovItogo_shtuk());
+//    }
+//    function AC14_Rabota2Storona_min()
+//    {
+//        //сложение
+//        //вывод
+//
+//        return ($this->AC12_VirezatProfilz2Storon_min()+$this->AC13_VkrytitSamorezi2Stor_min());
+//    }
+//    function AC16_VkrytitSamorezi4Stor_min()
+//    {
+//        //умножение
+//        //вывод
+//
+//        return ($this->AC5_Virezat1ProfilUD_min()*4);
+//    }
+//    function AC17_VkrytitSamorezi4Stor_min()
+//    {
+//        //умножение
+//        //вывод
+//
+//        return ($this->AC6_Vkrytit1Samorez_min()*$this->Y37_KolvoSamorezovItogo_Shtuk());
+//    }
+//    function AC18_Rabota4Storona_min()
+//    {
+//        //сложение
+//        //вывод
+//
+//        return ($this->AC16_VkrytitSamorezi4Stor_min()+$this->AC17_VkrytitSamorezi4Stor_min());
+//    }
+//    function AC20_RabotaItogo_min()
+//    {
+//        //умножение и сложение
+//        //вывод
+//
+//        return ($this->AC10_Rabota1Storona_min()*$this->V9_1Storona()+$this->AC14_Rabota2Storona_min()*$this->V10_2Storoni()+$this->AC18_Rabota4Storona_min()*$this->V11_4Storoni());
+//    }
+//    function AF6_StoimostMaterialov_grn()
+//    {
+//        //округление
+//        //вывод
+//
+//        return round($this->Y41_RamaMateriakItogo_grn(), 0);
+//    }
+//    function AF10_TrydoemkostRama_min()
+//    {
+//        //округление
+//        //вывод
+//
+//        return round($this->AC20_RabotaItogo_min(), 0);
+//    }
+//    function AF11_StoimostRaboti_grn()
+//    {
+//        //умножение и округление
+//        //вывод
+//
+//        return round($this->AF10_TrydoemkostRama_min()*L10_C67_K1, 0);
+//    }
+//    function AF22_Ves_kg()
+//    {
+//        //округление
+//        //вывод
+//
+//        return round($this->Z41_RamaMateriakItogo_grn(), 1);
+//    }
+//    function AF24_Itogo_grn()
+//    {
+//        //сложение
+//        //вывод
+//
+//        return ($this->AF6_StoimostMaterialov_grn()+$this->AF11_StoimostRaboti_grn());
+//    }
 
 
 }
