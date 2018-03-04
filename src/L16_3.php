@@ -4,7 +4,6 @@
  * Created by PhpStorm.
  * User: VovaP
  * Date: 25.02.2018
- *
  * Time: 09:20
  */
 class L16
