@@ -967,978 +967,248 @@ class L17_3
     public $AJ8_BigStor; // большая сторона
     public $AJ9_SmallStor; // меньшая сторона
 
-    public $AJ11_Konstrukt; // конструктив
+    // Промежуточные данные.
+//    private $L09;       // класс исходных данных.
 
-    public function __construct($WallIn4, $Orientation, $BigStor,
-                                $SmallStor, $Konstrukt)
+    public function __construct($SCLight = 1, $VarIspoln = 4,
+                                $Orientation = 1, $MaxSide_cm = 150, $MinSide_cm = 100,
+                                $FrontImg=1, $ColorSide=1, $ColorBack=0, $Ugol=[0,0,0,0],
+                                $MaketImg=1, $PlenkLic=3, $PlastLic=2, $IstochnikSveta = 1)
 
     {
         // Заполнение входных данных.
-        $this->AJ5_4WallIn = $WallIn4;
-
-        $this->AJ7_Orientation = $Orientation;
-        $this->AJ8_BigStor = $BigStor;
-        $this->AJ9_SmallStor = $SmallStor;
-
-        $this->AJ11_Konstrukt = $Konstrukt;
+        $this->AJ5_4WallIn = ($VarIspoln == 5) ? 1 : 0;     // 4 стороны помещение
+        $this->AJ7_Orientation = $Orientation;              // ориентация
+        $this->AJ8_BigStor = $MaxSide_cm;                   // большая сторона
+        $this->AJ9_SmallStor = $MinSide_cm;                 // меньшая сторона
     }
 
-    // C light - пленка борт/тыл
+    // C-light _ рама внешняя 4 стороны _ 2
 
-    function AP5_BolshRazm()
+    function AM5_BigSize()
     {
-
-        //больший размер, м
-        //округление и деление
-        //вывод
-
         return round ($this->AJ8_BigStor/100, 2);
     }
-    function AP6_MenshRazm()
+    function AM6_SmallSize()
     {
-
-        //меньший размер, м
-        //округление и деление
-        //вывод
-
         return round ($this->AJ9_SmallStor/100, 2);
     }
-    function AP7_GorRazm()
+    function AM7_HorizontalSize()
     {
-
-        //горизонтальный размер, м
-        //если $this->AH7_Orientation = 1, то вывести AN5_BolshRazm()
-        //иначе - вывести AN6_MenshRazm()
-        //вывод
-
-        if ($this->AJ7_Orientation == 1)
-        {
-            return $this->AP5_BolshRazm();
-        }
-        else
-        {
-            return $this->AP6_MenshRazm();
-        }
+        return ($this->AJ7_Orientation == 1) ? $this->AM5_BigSize() : $this->AM6_SmallSize();
     }
-    function AM5_TrebNerazb()
+    function AM8_VerticalSize()
     {
-
-        //требование неразборности (1-да/0-нет)
-        //если условие = true, то вывести 1
-        //иначе - вывести 0
-        //вывод
-
-        if ($this->AJ11_Konstrukt == 1)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
+        return ($this->AJ7_Orientation == 2) ? $this->AM5_BigSize() : $this->AM6_SmallSize();
     }
-    function AM6_DopustNerazb()
+    //
+    function AM12_BoxNorm()
     {
-
-        //допустимость неразборности (1-да/0-нет)
-        //если условие = true, то вывести 1
-        //иначе - вывести 0
-        //вывод
-
-//        if ($this->AP7_GorRazm() <= L10_BB122_PredGorRazmNerazb4StorVivesm)
-//        {
-//            return 1;
-//        }
-//        else
-//        {
-//            return 0;
-//        }
+        return ($this->AM7_HorizontalSize() > L10_BK55_PredGorRazmRamMin_m) ? 1 : 0;
     }
-    function AM7_NerazbItogo()
+    function AM13_BoxMin()
     {
-        //неразборность, итого (1-неразб/0-разб)
-        //умножение
-        //вывод
-
-        return $this->AM5_TrebNerazb()*$this->AM6_DopustNerazb();
+        return ($this->AM12_BoxNorm() == 1) ? 0 : 1;
     }
-    function AM8_RazbItogo()
+//// расчетная величина, материал, знач
+    function AP5_Truba40x25x2mm()
     {
-
-        //разборность, итого (1-разб/0-неразб)
-        //если условие = true, то вывести 1
-        //иначе - вывести 0
-        //вывод
-
-        if ($this->AM7_NerazbItogo() == 0)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
+        return L10_AR9_TrubaBlack_4025mm;
     }
-    function AM11_Rama4Ugolka()
+    function AP6_OverflowTrubaSteelBlack()
     {
-
-        //рама - 4 уголка (1-да/0-нет)
-        //если условие = true, то вывести 1
-        //иначе - вывести 0
-        //вывод
-
-        if ($this->AP7_GorRazm()<=L10_BB123_PredGorRazmDlRamaIz4Uglm)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
-    }
-    function AM12_Rama40x20mm()
-    {
-
-        //рама - 40*20 мм (1-да/0-нет)
-        //если условие = true, то вывести 1
-        //иначе - вывести 0
-        //вывод
-
-        if ($this->AP7_GorRazm()>L10_BB124_PredGorRazmDlRamaIz20x20mmM)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
-    }
-    function AM13_Rama20x20mm()
-    {
-
-        //рама - 20*20 мм (1-да/0-нет)
-        //если условие = true, то вывести 1
-        //иначе - вывести 0
-        //вывод
-
-        if ($this->AM11_Rama4Ugolka()+$this->AM12_Rama40x20mm()==0)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
-    }
-    function AP8_VertRazm()
-    {
-
-        //вертикальный размер, м
-        //если условие = true, то вывести AN5_BolshRazm()
-        //иначе - вывести AN6_MenshRazm()
-        //вывод
-
-        if ($this->AJ7_Orientation == 2)
-        {
-            return $this->AP5_BolshRazm();
-        }
-        else
-        {
-            return $this->AP6_MenshRazm();
-        }
-    }
-    function AP10_TrubaBlack20201mpgrn()
-    {
-
-        //труба черн 20*20 1 мп, грн
-        //значение
-        //вывод
-
-        return L10_AR6_TrubaBlack_2020mm;
-    }
-    function AQ10_TrubaBlack20201mpgrn()
-    {
-
-        //труба черн 20*20 1 мп, грн
-        //значение
-        //вывод
-
-        return L10_AS6_TrubaBlack_2020mm;
-    }
-    function AP11_TrubaBlack40401mpgrn()
-    {
-
-        //труба черн 40*20 1 мп, грн
-        //значение
-        //вывод
-
-        return L10_AR7_TrubaBlack_4040mm;
-    }
-    function AQ11_TrubaBlack40401mpgrn()
-    {
-
-        //труба черн 40*20 1 мп, грн
-        //значение
-        //вывод
-
-        return L10_AS7_TrubaBlack_4040mm;
-    }
-    function AP12_PererashTrubaBlack()
-    {
-
-        //перерасход трубы черн
-        //значение
-        //вывод
-
         return L10_BB56_K_PererashTrubaBlack_20x20_40x20;
     }
-    function AP13_UgolAL15151mp()
+    function AP7_ConeAL15x15_mg_grn()
     {
-
-        //уголок AL 15*15 1 мп
-        //значение
-        //вывод
-
         return L10_AR70_UgolAL_151515mm;
     }
-    function AQ13_UgolAL15151mp()
+    function AP8_OverflowConeAL()
     {
-
-        //уголок AL 15*15 1 мп
-        //значение
-        //вывод
-
-        return L10_AS70_UgolAL_151515mm;
-    }
-    function AP14_PererashUgolAL()
-    {
-
-        //перерасход уголок AL
-        //значение
-        //вывод
-
         return L10_BB57_K_PererashUgolAL_12x12_15x15;
     }
-    function AP15_BoltM8PlusGaika()
+    //
+    function AP10_KronshteynUho_grn()
     {
-
-        //болт м8 + гайка
-        //значение
-        //вывод
-
+        return L10_AR51_kronshteynUho;
+    }
+    function AP11_BoltM8Gaika_grn()
+    {
         return L10_AR38_BoltMetrichM8x50PlusGaika;
     }
-    function AQ15_BoltM8PlusGaika()
+    function AP12_Samorez_grn()
     {
-
-        //болт м8 + гайка
-        //значение
-        //вывод
-
-        return L10_AS38_BoltMetrichM8x50PlusGaika;
-    }
-    function AP16_SamorezBlack1shtgrn()
-    {
-
-        //саморез черн 1 шт, грн
-        //значение
-        //вывод
-
-        return L10_AR43_Samorez19BlackWood;
-    }
-    function AP17_SamorezCinkBur1shtgrn()
-    {
-
-        //саморез цинк бур 1 шт, грн
-        //значение
-        //вывод
-
         return L10_AR42_Samorez19ZnBur;
     }
-    function AP18_RashSamorezNa1mpsht()
+    function AP13_RashodSamorez_ps()
     {
-
-        //расход саморезов на 1 мп, шт
-        //значение
-        //вывод
-
-        return L10_BB61_K_KolSamorezVRamaPVHKorobShtMp;
+        return L10_BB62_K_KolSamorezVALRamaPVHKorobShtMp;
     }
-    function AP19_Kronsht4x41shtgrn()
+    //
+    function AP15_AerozolKraska_grn()
     {
-        //кронштейн 4*4    1 шт, грн
-        return L10_AR48_Kronsht_4x4;
-    }
-    function AQ19_Kronsht4x41shtgrn()
-    {
-        //кронштейн 4*4    1 шт, грн
-        return L10_AS48_Kronsht_4x4;
-    }
-    function AP20_Kraska1lgrn()
-    {
-
-        //краска 1л, грн
-        //значение
-        //вывод
-
         return L10_J128_KraskaPF112_1lSsht;
     }
-    function AP21_KleyPVH1mpgrn()
+    //
+    function AP18_ConeAL_grn()
     {
-
-        //клей пвх 1 мп, грн
-        //значение
-        //вывод
-
-        return L10_K117_CosmofenPlusPVH_200mlSmp;
-    }
-    function AP24_Kleygrn()
-    {
-
-        //клей, грн
-        //прибавление и умножение
-        //вывод
-
-        return (0.7 + $this->AP8_VertRazm() + $this->AP8_VertRazm())*8*$this->AP21_KleyPVH1mpgrn();
-    }
-    function AP26_UgolALgrn()
-    {
-
-        //уголок AL, грн
-        //умножение
-        //вывод
-
-        return $this->AP8_VertRazm()*4*$this->AP13_UgolAL15151mp()*$this->AP14_PererashUgolAL();
-    }
-    function AQ26_UgolALgrn()
-    {
-
-        //уголок AL, грн
-        //умножение
-        //вывод
-
-        return $this->AP8_VertRazm()*4*$this->AQ13_UgolAL15151mp();
-    }
-    function AP27_Samorez1VertLinsht()
-    {
-
-        //саморезы 1 верт линия, шт
-        //округление и умножение
-        //вывод
-
-        return round ($this->AP8_VertRazm()*$this->AP18_RashSamorezNa1mpsht(), 0);
-    }
-    function AP28_SamorezVUgolALsht()
-    {
-
-        //саморезы в уголок AL, шт
-        //умножение
-        //вывод
-
-        return $this->AP27_Samorez1VertLinsht()*8;
-    }
-    function AP29_SamorezVUgolALgrn()
-    {
-
-        //саморезы в уголок AL, грн
-        //умножение
-        //вывод
-
-        return $this->AP28_SamorezVUgolALsht()*$this->AP17_SamorezCinkBur1shtgrn();
-    }
-    function AP30_MatUgolALItogogrn()
-    {
-
-        //материалы уголки AL итого, грн
-        //прибавление
-        //вывод
-
-        return $this->AP26_UgolALgrn()+$this->AP29_SamorezVUgolALgrn();
-    }
-    function AQ30_MatUgolALItogogrn()
-    {
-
-        //материалы уголки AL итого, грн
-        //прибавление
-        //вывод
-
-        return $this->AQ26_UgolALgrn();
-    }
-    function AP32_Kronsht4x4grn()
-    {
-
-        //кронштейны 4*4, грн
-        //умножение
-        //вывод
-
-        return $this->AP19_Kronsht4x41shtgrn()*4;
-    }
-    function AQ32_Kronsht4x4grn()
-    {
-
-        //кронштейны 4*4, грн
-        //умножение
-        //вывод
-
-        return $this->AQ19_Kronsht4x41shtgrn()*4;
-    }
-    function AP33_SamorezDlKronsht4x4grn()
-    {
-
-        //саморезы для кроншт 4*4, грн
-        //умножение
-        //вывод
-
-        return $this->AP16_SamorezBlack1shtgrn()*16;
-    }
-    function AP34_MatKronsht4x4Itogogrn()
-    {
-
-        //материалы кроншт 4*4 итого, грн
-        //прибавление
-        //вывод
-
-        return $this->AP32_Kronsht4x4grn()+$this->AP33_SamorezDlKronsht4x4grn();
-    }
-    function AQ34_MatKronsht4x4Itogogrn()
-    {
-
-        //материалы кроншт 4*4 итого, грн
-        //прибавление
-        //вывод
-
-        return $this->AQ32_Kronsht4x4grn();
-    }
-    function AP36_TrubaBlack2020mp()
-    {
-
-        //труба черн 20*20, мп
-        //умножение и прибавление
-        //вывод
-
-        return $this->AP7_GorRazm()*4+0.8;
-    }
-    function AQ36_TrubaBlack2020mp()
-    {
-
-        //труба черн 20*20, мп
-        //умножение и прибавление
-        //вывод
-
-        return $this->AP36_TrubaBlack2020mp()*$this->AQ10_TrubaBlack20201mpgrn();
-    }
-    function AP37_TrubaBlack2020grn()
-    {
-
-        //труба черн 20*20, грн
-        //умножение
-        //вывод
-
-        return $this->AP36_TrubaBlack2020mp()*$this->AP10_TrubaBlack20201mpgrn()*$this->AP12_PererashTrubaBlack();
-    }
-    function AP38_BoltM8x50PlusGaikagrn()
-    {
-
-        //болты М8*50 + гайка, грн
-        //умножение
-        //вывод
-
-        return 8*$this->AP15_BoltM8PlusGaika();
-    }
-    function AQ38_BoltM8x50PlusGaikagrn()
-    {
-
-        //болты М8*50 + гайка, грн
-        //умножение
-        //вывод
-
-        return 8*$this->AQ15_BoltM8PlusGaika();
-    }
-    function AP39_LKMlitr()
-    {
-
-        //лкм, литров
-        //умножение и деление
-        //вывод
-
-        return $this->AP36_TrubaBlack2020mp()*0.08/4;
-    }
-    function AP40_LKMgrn()
-    {
-
-        //лкм, грн
-        //умножение
-        //вывод
-
-        return $this->AP39_LKMlitr()*2*$this->AP20_Kraska1lgrn();
-    }
-    function AP41_Samorezsht()
-    {
-
-        //саморезы, шт
-        //умножение
-        //вывод
-
-        return $this->AP7_GorRazm()*4*$this->AP18_RashSamorezNa1mpsht();
-    }
-    function AP42_Samorezgrn()
-    {
-
-        //саморезы, грн
-        //умножение
-        //вывод
-
-        return $this->AP41_Samorezsht()*$this->AP17_SamorezCinkBur1shtgrn();
-    }
-    function AP43_MatTruba2020Itogogrn()
-    {
-
-        //материалы труба 20*20 итого, грн
-        //прибавление
-        //вывод
-
-        return $this->AP37_TrubaBlack2020grn()+$this->AP38_BoltM8x50PlusGaikagrn()+$this->AP40_LKMgrn()+$this->AP42_Samorezgrn();
-    }
-    function AQ43_MatTruba2020Itogogrn()
-    {
-
-        //материалы труба 20*20 итого, грн
-        //прибавление
-        //вывод
-
-        return $this->AQ36_TrubaBlack2020mp()+$this->AQ38_BoltM8x50PlusGaikagrn();
-    }
-    function AP45_TrubaBlack4020mp()
-    {
-
-        //труба черн 40*20, мп
-        //умножение и прибавление
-        //вывод
-
-        return $this->AP7_GorRazm()*4+0.8;
-    }
-    function AQ45_TrubaBlack4020mp()
-    {
-
-        //труба черн 40*20, мп
-        //умножение и прибавление
-        //вывод
-
-        return $this->AP45_TrubaBlack4020mp()*$this->AQ11_TrubaBlack40401mpgrn();
-    }
-    function AP46_TrubaBlack2020grn()
-    {
-
-        //труба черн 20*20, грн
-        //умножение
-        //вывод
-
-        return $this->AP45_TrubaBlack4020mp()*$this->AP11_TrubaBlack40401mpgrn()*$this->AP12_PererashTrubaBlack();
-    }
-    function AP47_BoltM8x50PlusGaikagrn()
-    {
-
-        //болты М8*50 + гайка, грн
-        //умножение
-        //вывод
-
-        return 8*$this->AP15_BoltM8PlusGaika();
-    }
-    function AQ47_BoltM8x50PlusGaikagrn()
-    {
-
-        //болты М8*50 + гайка, грн
-        //умножение
-        //вывод
-
-        return 8*$this->AQ15_BoltM8PlusGaika();
-    }
-    function AP48_LKMlitr()
-    {
-
-        //лкм, литров
-        //умножение и деление
-        //вывод
-
-        return $this->AP36_TrubaBlack2020mp()*0.12/4;
-    }
-    function AP49_LKMgrn()
-    {
-
-        //лкм, грн
-        //умножение
-        //вывод
-
-        return $this->AP48_LKMlitr()*2*$this->AP20_Kraska1lgrn();
-    }
-    function AP50_Samorezsht()
-    {
-
-        //саморезы, шт
-        //умножение
-        //вывод
-
-        return $this->AP7_GorRazm()*4*$this->AP18_RashSamorezNa1mpsht();
-    }
-    function AP51_Samorezgrn()
-    {
-
-        //саморезы, грн
-        //умножение
-        //вывод
-
-        return $this->AP50_Samorezsht()*$this->AP17_SamorezCinkBur1shtgrn();
-    }
-    function AP52_MatTruba4020Itogogrn()
-    {
-
-        //материалы труба 40*20 итого, грн
-        //прибавление
-        //вывод
-
-        return $this->AP46_TrubaBlack2020grn()+$this->AP47_BoltM8x50PlusGaikagrn()+$this->AP49_LKMgrn()+$this->AP51_Samorezgrn();
-    }
-    function AQ52_MatTruba4020Itogogrn()
-    {
-
-        //материалы труба 40*20 итого, грн
-        //прибавление
-        //вывод
-
-        return $this->AQ45_TrubaBlack4020mp()+$this->AQ47_BoltM8x50PlusGaikagrn();
+        return $this->AM8_VerticalSize() * $this->AP7_ConeAL15x15_mg_grn() * $this->AP8_OverflowConeAL() * 4;
     }
-    function AP54_MatVivesNerazbgrn()
+    function AP19_SamorezConeAL_ps()
     {
-
-        //матер вывеска неразборная, грн
-        //прибавление
-        //вывод
-
-        return $this->AP24_Kleygrn()+$this->AP34_MatKronsht4x4Itogogrn();
-    }
-    function AQ54_MatVivesNerazbgrn()
-    {
-
-        //матер вывеска неразборная, грн
-        //прибавление
-        //вывод
-
-        return $this->AQ34_MatKronsht4x4Itogogrn();
+        return round($this->AM8_VerticalSize() * $this->AP13_RashodSamorez_ps() * 8 + 0.5, 0);
     }
-    function AP55_MatVivesRazbDo1mgrn()
+    function AP20_SamorezConeAL_grn()
     {
-
-        //матер выв разб до 1 м, грн
-        //прибавление
-        //вывод
-
-        return $this->AP30_MatUgolALItogogrn()+$this->AP34_MatKronsht4x4Itogogrn();
+        return $this->AP19_SamorezConeAL_ps() * $this->AP12_Samorez_grn();
     }
-    function AQ55_MatVivesRazbDo1mgrn()
+    function AP21_MaterialConeALItogo_grn()
     {
-
-        //матер выв разб до 1 м, грн
-        //прибавление
-        //вывод
-
-        return $this->AQ30_MatUgolALItogogrn()+$this->AQ34_MatKronsht4x4Itogogrn();
+        return round($this->AP18_ConeAL_grn() + $this->AP20_SamorezConeAL_grn(), 0);
     }
-    function AP56_MatVivesOt1mDo2mgrn()
+    //
+    function AP23_KSizeBoxSteel()
     {
-
-        //матер выв от 1 м до 2 м, грн
-        //прибавление
-        //вывод
-
-        return $this->AP30_MatUgolALItogogrn()+$this->AP43_MatTruba2020Itogogrn();
+        return L10_BK57_K_RazmRamStal;
     }
-    function AQ56_MatVivesOt1mDo2mgrn()
+    function AP24_MinSizeOutBoxCone_m()
     {
-
-        //матер выв от 1 м до 2 м, грн
-        //прибавление
-        //вывод
-
-        return $this->AQ30_MatUgolALItogogrn()+$this->AQ43_MatTruba2020Itogogrn();
+        return L10_BK56_MinrazmVneshRamUgol_m;
     }
-    function AP57_MatVivesOt2mDo3mgrn()
+    function AP25_SizeBoxOutCone_m()
     {
-
-        //матер выв от 2м до 3 м, грн
-        //прибавление
-        //вывод
-
-        return $this->AP30_MatUgolALItogogrn()+$this->AP52_MatTruba4020Itogogrn();
+        return round($this->AM7_HorizontalSize() / $this->AP23_KSizeBoxSteel(), 2);
     }
-    function AQ57_MatVivesOt2mDo3mgrn()
+    function AP26_SizeBoxOutConeItogo_m()
     {
-
-        //матер выв от 2м до 3 м, грн
-        //прибавление
-        //вывод
-
-        return $this->AQ30_MatUgolALItogogrn()+$this->AQ52_MatTruba4020Itogogrn();
+        return ($this->AP25_SizeBoxOutCone_m() > $this->AP24_MinSizeOutBoxCone_m()) ?
+            $this->AP25_SizeBoxOutCone_m() :
+            $this->AP24_MinSizeOutBoxCone_m();
     }
-    function AP59_MatVivesItogogrn()
+    function AP27_SteelTrubaCone_m()
     {
-
-        //материалы вывеска итого, грн
-        //умножение и прибавление
-        //вывод
-
-        return $this->AP54_MatVivesNerazbgrn()*$this->AM7_NerazbItogo()+$this->AP55_MatVivesRazbDo1mgrn()*$this->AM8_RazbItogo()*$this->AM11_Rama4Ugolka()+$this->AP56_MatVivesOt1mDo2mgrn()*$this->AM13_Rama20x20mm()+$this->AP57_MatVivesOt2mDo3mgrn()*$this->AM12_Rama40x20mm();
+        return $this->AP26_SizeBoxOutConeItogo_m() * 8;
     }
-    function AQ59_MatVivesItogogrn()
+    function AP28_SteelTrubaCone_grn()
     {
-
-        //материалы вывеска итого, грн
-        //умножение и прибавление
-        //вывод
-
-        return $this->AQ54_MatVivesNerazbgrn()*$this->AM7_NerazbItogo()+$this->AQ55_MatVivesRazbDo1mgrn()*$this->AM8_RazbItogo()*$this->AM11_Rama4Ugolka()+$this->AQ56_MatVivesOt1mDo2mgrn()*$this->AM13_Rama20x20mm()+$this->AQ57_MatVivesOt2mDo3mgrn()*$this->AM12_Rama40x20mm();
+        return $this->AP27_SteelTrubaCone_m() * $this->AP5_Truba40x25x2mm() * $this->AP6_OverflowTrubaSteelBlack();
     }
-    function AT5_VkrutSamorez1shtmin()
+    function AP29_Color_grn()
     {
-
-        //вкрутить саморез 1 шт, мин
-        //значение
-        //вывод
-
-        return L10_BT25_VkruchSamorez_1sht;
+        return $this->AP15_AerozolKraska_grn() * L10_BK58_K_Isp1BallonKraskDlRam;
     }
-    function AT6_SverlitOtvDo5mmmin()
+    function AP30_BoltBox_grn()
     {
-
-        //сверлить отверст до 5 мм, мин
-        //значение
-        //вывод
-
-        return L10_BT27_SverlOtvDo5mm_1sht;
+        return 16 * $this->AP11_BoltM8Gaika_grn();
     }
-    function AT7_SverlitOtvBol5mmmin()
+    function AP31_MaterialSteelBoxItogo_grn()
     {
-
-        //сверлить отверст более 5 мм, мин
-        //значение
-        //вывод
-
-        return L10_BT28_SverlOtvBol5mm_1sht;
+        $temp = $this->AP28_SteelTrubaCone_grn() + $this->AP29_Color_grn() + $this->AP30_BoltBox_grn();
+        return round($temp, 0);
     }
-    function AT8_PrirezALProf1sht()
+    //
+    function AP33_MaterialSteelBoxMin_grn()
     {
-
-        //прирезать AL профиль, 1 шт
-        //значение
-        //вывод
-
-        return L10_BT21_PriresStalProfCDUDStilk_1sht;
+        $temp = $this->AP10_KronshteynUho_grn() * 8 +
+                $this->AP12_Samorez_grn() * 24;
+        return round($temp, 0);
     }
-    function AT10_Skl1mp1Ugol4StorVivmin()
+    //
+    function AP35_BoxOutNormal_grn()
     {
-
-        //склейка 1 мп угла 4 стор выв, мин
-        //значение
-        //вывод
-
-        return L10_BT17_Skl1mp1Ugol4StorViv_min;
+        return $this->AP21_MaterialConeALItogo_grn() * $this->AP31_MaterialSteelBoxItogo_grn();
     }
-    function AT11_Skl1Ugol4StorVivmin()
+    function AP36_BoxOutMin_grn()
     {
-
-        //склейка 1 угла 4 стор выв минимум, мин
-        //значение
-        //вывод
-
-        return L10_BT18_Skl1Ugol4StorVivMinim_min;
+        return $this->AP21_MaterialConeALItogo_grn() + $this->AP33_MaterialSteelBoxMin_grn();
     }
-    function AT13_Skl1Ugolmin()
+    function AP37_BoxOut_grn()
     {
-
-        //склейка одного угла, мин
-        //умножение
-        //вывод
-
-        return $this->AP8_VertRazm()*$this->AT10_Skl1mp1Ugol4StorVivmin();
+        $temp = $this->AP35_BoxOutNormal_grn() * $this->AM12_BoxNorm() +
+                $this->AP36_BoxOutMin_grn() * $this->AM13_BoxMin();
+        return $temp;
     }
-    function AT14_Skl1UgolItogomin()
-    {
-
-        //склейка одного угла итого, мин
-        //если условие = true, то вывести AQ11_Skl1Ugol4StorVivmin()
-        //иначе - вывести AQ13_Skl1Ugolmin()
-        //вывод
-
-        if ($this->AT13_Skl1Ugolmin() < $this->AT11_Skl1Ugol4StorVivmin())
-        {
-            return $this->AT11_Skl1Ugol4StorVivmin();
-        }
-        else
-        {
-            return $this->AT13_Skl1Ugolmin();
-        }
-    }
-    function AT17_Prirez4ALProfmin()
+//// кг.
+    function AQ5_TrubaBlack40x25x2_mm()
     {
-
-        //прирезать 4 AL профиля, мин
-        //умножение
-        //вывод
-
-        return $this->AT8_PrirezALProf1sht()*4;
+        return L10_AS9_TrubaBlack_4040mm;
     }
-    function AT18_Prosv4ALProfmin()
+    //
+    function AQ7_ConeAL15x15_mp_grn()
     {
-
-        //просверлить 4 AL профиля, мин
-        //умножение
-        //вывод
-
-        return $this->AP8_VertRazm()*4*$this->AP18_RashSamorezNa1mpsht()*$this->AT6_SverlitOtvDo5mmmin();
+        return L10_AS70_UgolAL_151515mm;
     }
-    function AT19_ProkrOtkr4ALProfmin()
+    //
+    function AQ10_KronshteynSteelUho_grn()
     {
-
-        //прикрутить/откр  4 AL профиля, мин
-        //умножение
-        //вывод
-
-        return $this->AP8_VertRazm()*4*$this->AP18_RashSamorezNa1mpsht()*$this->AT5_VkrutSamorez1shtmin();
+        return L10_AS51_kronshteynUho;
     }
-    function AT20_SobrRazb4ALProfmin()
+    function AQ11_BoltM8Gaika_grn()
     {
-
-        //собрать/разобр 4 AL профиля, мин
-        //прибавление
-        //вывод
-
-        return $this->AT17_Prirez4ALProfmin()+$this->AT18_Prosv4ALProfmin()+$this->AT19_ProkrOtkr4ALProfmin();
+        return L10_AS38_BoltMetrichM8x50PlusGaika;
     }
-    function AT22_SobrRazb4Kronshtmin()
+    function AQ12_SamorezZink_grn()
     {
-
-        //собрать/ разобр 4 кронштейна, мин
-        //умножение
-        //вывод
-
-        return 16*$this->AT5_VkrutSamorez1shtmin();
+        return L10_AS42_Samorez19ZnBur;
     }
-    function AT24_IzgotSobrRazbRama2020min()
+    //
+    function AQ18_ConeAL_grn()
     {
-
-        //изгот/собр/разобр рама 20*20, мин
-        //умножение и деление
-        //вывод
-
-        return $this->AP37_TrubaBlack2020grn()*0.8/L10_C67_K1;
+        return $this->AM8_VerticalSize() * L10_AS70_UgolAL_151515mm * 4;
     }
-    function AT26_IzgotSobrRazbRama4040min()
+    function AQ19_SamorezConeAL_ps()
     {
-
-        //изгот/собр/разобр рама 40*20, мин
-        //умножение и деление
-        //вывод
-
-        return $this->AP46_TrubaBlack2020grn()*0.8/L10_C67_K1;
+        return $this->AP19_SamorezConeAL_ps() * L10_AS42_Samorez19ZnBur;
     }
-    function AT28_VivNerazbSobrmin()
+    //
+    function AQ21_MaterialConeALItogo_grn()
     {
-
-        //вывеска неразборная собрать, мин
-        //умножение и прибавление
-        //вывод
-
-        return $this->AT14_Skl1UgolItogomin()*4+$this->AT22_SobrRazb4Kronshtmin();
+        return $this->AQ18_ConeAL_grn() * $this->AQ19_SamorezConeAL_ps();
     }
-    function AT29_RamaDlyaVivRazbDo1mmin()
+    //
+    function AQ27_SteelTrubaCone_m()
     {
-
-        //рама для выв разб до 1 м, мин
-        //прибавление
-        //вывод
-
-        return $this->AT20_SobrRazb4ALProfmin()+$this->AT22_SobrRazb4Kronshtmin();
+        return $this->AP27_SteelTrubaCone_m() * $this->AQ5_TrubaBlack40x25x2_mm();
     }
-    function AT30_RamaOt1mDo2mmin()
+    //
+    function AQ30_BoltBox_grn()
     {
-
-        //рама от 1 м до 2 м, мин
-        //прибавление
-        //вывод
-
-        return $this->AT20_SobrRazb4ALProfmin()+$this->AT24_IzgotSobrRazbRama2020min();
+        return 16 * $this->AQ11_BoltM8Gaika_grn();
     }
-    function AT31_RamaOt2mDo3mmin()
+    function AQ31_MaterialSeelBoxItogo_grn()
     {
-
-        //рама от 2м до 3 м, мин
-        //прибавление
-        //вывод
-
-        return $this->AT20_SobrRazb4ALProfmin()+$this->AT26_IzgotSobrRazbRama4040min();
+        return round($this->AQ27_SteelTrubaCone_m() + $this->AQ30_BoltBox_grn(), 1);
     }
-    function AT33_RamaPlusSborRazbItogomin()
+    //
+    function AQ33_MaterialSteelBoxMinimal_grn()
     {
-
-        //рама + сборка/разборка итого, мин
-        //умножение и прибавление
-        //вывод
-
-        return $this->AT28_VivNerazbSobrmin()*$this->AM7_NerazbItogo()+$this->AT29_RamaDlyaVivRazbDo1mmin()*$this->AM11_Rama4Ugolka()*$this->AM8_RazbItogo()+$this->AT30_RamaOt1mDo2mmin()*$this->AM13_Rama20x20mm()+$this->AT31_RamaOt2mDo3mmin()*$this->AM12_Rama40x20mm();
+        $temp = $this->AQ10_KronshteynSteelUho_grn() * 8 +
+                $this->AQ12_SamorezZink_grn() * 24;
+        return round($temp, 1);
     }
-    function AW6_StoimMatgrn()
+    //
+    function AQ35_BoxOutNormal_grn()
     {
-
-        //стоимость материалов, грн
-        //округление
-        //вывод
-
-        return round ($this->AP59_MatVivesItogogrn(), 0);
+        return $this->AQ21_MaterialConeALItogo_grn() * $this->AQ31_MaterialSeelBoxItogo_grn();
     }
-    function AW7_Konstrukt()
+    function AQ36_BoxOutMinim_grn()
     {
-
-        //конструктив (1-раз/0-нераз)
-        //округление
-        //вывод
-
-        return $this->AM8_RazbItogo();
+        return $this->AQ21_MaterialConeALItogo_grn() + $this->AQ33_MaterialSteelBoxMinimal_grn();
     }
-    function AW10_TrudRamaVneshgrn()
+    function AQ37_BoxOut_grn()
     {
-
-        //трудоем рама внеш, мин
-        //округление
-        //вывод
-
-        return round ($this->AT33_RamaPlusSborRazbItogomin(), 0);
+        $temp = $this->AQ35_BoxOutNormal_grn() * $this->AM12_BoxNorm() +
+                $this->AQ36_BoxOutMinim_grn() * $this->AM13_BoxMin();
+        return $temp;
     }
-    function AW11_StoimRabgrn()
+//// трудоемкость
+    function AT5_VkrutitSamorez_min()
     {
-
-        //стоимость работы, грн
-        //округление и умножение
-        //вывод
-
-        return round ($this->AW10_TrudRamaVneshgrn()*L10_C67_K1, 0);
+        return L10_BT26_VkruchSeriiSamorezov_1sht;
     }
-    function AW22_Veskg()
-    {
 
-        //вес, кг
-        //прибавление
-        //вывод
 
-        return round($this->AQ59_MatVivesItogogrn()*$this->AJ5_4WallIn, 1);
-    }
-    function AW24_Itogogrn()
-    {
 
-        //итого, грн
-        //прибавление
-        //вывод
-
-        return $this->AW6_StoimMatgrn()+$this->AW11_StoimRabgrn();
-    }
 
 
 
