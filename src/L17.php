@@ -633,7 +633,7 @@ class L17_2
     }
     function Y25_OverflowPlankaPack()
     {
-        return L10_BB56_K_PererashTrubaBlack_20x20_40x20; // TODO Возможна ошибка.
+        return 0;//L10_BB55; // TODO Возможна ошибка.
     }
     function Y26_PVH5mm1mm2_grn()
     {
@@ -674,7 +674,7 @@ class L17_2
     }
     function Y34_CostSamorez_grn()
     {
-        return $this->Y33_NumbeSamorezItogo_ps() * $this->Y21_Samorez1_grn();
+        return $this->Y33_NumberSamorezItogo_ps() * $this->Y21_Samorez1_grn();
     }
     function Y35_BoxMaterial1side_grn()
     {
@@ -805,7 +805,7 @@ class L17_2
     //
     function Z31_LongUDBoxItogo_mp()
     {
-        return ($this->Y23_NumberSamorez1mpPack() * $this->Z19_UDProfil1mp_grn());
+        return $this->Y31_LongUDBox_mp() * $this->Z19_UDProfil1mp_grn();
     }
     //
     function Z35_BoxMaterial1Side_kg()
@@ -1045,14 +1045,14 @@ class L17_3
         //иначе - вывести 0
         //вывод
 
-        if ($this->AP7_GorRazm()<=L10_BB122_PredGorRazmNerazb4StorVivesm)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
+//        if ($this->AP7_GorRazm() <= L10_BB122_PredGorRazmNerazb4StorVivesm)
+//        {
+//            return 1;
+//        }
+//        else
+//        {
+//            return 0;
+//        }
     }
     function AM7_NerazbItogo()
     {
