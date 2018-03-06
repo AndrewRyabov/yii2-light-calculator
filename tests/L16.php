@@ -16,8 +16,8 @@
         <td>Тыл ПВХ/ДВП</td>
     </tr>
     <tr>
-        <td><?php //include_once 'L16_A.php' ?></td>
-        <td><?php //include_once 'L16_R.php' ?></td>
-        <td><?php //include_once 'L16_AI.php'?></td>
+        <td><?php include_once 'L16_A.php' ?></td>
+        <td><?php include_once 'L16_R.php' ?></td>
+        <td><?php include_once 'L16_AI.php'?></td>
 </tr>
 </table>
