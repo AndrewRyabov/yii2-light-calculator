@@ -66,12 +66,6 @@ echo '<br>стоимость опор лицевых, грн =' . $L17_2->S20_Co
 //echo '<br>' . $L17_2->Y47_CostBoltM8x50_grn() . ' = ' . $L17_2->Z47_CostBoltM8x50_grn();
 //echo '<br>' . $L17_2->Y48_BoxMaterial2Side_grn() . ' = ' . $L17_2->Z48_BoxMaterial2Side_grn();
 
-
-
-
-
-
-
 echo '<hr>рама материалы 1 сторона, грн =' . $L17_2->Y35_BoxMaterial1side_grn() . ' = ' . $L17_2->Z35_BoxMaterial1Side_kg();
 echo '<br>рама материалы 2 стороны, грн =' . $L17_2->Y48_BoxMaterial2Side_grn() . ' = ' . $L17_2->Z48_BoxMaterial2Side_grn();
 echo '<br>рама материалы 4 стороны, грн =' . $L17_2->Y54_BoxMaterial4Side_grn() . ' = ' . $L17_2->Z54_BoxMaterial4Side_grn();
