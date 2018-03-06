@@ -1202,21 +1202,251 @@ class L17_3
         return $temp;
     }
 //// трудоемкость
-    function AT5_VkrutitSamorez_min()
+    function AT5_VkruchSeriiSamorezov_1sht_min()
     {
         return L10_BT26_VkruchSeriiSamorezov_1sht;
     }
-
-
-
-
-
-
-
-
-
-
-
+    function AT6_SverlHoleDo5mm_min()
+    {
+        return L10_BT27_SverlOtvDo5mm_1sht;
+    }
+    function AT7_SverlHoleOver5mm_min()
+    {
+        return L10_BT28_SverlOtvBol5mm_1sht;
+    }
+    function AT8_CutALProfil_ps()
+    {
+        return L10_BT21_PriresStalProfCDUDStilk_1sht;
+    }
+    //
+    function AT10_Cut2ALProfil_min()
+    {
+        return $this->AT8_CutALProfil_ps() * 4;
+    }
+    function AT11_Sverl4ALProfil_min()
+    {
+        return $this->AM8_VerticalSize() * 2 * 4 * $this->AP13_RashodSamorez_ps() * $this->AT6_SverlHoleDo5mm_min();
+    }
+    function AT12_Prikrutit4ALProfil_min()
+    {
+        return $this->AM8_VerticalSize() * 2 * 4 * $this->AP13_RashodSamorez_ps() * $this->AT5_VkruchSeriiSamorezov_1sht_min();
+    }
+    function AT13_Sborka4ALProfil_min()
+    {
+        return $this->AT10_Cut2ALProfil_min() + $this->AT11_Sverl4ALProfil_min() + $this->AT12_Prikrutit4ALProfil_min();
+    }
+    //
+    function AT15_SvarkaPokraskaBoxOut4ugol_min()
+    {
+        return L10_CC11_Izgot1UgolStalIzPolos50x4I20x4_min * 4;
+    }
+    function AT16_SverlHoleBolt16ps_min()
+    {
+        return $this->AT7_SverlHoleOver5mm_min() * 16;
+    }
+    function AT18_BoxSteelNormal_min()
+    {
+        return $this->AT15_SvarkaPokraskaBoxOut4ugol_min() * $this->AT16_SverlHoleBolt16ps_min();
+    }
+    //
+    function AT20_PrikrutitBoxMinim8_min()
+    {
+        return 24 * $this->AT5_VkruchSeriiSamorezov_1sht_min();
+    }
+    //
+    function AT23_BoxOutNormal_min()
+    {
+        return $this->AT13_Sborka4ALProfil_min() + $this->AT18_BoxSteelNormal_min();
+    }
+    function AT24_BoxOutMin_min()
+    {
+        return $this->AT13_Sborka4ALProfil_min() + $this->AT20_PrikrutitBoxMinim8_min();
+    }
+    function AT25_BoxOut_min()
+    {
+        $temp = $this->AT23_BoxOutNormal_min() * $this->AM12_BoxNorm() +
+                $this->AT24_BoxOutMin_min() * $this->AM13_BoxMin();
+        return round($temp, 0);
+    }
+//// выходная величина
+    function AW6_CostMaterial_grn()
+    {
+        return $this->AP37_BoxOut_grn() * $this->AJ5_4WallIn;
+    }
+    //
+    function AW10_WorkBoxOut_min()
+    {
+        return $this->AT25_BoxOut_min() * $this->AJ5_4WallIn;
+    }
+    function AW11_CostWork_grn()
+    {
+        return round($this->AW10_WorkBoxOut_min() * L10_C67_K1, 0);
+    }
+    //
+    function AW22_Massa_kg()
+    {
+        return round($this->AQ37_BoxOut_grn() * $this->AJ5_4WallIn, 1);
+    }
+    //
+    function AW24_Itogo_grn()
+    {
+        return $this->AW6_CostMaterial_grn() + $this->AW11_CostWork_grn();
+    }
 }
 
-class L17_4{}
+class L17_4{
+    // Входные параметры:
+    public $BA5_2WallIn; // 2 стороны помещение
+
+    public $BA7_BigStor_sm; // большая сторона
+    public $BA8_SmallStor_sm; // меньшая сторона
+
+    public function __construct($SCLight = 1, $VarIspoln = 4,
+                                $Orientation = 1, $MaxSide_cm = 150, $MinSide_cm = 100,
+                                $FrontImg=1, $ColorSide=1, $ColorBack=0, $Ugol=[0,0,0,0],
+                                $MaketImg=1, $PlenkLic=3, $PlastLic=2, $IstochnikSveta = 1)
+
+    {
+        // Заполнение входных данных.
+        $this->BA5_2WallIn = ($VarIspoln == 4) ? 1 : 0;     // 2 стороны помещение
+        $this->BA7_BigStor_sm = $MaxSide_cm;                   // большая сторона
+        $this->BA8_SmallStor_sm = $MinSide_cm;                 // меньшая сторона
+    }
+//// флаги/расчеты
+    function BD5_BigSize_m()
+    {
+        return round($this->BA7_BigStor_sm / 100, 2);
+    }
+    function BD6_SmallSize_m()
+    {
+        return round($this->BA8_SmallStor_sm / 100, 2);
+    }
+    function BD7_SquareBack_m2()
+    {
+        return $this->BD5_BigSize_m() * $this->BD6_SmallSize_m();
+    }
+    function BD8_Perimetr_m()
+    {
+        $temp = 2 * ($this->BD5_BigSize_m() + $this->BD6_SmallSize_m());
+        return $temp;
+    }
+    //
+    function BD10_FlagSize()
+    {
+        return ($this->BD6_SmallSize_m() > L10_BK22_MaxRazmOtsutElectroram2Stor_m) ? 1 : 0;
+    }
+    function BD11_FlagItogo()
+    {
+        return $this->BD10_FlagSize() * $this->BA5_2WallIn;
+    }
+//// расчетная величина, материал
+    function BG5_SamorezBlack_grn()
+    {
+        return L10_AR43_Samorez19BlackWood;
+    }
+    function BG6_PlankaPack1mp_grn()
+    {
+        return L10_U92_PlankUpakDer25x15;
+    }
+    function BG7_KoefOverflowUpakPlanok()
+    {
+        return L10_BB105_K_PererashDerPlanokupak;
+    }
+    function BG8_NumSamorez1mp_ps()
+    {
+        return L10_BB61_K_KolSamorezVRamaPVHKorobShtMp;
+    }
+    //
+    function BG11_NumPlanok_ps()
+    {
+        return round($this->BD5_BigSize_m() * 4, 0);
+    }
+    function BG12_CostPlanok_grn()
+    {
+        $temp = $this->BG11_NumPlanok_ps() *
+                $this->BD6_SmallSize_m() *
+                $this->BG6_PlankaPack1mp_grn() *
+                $this->BG7_KoefOverflowUpakPlanok();
+        return $temp;
+    }
+    function BG13_NumberSamorez_ps()
+    {
+        return $this->BG11_NumPlanok_ps() * 2;
+    }
+    function BG14_CostSamorez_grn()
+    {
+        return $this->BG13_NumberSamorez_ps() * $this->BG5_SamorezBlack_grn();
+    }
+    function BG15_MaterialItogo_grn()
+    {
+        return round($this->BG12_CostPlanok_grn() + $this->BG14_CostSamorez_grn(), 0);
+    }
+//// расчетная величина, материал, кг.
+    function BH5_SamorezBlack_kg()
+    {
+        return L10_AS43_Samorez19BlackWood;
+    }
+    function BH6_PlankaPack_kg()
+    {
+        return L10_V92_PlankUpakDer25x15;
+    }
+    function BH12_CostUpakPlanok_kg()
+    {
+        return $this->BG11_NumPlanok_ps() * $this->BD6_SmallSize_m() * $this->BH6_PlankaPack_kg();
+    }
+    //
+    function BH14_CostSamorez_kg()
+    {
+        return $this->BG13_NumberSamorez_ps() * $this->BH5_SamorezBlack_kg();
+    }
+    function BH15_MaterialItogo_kg()
+    {
+        return round($this->BH12_CostUpakPlanok_kg() + $this->BH14_CostSamorez_kg(), 1);
+    }
+//// трудоемкость
+    function BK5_VkrutitSam1_min()
+    {
+        return L10_BT25_VkruchSamorez_1sht;
+    }
+    function BK6_PrirezatPlanku_min()
+    {
+        return L10_BT22_PriresPlankDerUpak_min;
+    }
+    //
+    function BK9_PrirezatPlanki_min()
+    {
+        return $this->BG11_NumPlanok_ps() * $this->BK6_PrirezatPlanku_min();
+    }
+    function BK10_PrikrutPlanli_min()
+    {
+        return $this->BG13_NumberSamorez_ps() * $this->BK5_VkrutitSam1_min() * 2;
+    }
+    function BK11_MontagElecroBox_min()
+    {
+        return round($this->BK9_PrirezatPlanki_min() + $this->BK10_PrikrutPlanli_min(), 0);
+    }
+    //// выходная величина
+    function BN6_CostMaterial_grn()
+    {
+        return $this->BG15_MaterialItogo_grn() * $this->BD11_FlagItogo();
+    }
+    //
+    function BN10_WorkElectroBox_min()
+    {
+        return $this->BK11_MontagElecroBox_min() * $this->BD11_FlagItogo();
+    }
+    function BN11_CostWork_grn()
+    {
+        return round($this->BN10_WorkElectroBox_min() * L10_C67_K1, 0);
+    }
+    //
+    function BN22_Massa_kg()
+    {
+        return $this->BH15_MaterialItogo_kg() * $this->BD11_FlagItogo();
+    }
+    //
+    function BN24_Iogo_grn()
+    {
+        return $this->BN6_CostMaterial_grn() + $this->BN11_CostWork_grn();
+    }
+}
