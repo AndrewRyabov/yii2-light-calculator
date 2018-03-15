@@ -385,8 +385,10 @@ class L16_1
     {
         //умножение
         //вывод
-//        return $this->E10_MinRazmerNeBolee120sm()*$this->E18_Pomechenie()*$this->H8_PlochadFasada_m2()*L10_JL6;
-        return $this->E10_MinRazmerNeBolee120sm()*$this->E18_Pomechenie()*$this->H8_PlochadFasada_m2();
+        return $this->E10_MinRazmerNeBolee120sm() *
+               $this->E18_Pomechenie() *
+               $this->H8_PlochadFasada_m2() *
+               L10_L6_Plikarb4P;
     }
     function I16_PolikarbonatFasadPredvar_kg()
     {

@@ -633,7 +633,7 @@ class L17_2
     }
     function Y25_OverflowPlankaPack()
     {
-        return 0;//L10_BB55; // TODO Возможна ошибка.
+        return L10_BB105_K_PererashDerPlanokupak;
     }
     function Y26_PVH5mm1mm2_grn()
     {
