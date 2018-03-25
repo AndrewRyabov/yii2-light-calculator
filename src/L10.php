@@ -172,32 +172,32 @@ const L10_U135_K_DobloN1m = 0.55; // коэф "Добло" №6, м
 define('L10_AF6_LampMulage0459mmS_', 100 * L10_C6_Dollar);
 const L10_AF6_LampMulage0459mmS = L10_AF6_LampMulage0459mmS_; // лампа муляж 0 - 459 мм (стоимость 1 шт/мп, грн)
 const L10_AG6_LampMulage0459mmV = 1; // лампа муляж 0 - 459 мм (вес 1 шт/мп, кг)
-const L10_AH6_LampMulage0459mmP = 12; // лампа муляж 0 - 459 мм (потребление 1шт/мп, Вт)
+const L10_AI6_LampMulage0459mmP = 12; // лампа муляж 0 - 459 мм (потребление 1шт/мп, Вт)
 
 define('L10_AF7_Lamp_15VTS_', 9.07 * L10_C7_Euro);
 const L10_AF7_Lamp_15VTS = L10_AF7_Lamp_15VTS_; // лампа 15 Вт (стоимость 1 шт/мп, грн)
 const L10_AG7_Lamp_15VTV = 0.54; // лампа 15 Вт (вес 1 шт/мп, кг)
-const L10_AH7_Lamp_15VTP = 15; // лампа 15 Вт (потребление 1шт/мп, Вт)
+const L10_AI7_Lamp_15VTP = 15; // лампа 15 Вт (потребление 1шт/мп, Вт)
 
 define('L10_AF8_Lamp_18VTS_', 5.69 * L10_C7_Euro);
 const L10_AF8_Lamp_18VTS = L10_AF8_Lamp_18VTS_; // лампа 18 Вт (стоимость 1 шт/мп, грн)
 const L10_AG8_Lamp_18VTV = 0.6; // лампа 18 Вт (вес 1 шт/мп, кг)
-const L10_AH8_Lamp_18VTP = 18; // лампа 18 Вт (потребление 1шт/мп, Вт)
+const L10_AI8_Lamp_18VTP = 18; // лампа 18 Вт (потребление 1шт/мп, Вт)
 
 define('L10_AF9_Lamp_30VTS_', 8.32 * L10_C7_Euro);
 const L10_AF9_Lamp_30VTS = L10_AF9_Lamp_30VTS_; // лампа 30 Вт (стоимость 1 шт/мп, грн)
 const L10_AG9_Lamp_30VTV = 0.68; // лампа 30 Вт (вес 1 шт/мп, кг)
-const L10_AH9_Lamp_30VTP = 30; // лампа 30 Вт (потребление 1шт/мп, Вт)
+const L10_AI9_Lamp_30VTP = 30; // лампа 30 Вт (потребление 1шт/мп, Вт)
 
 define('L10_AF10_Lamp_36VTS_', 6.03 * L10_C7_Euro);
 const L10_AF10_Lamp_36VTS = L10_AF10_Lamp_36VTS_; // лампа 36 Вт (стоимость 1 шт/мп, грн)
 const L10_AG10_Lamp_36VTV = 0.75; // лампа 36 Вт (вес 1 шт/мп, кг)
-const L10_AH10_Lamp_36VTP = 36; // лампа 36 Вт (потребление 1шт/мп, Вт)
+const L10_AI10_Lamp_36VTP = 36; // лампа 36 Вт (потребление 1шт/мп, Вт)
 
 define('L10_AF11_Lamp_58VT_S_', 8.32 * L10_C7_Euro);
 const L10_AF11_Lamp_58VT_S = L10_AF11_Lamp_58VT_S_; // лампа 58 Вт (стоимость 1 шт/мп, грн)
 const L10_AG11_Lamp_58VTV = 1.36; // лампа 58 Вт (вес 1 шт/мп, кг)
-const L10_AH11_Lamp_58VTP = 58; // лампа 58 Вт (потребление 1шт/мп, Вт)
+const L10_AI11_Lamp_58VTP = 58; // лампа 58 Вт (потребление 1шт/мп, Вт)
 
 define('L10_AF23_PowerSupply_60VT_IP20S_', 5.94 * L10_C6_Dollar);
 const L10_AF23_PowerSupply_60VT_IP20S = L10_AF23_PowerSupply_60VT_IP20S_; // блок питания 60 ВТ, IP20 (стоимость 1 шт/мп, грн)
@@ -236,26 +236,27 @@ define('L10_AF57_Claster3750_3kr_IP65S_', 0.25 * L10_C6_Dollar);
 const L10_AF57_Claster3750_3kr_IP65S = L10_AF57_Claster3750_3kr_IP65S_; // кластер 3750, 3 кр., IP65 (стоимость 1 шт/мп, грн)
 const L10_AG57_Claster3750_3kr_IP65V = 0.02; // кластер 3750, 3 кр., IP65 (вес 1 шт/мп, кг)
 const L10_AH57_Claster3750_3kr_IP65R = 90; // кластер 3750, 3 кр., IP65 (размер в сборе, мм)
-const L10_AL57_Claster3750_3kr_IP65P = 1.3; // кластер 3750, 3 кр., IP65 (потребление 1 шт/мп, Вт)
+const L10_AI57_Claster3750_3kr_IP65P = 1.3; // кластер 3750, 3 кр., IP65 (потребление 1 шт/мп, Вт)
 const L10_AJ57_Claster3750_3kr_IP65M = 0.9; // кластер 3750, 3 кр., IP65 (реал мощность 1 шт/мп, Вт, А)
 
 define('L10_AF58_AlPolosa3750_IP20S_', 1.4 * L10_C6_Dollar);
 const L10_AF58_AlPolosa3750_IP20S = L10_AF58_AlPolosa3750_IP20S_; // AL полоса 3750, IP20 (стоимость 1 шт/мп, грн)
 const L10_AG58_AlPolosa3750_IP20V = 0.05; // AL полоса 3750, IP20 (вес 1 шт/мп, кг)
 const L10_AH58_AlPolosa3750_IP20R = 1000; // AL полоса 3750, IP20 (размер в сборе, мм)
-const L10_AL58_AlPolosa3750_IP20P = 18; // AL полоса 3750, IP20 (потребление 1 шт/мп, Вт)
+const L10_AI58_AlPolosa3750_IP20P = 18; // AL полоса 3750, IP20 (потребление 1 шт/мп, Вт)
 const L10_AJ58_AlPolosa3750_IP20M= 12.5; // AL полоса 3750, IP20 (реал мощность 1 шт/мп, Вт, А)
 
 define('L10_AF59_LentaDeod3750_IP20S_', 1.12 * L10_C6_Dollar);
 const L10_AF59_LentaDeod3750_IP20S = L10_AF59_LentaDeod3750_IP20S_; // лента пластик 3750, IP20 (стоимость 1 шт/мп, грн)
 const L10_AG59_LentaDeod3750_IP20V = 0.04; // лента пластик 3750, IP20 (вес 1 шт/мп, кг)
 const L10_AH59_LentaDeod3750_IP65R = 6000; // лента пластик 3750, IP20 (размер в сборе, мм)
-const L10_AL59_LentaDeod3750_IP65P = 14.4; // лента пластик 3750, IP20 (потребление 1 шт/мп, Вт)
+const L10_AI59_LentaDeod3750_IP65P = 14.4; // лента пластик 3750, IP20 (потребление 1 шт/мп, Вт)
 const L10_AJ59_LentaDeod3750_IP65M = 10; // лента пластик 3750, IP20 (реал мощность 1 шт/мп, Вт, А)
 
 define('L10_AF60_LentaDeodAleks_IP20S_', 1.3 * L10_C6_Dollar);
 const L10_AF60_LentaDeodAleks_IP20S = L10_AF60_LentaDeodAleks_IP20S_; // лента диодная 4.6, "Алексей", IP20 (стоимость 1 шт/мп, грн)
 const L10_AG60_LentaDeodAleks_IP20V = 0.04; // лента диодная 4.6, "Алексей", IP20 (вес 1 шт/мп, кг)
+const L10_AJ60_LentaDiodAleks_IP20M = 4.6; // лента диодная 4.6, "Алексей", IP20 (реал мощность 1 шт/мп, Вт, А)
 
 define('L10_AF67_ConnectorForAE57S_', 0.35 * L10_C6_Dollar);
 const L10_AF67_ConnectorForAE57S = L10_AF67_ConnectorForAE57S_; // соеденитель для AE 57 (стоимость 1 шт/мп, грн)
