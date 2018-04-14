@@ -23,40 +23,116 @@ include_once '../src/L18.php';
 include_once '../src/L19.php';
 include_once '../src/L25.php';
 
+// Инициализация исходных данных
+$SCLight = 1;$VarIspoln = 4;
+$Orientacia = 1; $MaxSide = 150; $MinSide = 100;
+$FrontImg = 1; $ColorSide = 1; $ColorBack = 0; $Ugol = [0, 0, 0, 0];
+$MaketImg = 1; $PlenkLic = 3; $PlastLic = 2; $Light = 1;
+
+
 // инициализация классов
-$L09 = new L09();
+$L09 = new L09( $SCLight, $VarIspoln,
+                $Orientacia, $MaxSide, $MinSide,
+                $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                $MaketImg, $PlenkLic, $PlastLic, $Light                );
 
-$L10 = new L10();
+$L10 = new L10( $SCLight, $VarIspoln,
+                $Orientacia, $MaxSide, $MinSide,
+                $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                $MaketImg, $PlenkLic, $PlastLic, $Light);
 
-$L15_1 = new L15_1();
-$L15_2 = new L15_2();
-$L15_3 = new L15_3();
-$L15_4 = new L15_4();
+$L15_1 = new L15_1( $SCLight, $VarIspoln,
+                    $Orientacia, $MaxSide, $MinSide,
+                    $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                    $MaketImg, $PlenkLic, $PlastLic, $Light );
+$L15_2 = new L15_2( $SCLight, $VarIspoln,
+                    $Orientacia, $MaxSide, $MinSide,
+                    $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                    $MaketImg, $PlenkLic, $PlastLic, $Light );
+$L15_3 = new L15_3( $SCLight, $VarIspoln,
+                    $Orientacia, $MaxSide, $MinSide,
+                    $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                    $MaketImg, $PlenkLic, $PlastLic, $Light );
+$L15_4 = new L15_4( $SCLight, $VarIspoln,
+                    $Orientacia, $MaxSide, $MinSide,
+                    $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                    $MaketImg, $PlenkLic, $PlastLic, $Light );
 //
 //
-$L16_1 = new L16_1();
-$L16_2 = new L16_2();
-$L16_3 = new L16_3();
+$L16_1 = new L16_1( $SCLight, $VarIspoln,
+                    $Orientacia, $MaxSide, $MinSide,
+                    $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                    $MaketImg, $PlenkLic, $PlastLic, $Light );
+$L16_2 = new L16_2( $SCLight, $VarIspoln,
+                    $Orientacia, $MaxSide, $MinSide,
+                    $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                    $MaketImg, $PlenkLic, $PlastLic, $Light );
+$L16_3 = new L16_3( $SCLight, $VarIspoln,
+                    $Orientacia, $MaxSide, $MinSide,
+                    $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                    $MaketImg, $PlenkLic, $PlastLic, $Light );
 //
 //
-$L17_1 = new L17_1();
-$L17_2 = new L17_2();
-$L17_3 = new L17_3();
-$L17_4 = new L17_4();
+$L17_1 = new L17_1( $SCLight, $VarIspoln,
+                    $Orientacia, $MaxSide, $MinSide,
+                    $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                    $MaketImg, $PlenkLic, $PlastLic, $Light );
+$L17_2 = new L17_2( $SCLight, $VarIspoln,
+                    $Orientacia, $MaxSide, $MinSide,
+                    $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                    $MaketImg, $PlenkLic, $PlastLic, $Light );
+$L17_3 = new L17_3( $SCLight, $VarIspoln,
+                    $Orientacia, $MaxSide, $MinSide,
+                    $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                    $MaketImg, $PlenkLic, $PlastLic, $Light );
+$L17_4 = new L17_4( $SCLight, $VarIspoln,
+                    $Orientacia, $MaxSide, $MinSide,
+                    $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                    $MaketImg, $PlenkLic, $PlastLic, $Light );
 //
-$L18_1 = new L18_1();
-$L18_22 = new L18_22();
-$L18_21 = new L18_21();
-$L18_31 = new L18_31();
-$L18_32 = new L18_32();
-$L18_33 = new L18_33();
-$L18_4 = new L18_4();
+$L18_1 = new L18_1( $SCLight, $VarIspoln,
+                    $Orientacia, $MaxSide, $MinSide,
+                    $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                    $MaketImg, $PlenkLic, $PlastLic, $Light );
+$L18_22 = new L18_22( $SCLight, $VarIspoln,
+                      $Orientacia, $MaxSide, $MinSide,
+                      $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                      $MaketImg, $PlenkLic, $PlastLic, $Light );
+$L18_21 = new L18_21( $SCLight, $VarIspoln,
+                      $Orientacia, $MaxSide, $MinSide,
+                      $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                      $MaketImg, $PlenkLic, $PlastLic, $Light );
+$L18_31 = new L18_31( $SCLight, $VarIspoln,
+                      $Orientacia, $MaxSide, $MinSide,
+                      $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                      $MaketImg, $PlenkLic, $PlastLic, $Light );
+$L18_32 = new L18_32( $SCLight, $VarIspoln,
+                      $Orientacia, $MaxSide, $MinSide,
+                      $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                      $MaketImg, $PlenkLic, $PlastLic, $Light );
+$L18_33 = new L18_33( $SCLight, $VarIspoln,
+                      $Orientacia, $MaxSide, $MinSide,
+                      $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                      $MaketImg, $PlenkLic, $PlastLic, $Light );
+$L18_4 = new L18_4( $SCLight, $VarIspoln,
+                    $Orientacia, $MaxSide, $MinSide,
+                    $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                    $MaketImg, $PlenkLic, $PlastLic, $Light );
 //
-$L19_1 = new L19_1();
-$L19_2 = new L19_2();
+$L19_1 = new L19_1( $SCLight, $VarIspoln,
+                    $Orientacia, $MaxSide, $MinSide,
+                    $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                    $MaketImg, $PlenkLic, $PlastLic, $Light );
+$L19_2 = new L19_2( $SCLight, $VarIspoln,
+                    $Orientacia, $MaxSide, $MinSide,
+                    $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                    $MaketImg, $PlenkLic, $PlastLic, $Light );
 //
 //
-//$L25 = new L25();
+$L25 = new L25( $SCLight, $VarIspoln,
+                $Orientacia, $MaxSide, $MinSide,
+                $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                $MaketImg, $PlenkLic, $PlastLic, $Light );
 
 // HTML код страницы:
 ?>
