@@ -26,6 +26,6 @@
         <td><?php include_once 'L09_1.php' ?></td>
         <td><?php include_once 'L09_2.php' ?></td>
         <td></td>
-        <td><?php include_once 'L25_Itogo.php' ?></td>
+        <td><?php //include_once 'L25_Itogo.php' ?></td>
     </tr>
 </table>
