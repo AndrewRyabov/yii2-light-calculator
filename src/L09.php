@@ -1,5 +1,4 @@
-<?php
-namespace almaz44\light\calculator;
+<?php namespace almaz44\light\calculator;
 //
 /**
  * ИСХОДНЫЕ ДАННЫЕ.

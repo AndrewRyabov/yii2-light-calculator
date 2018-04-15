@@ -1,5 +1,4 @@
-<?php
-namespace almaz44\light\calculator;
+<?php namespace almaz44\light\calculator;
 
 /**
  * L15_1 = борт/тыл пленка; L15_2 = фасад пленка; L15_3 = упаковка в стрейч пленку

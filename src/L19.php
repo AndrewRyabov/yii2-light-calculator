@@ -1,7 +1,4 @@
-<?php
-namespace almaz44\light\calculator;
-include_once __DIR__ . '/L10.php';
-
+<?php namespace almaz44\light\calculator;
 /**
  * Created by PhpStorm.
  * User: VovaP
@@ -9,28 +6,26 @@ include_once __DIR__ . '/L10.php';
  * Time: 20:27
  */
 class L19_1
-{
-    // C-light Снабжение 1
+{   // C-light Снабжение 1
     // Входные параметры:
-// Входные параметры:
     public $B5_BigStor; // большая сторона, см
     public $B6_SmallStor; //меньшая сторона, см
     public $B8_LicevoeIzobragenie; // лицевое изображение
     public $B9_CvetBortov; //цвет бортов
     public $B10_CvetTila; //цвет тыла
 
-    public function __construct($BigStor, $SmallStor, $LicevoeIzobragenie,
-                                $CvetBortov, $CvetTila)
+    public function __construct($SCLight = 1, $VarIspoln = 4,
+                                $Orientation = 1, $MaxSide_cm = 150, $MinSide_cm = 100,
+                                $FrontImg=1, $ColorSide=1, $ColorBack=0, $Ugol=[0,0,0,0],
+                                $MaketImg=1, $PlenkLic=3, $PlastLic=2, $IstochnikSveta = 1)
     {
         // Заполнение входных данных.
-        $this->B5_BigStor = $BigStor;
-        $this->B6_SmallStor = $SmallStor;
-        $this->B8_LicevoeIzobragenie = $LicevoeIzobragenie;
-        $this->B9_CvetBortov = $CvetBortov;
-        $this->B10_CvetTila = $CvetTila;
-
+        $this->B5_BigStor = $MaxSide_cm;
+        $this->B6_SmallStor = $MinSide_cm;
+        $this->B8_LicevoeIzobragenie = $FrontImg;
+        $this->B9_CvetBortov = $ColorSide;
+        $this->B10_CvetTila = $ColorBack;
     }
-
 
     function E5_LicevoeIzobr()
     {
@@ -198,10 +193,8 @@ class L19_1
 }
 
 class L19_2
-{
-    // C-light подвесы 1
+{   // C-light подвесы 1
     // Входные параметры:
-// Входные параметры:
     public $R5_RoofViserOut; // крыша/козырек улица
     public $R6_RoofOut; //стена улица
     public $R7_RoofIn; // стена помещение
@@ -213,42 +206,81 @@ class L19_2
     public $R13_SmallStor; // меньшая сторона, см
     public $R14_IstochnikSveta; //источник света (1-диод/2-лам)
 
-    public $R21_Fasad; // фасад, кг
-    public $R22_Bort; // борт, кг
-    public $R23_Til; // тыл, кг
-    public $R24_RamaVnytrenia; // рама внутренная, кг
-    public $R25_OporiLicevPlast; // опоры лицев пласт, кг
-    public $R26_Electrika; // електрика, кг
-    public $R27_ItogoPredvVes; // итого предв вес, кг
-    public $R28_ItogoPredvVes1Linia; // итог предв вес 1 линия, кг
+    private $L16_1, $L16_2, $L16_3;
+    private $L17_1, $L17_2;
+    private $L18_4;
 
+    public $R21_Fasad_kg; // фасад, кг
+    public $R22_Bort_kg; // борт, кг
+    public $R23_Til_kg; // тыл, кг
+    public $R24_RamaVnytrenia_kg; // рама внутренная, кг
+    public $R25_OporiLicevPlast_kg; // опоры лицев пласт, кг
+    public $R26_Electrika_kg; // електрика, кг
+    public $R27_ItogoPredvVes_kg; // итого предв вес, кг
+    public $R28_ItogoPredvVes1Linia_kg; // итог предв вес 1 линия, кг
 
-
-
-    public function __construct($RoofViserOut, $RoofOut, $RoofIn, $RoofIn2, $RoofIn4, $Orient,
-                                $BigStor, $SmallStor, $IstochnikSveta, $Fasad, $Bort, $Til, $RamaVnytrenia, $OporiLicevPlast, $Electrika, $ItogoPredvVes, $ItogoPredvVes1Linia)
-
+    public function __construct($SCLight = 1, $VarIspoln = 4,
+                                $Orientation = 1, $MaxSide_cm = 150, $MinSide_cm = 100,
+                                $FrontImg=1, $ColorSide=1, $ColorBack=0, $Ugol=[0,0,0,0],
+                                $MaketImg=1, $PlenkLic=3, $PlastLic=2, $IstochnikSveta = 1)
     {
         // Заполнение входных данных.
-        $this->R5_RoofViserOut = $RoofViserOut;
-        $this->R6_RoofOut = $RoofOut;
-        $this->R7_RoofIn = $RoofIn;
-        $this->R8_2RoofIn = $RoofIn2;
-        $this->R9_4RoofIn = $RoofIn4;
+        $this->R5_RoofViserOut = 0; // крыша/козырек улица
+        $this->R6_RoofOut = 0;      // стена улица
+        $this->R7_RoofIn = 0;       // стена помещение
+        $this->R8_2RoofIn = 0;      // 2 стороны помещение
+        $this->R9_4RoofIn = 0;      // 4 стороны помещение
+        switch ($VarIspoln){
+            case 1: $this->R5_RoofViserOut = 1; break;
+            case 2: $this->R6_RoofOut = 1; break;
+            case 3: $this->R7_RoofIn = 1; break;
+            case 4: $this->R8_2RoofIn = 1; break;
+            case 5: $this->R9_4RoofIn = 1; break;
+            default: $this->R8_2RoofIn = 1; break;
+        }
 
-        $this->R11_Orient = $Orient;
-        $this->R12_BigStor = $BigStor;
-        $this->R13_SmallStor = $SmallStor;
+        $this->R11_Orient = $Orientation;
+        $this->R12_BigStor = $MaxSide_cm;
+        $this->R13_SmallStor = $MinSide_cm;
         $this->R14_IstochnikSveta = $IstochnikSveta;
 
-        $this->R21_Fasad_kg = $Fasad;
-        $this->R22_Bort_kg= $Bort;
-        $this->R23_Til_kg = $Til;
-        $this->R24_RamaVnytrennay_kg = $RamaVnytrenia;
-        $this->R25_OporiLicevPlast = $OporiLicevPlast;
-        $this->R26_Electrika = $Electrika;
-        $this->R27_ItogoPredvVes = $ItogoPredvVes;
-        $this-> R28_ItogoPredvVes1Linia=$ItogoPredvVes1Linia;
+        $this->L16_1 = new L16_1($SCLight, $VarIspoln,
+                               $Orientation, $MaxSide_cm, $MinSide_cm,
+                               $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                               $MaketImg, $PlenkLic, $PlastLic, $IstochnikSveta);
+        $this->L16_2 = new L16_2($SCLight, $VarIspoln,
+                                 $Orientation, $MaxSide_cm, $MinSide_cm,
+                                 $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                                 $MaketImg, $PlenkLic, $PlastLic, $IstochnikSveta);
+        $this->L16_3 = new L16_3($SCLight, $VarIspoln,
+                                 $Orientation, $MaxSide_cm, $MinSide_cm,
+                                 $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                                 $MaketImg, $PlenkLic, $PlastLic, $IstochnikSveta);
+        $this->R21_Fasad_kg = $this->L16_1->O22_Ves_kg();
+        $this->R22_Bort_kg= $this->L16_2->AF22_Veskg();
+        $this->R23_Til_kg = $this->L16_3->AW22_Ves_kg();
+
+        $this->L17_1 = new L17_1($SCLight, $VarIspoln,
+                                 $Orientation, $MaxSide_cm, $MinSide_cm,
+                                 $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                                 $MaketImg, $PlenkLic, $PlastLic, $IstochnikSveta);
+        $this->L17_2 = new L17_2($SCLight, $VarIspoln,
+                                 $Orientation, $MaxSide_cm, $MinSide_cm,
+                                 $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                                 $MaketImg, $PlenkLic, $PlastLic, $IstochnikSveta);
+        $this->R24_RamaVnytrenia_kg = $this->L17_2->AF22_Massa_kg();
+        $this->R25_OporiLicevPlast_kg = $this->L17_1->O22_Massa_kg();
+
+        $this->L18_4 = new L18_4($SCLight, $VarIspoln,
+                                   $Orientation, $MaxSide_cm, $MinSide_cm,
+                                   $FrontImg, $ColorSide, $ColorBack, $Ugol,
+                                   $MaketImg, $PlenkLic, $PlastLic, $IstochnikSveta);
+        $this->R26_Electrika_kg = $this->L18_4->BV22_Ves_kg();
+
+        $this->R27_ItogoPredvVes_kg = $this->R21_Fasad_kg + $this->R22_Bort_kg +
+                                      $this->R23_Til_kg + $this->R24_RamaVnytrenia_kg +
+                                      $this->R25_OporiLicevPlast_kg + $this->R26_Electrika_kg;
+        $this-> R28_ItogoPredvVes1Linia_kg = round($this->R27_ItogoPredvVes_kg/2, 1);
 
 
     }
@@ -327,7 +359,7 @@ class L19_2
         //если r28>bb46, то присвоить 1, иначе вернуть 0
         //иначе - вернуть 0
         //вывод
-        if ($this->R28_ItogoPredvVes1Linia>L10_BB46_K_PVH4mmMaxNagrNaPodv_kg)
+        if ($this->R28_ItogoPredvVes1Linia_kg>L10_BB46_K_PVH4mmMaxNagrNaPodv_kg)
         {
             return 1;
         }
@@ -339,7 +371,7 @@ class L19_2
     {    //если r28>bb45, то присвоить 1, иначе вернуть 0
         //иначе - вернуть 0
         //вывод
-        if ($this->R28_ItogoPredvVes1Linia>L10_BB45_K_PVH3mmMaxNagrNaPodv_kg)
+        if ($this->R28_ItogoPredvVes1Linia_kg>L10_BB45_K_PVH3mmMaxNagrNaPodv_kg)
         {
             return 1;
         }
@@ -351,7 +383,7 @@ class L19_2
     { //если r28>bb48, то присвоить 1, иначе вернуть 0
         //иначе - вернуть 0
         //вывод
-        if ($this->R28_ItogoPredvVes1Linia>L10_BB48_K_DVP3mmMaxNagrNaPodv_kg)
+        if ($this->R28_ItogoPredvVes1Linia_kg>L10_BB48_K_DVP3mmMaxNagrNaPodv_kg)
         {
             return 1;
         }
@@ -479,17 +511,12 @@ class L19_2
         return $this->X10_Profil123012_1mp_grn()*($this->X8_VertykalnyaStorona_m()+0.1)*$this->X11_PerarsxodProfil1a23012();
     }
     function X23_KolCamorVYsilPodvese_shtuk()
-    {      	//ВПР
-        //сравнение c 1
-        //вывод
-        if ($this->X8_VertykalnyaStorona_m()*L10_BB61_K_KolSamorezVRamaPVHKorobShtMp+1)
-        {
-            return 6;
-        } }
+    {
+        $temp = $this->X8_VertykalnyaStorona_m() * L10_BB61_K_KolSamorezVRamaPVHKorobShtMp + 1;
+        return round($temp + 0.5, 0);
+    }
     function X25_2LegkixPodvesa_grn()
     {
-        //умножение и сложение
-        //вывод
         return ($this->X21_PVXYsiletelPlusKlei_grn()+$this->X15_Uxo_1shtuka_grn()+$this->X12_Samorez_1shtuka_grn()*4)*2;
     }
     function X26_2YsilenixPodvesa_grn()
