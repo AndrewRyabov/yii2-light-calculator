@@ -36,10 +36,7 @@ $L09 = new L09( $SCLight, $VarIspoln,
                 $FrontImg, $ColorSide, $ColorBack, $Ugol,
                 $MaketImg, $PlenkLic, $PlastLic, $Light                );
 
-$L10 = new L10( $SCLight, $VarIspoln,
-                $Orientacia, $MaxSide, $MinSide,
-                $FrontImg, $ColorSide, $ColorBack, $Ugol,
-                $MaketImg, $PlenkLic, $PlastLic, $Light);
+//$L10 = new L10();
 
 $L15_1 = new L15_1( $SCLight, $VarIspoln,
                     $Orientacia, $MaxSide, $MinSide,
@@ -57,7 +54,6 @@ $L15_4 = new L15_4( $SCLight, $VarIspoln,
                     $Orientacia, $MaxSide, $MinSide,
                     $FrontImg, $ColorSide, $ColorBack, $Ugol,
                     $MaketImg, $PlenkLic, $PlastLic, $Light );
-//
 //
 $L16_1 = new L16_1( $SCLight, $VarIspoln,
                     $Orientacia, $MaxSide, $MinSide,
@@ -118,7 +114,7 @@ $L18_4 = new L18_4( $SCLight, $VarIspoln,
                     $Orientacia, $MaxSide, $MinSide,
                     $FrontImg, $ColorSide, $ColorBack, $Ugol,
                     $MaketImg, $PlenkLic, $PlastLic, $Light );
-//
+
 $L19_1 = new L19_1( $SCLight, $VarIspoln,
                     $Orientacia, $MaxSide, $MinSide,
                     $FrontImg, $ColorSide, $ColorBack, $Ugol,
@@ -127,8 +123,8 @@ $L19_2 = new L19_2( $SCLight, $VarIspoln,
                     $Orientacia, $MaxSide, $MinSide,
                     $FrontImg, $ColorSide, $ColorBack, $Ugol,
                     $MaketImg, $PlenkLic, $PlastLic, $Light );
-//
-//
+
+
 $L25 = new L25( $SCLight, $VarIspoln,
                 $Orientacia, $MaxSide, $MinSide,
                 $FrontImg, $ColorSide, $ColorBack, $Ugol,
