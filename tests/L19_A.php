@@ -7,15 +7,17 @@
  */
 
 echo '<b>Входные_параметры:</b>';
-//echo '<br>Большая сторона =' . $L18_1->B5_BigSide_cm;
-//echo '<br>Меньшая сторона =' . $L18_1->B6_SmallSide_cm;
+echo '<br>Большая сторона =' . $L19_1->B5_BigStor;
+echo '<br>Меньшая сторона =' . $L19_1->B6_SmallStor;
+echo '<br>';
+echo '<br>Лицевое изображение =' . $L19_1->B8_LicevoeIzobragenie;
+echo '<br>Цвет бортов =' . $L19_1->B9_CvetBortov;
+echo '<br>Цвет тыла =' . $L19_1->B10_CvetTila;
 //
 echo '<hr><b>Выходная величина:</b>';
-//echo '<br>Стоимость_материалов,_грн=' . $L18_1->P6_StoimMatgrn();
-//echo '<br>';
-//echo '<br>Трудоёмкость ламп, мин =' . $L18_1->P10_TrudLampmin();
-//echo '<br>Стоимость работы, грн =' . $L18_1->P11_StoimRabgrn();
-//
-//echo '<hr><b>Энергопотребление, вт =' . $L18_1->P21_Energopotvt() . '</b>';
-//echo '<br><b>Вес, кг =' . $L18_1->P22_Veskg() . '</b>';
-//echo '<br><b>Итого, грн =' . $L18_1->P24_Itogogrn() . '</b>';
+echo '<br>Расходы на транспорт,_грн=' . $L19_1->N6_RashodiNaTransport_grn();
+echo '<br>';
+echo '<br>Трудоёмкость снабжения, мин =' . $L19_1->N10_TrydoemkostSnabjenia_min();
+echo '<br>Стоимость работы, грн =' . $L19_1->N11_StoimostRabot_grn();
+echo '<br>';
+echo '<br><b>Итого, грн =' . $L19_1->N24_Itogo_grn();
